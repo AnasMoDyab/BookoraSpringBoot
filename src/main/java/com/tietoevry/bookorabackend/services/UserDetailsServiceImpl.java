@@ -19,7 +19,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     @Transactional
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         Employee user = employeeRepository.findByEmailIgnoreCase(email);
-		System.out.println(user.getEmail());
+        System.out.println(user.getEmail());
 
         if (user == null) {
             throw new UsernameNotFoundException("User Not Found with username: " + email);

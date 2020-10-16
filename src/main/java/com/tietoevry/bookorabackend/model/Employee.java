@@ -20,17 +20,17 @@ public class Employee{
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-  //  @NotNull(message = "You must fill in first name.")
+    @NotNull(message = "You must fill in first name.")
     private String firstName;
 
-  //  @NotNull(message = "You must fill in last name.")
+    @NotNull(message = "You must fill in last name.")
     private String lastName;
 
-  //  @NotNull(message = "You must fill in e-mail.")
-  //  @Email
+    @NotNull(message = "You must fill in e-mail.")
+    @Email
     private String email;
 
-  //  @NotNull
+    @NotNull
     private String password;
 
     @ManyToMany(fetch = FetchType.LAZY)
@@ -45,20 +45,10 @@ public class Employee{
     @OneToOne(mappedBy = "employee")
     private ConfirmationToken confirmationToken;
 
-    @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(	name = "employee_roles",
-            joinColumns = @JoinColumn(name = "employee_id"),
-            inverseJoinColumns = @JoinColumn(name = "role_id"))
-    private Set<Role> roles = new HashSet<>();
-
-    public Employee(String firstName,  String lastName,  String email,  String password) {
+    public Employee(@NotNull(message = "You must fill in first name.") String firstName, @NotNull(message = "You must fill in last name.") String lastName, @NotNull(message = "You must fill in e-mail.") @Email String email, @NotNull String password) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.password = password;
     }
-
-
-
-
 }
