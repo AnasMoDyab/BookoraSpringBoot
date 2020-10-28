@@ -11,6 +11,8 @@ public interface EmployeeService {
 
     JwtDTO logIn(LogInDTO logInDTO);
 
+    MessageDTO forgetPassword(ForgetPasswordDTO forgetPasswordDTO);
+
     EmployeeDTO saveEmployeeByDTO(Long id, EmployeeDTO employeeDTO);
 
     //EmployeeDTO patchEmployee(Long id, EmployeeDTO employeeDTO);

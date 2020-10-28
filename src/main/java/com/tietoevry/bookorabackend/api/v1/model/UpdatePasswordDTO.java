@@ -7,27 +7,16 @@ import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Size;
-import java.util.Set;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class SignUpDTO {
+public class UpdatePasswordDTO {
+    @NotBlank
+    @Email
+    public String email;
 
     @NotBlank
-    private String lastName;
-
-    @NotBlank
-    private String firstName;
-
-    @NotBlank
-    @Size(max = 50) @Email
-    private String email;
-
-    @NotBlank 
     @ValidPassword
-    private String password;
-
-    private Set<String> roles;
+    public String password;
 }

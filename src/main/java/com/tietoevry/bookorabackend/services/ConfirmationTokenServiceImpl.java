@@ -32,7 +32,7 @@ public class ConfirmationTokenServiceImpl implements ConfirmationTokenService {
 
 
             if(token.getExpiryDate().before(new Timestamp(System.currentTimeMillis())) ){
-                return new MessageDTO("Error: token has expired!");
+                return new MessageDTO("Error: token has expired!");/// TODO: redirect to sign in
             }
 
             Employee employee = employeeRepository.findByEmailIgnoreCase(token.getEmployee().getEmail());

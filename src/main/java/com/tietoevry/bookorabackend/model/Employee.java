@@ -42,8 +42,14 @@ public class Employee{
 
     private boolean isEnabled;
 
+    private boolean ableToChangePassword;
+
+
     @OneToOne(mappedBy = "employee")
     private ConfirmationToken confirmationToken;
+
+    @OneToOne(mappedBy = "employee")
+    private RestPasswordToken restPasswordToken;
 
     public Employee(@NotNull(message = "You must fill in first name.") String firstName, @NotNull(message = "You must fill in last name.") String lastName, @NotNull(message = "You must fill in e-mail.") @Email String email, @NotNull String password) {
         this.firstName = firstName;
