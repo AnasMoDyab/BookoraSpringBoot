@@ -47,8 +47,8 @@ public class Employee{
     @OneToOne(mappedBy = "employee")
     private ConfirmationToken confirmationToken;
 
-    @OneToOne(mappedBy = "employee" ,cascade = CascadeType.ALL, orphanRemoval = true)
-    private RestPassword restPassword;
+    @OneToMany(mappedBy = "employee")
+    private Set<RestPassword> restPassword=new HashSet<>();
 
     public Employee(@NotNull(message = "You must fill in first name.") String firstName, @NotNull(message = "You must fill in last name.") String lastName, @NotNull(message = "You must fill in e-mail.") @Email String email, @NotNull String password) {
         this.firstName = firstName;

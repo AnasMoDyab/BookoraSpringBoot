@@ -20,7 +20,7 @@ public class RestPassword {
     @Temporal(TemporalType.TIMESTAMP)
     private Date createdDate;
 
-    @OneToOne(fetch = FetchType.EAGER)
+    @ManyToOne
     private Employee employee;
 
     private Timestamp expiryDate;
