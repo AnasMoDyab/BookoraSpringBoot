@@ -47,7 +47,7 @@ public class Employee{
     @OneToOne(mappedBy = "employee")
     private ConfirmationToken confirmationToken;
 
-    @OneToOne(mappedBy = "employee")
+    @OneToOne(mappedBy = "employee" ,cascade = CascadeType.ALL, orphanRemoval = true)
     private RestPassword restPassword;
 
     public Employee(@NotNull(message = "You must fill in first name.") String firstName, @NotNull(message = "You must fill in last name.") String lastName, @NotNull(message = "You must fill in e-mail.") @Email String email, @NotNull String password) {
