@@ -10,5 +10,5 @@ import javax.servlet.http.HttpServletResponse;
 
 public interface RestPasswordService {
     MessageDTO  updatePassword(UpdatePasswordDTO updatePasswordDTO);
-    boolean checkCode(CodeConfirmationDto codeConfirmationDto);
+    boolean checkCode(String codeConfirmationDto);
 }

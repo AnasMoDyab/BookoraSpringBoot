@@ -21,7 +21,7 @@ public class RestpasswordController {
 
    @GetMapping("/confirm-reset")
     @ResponseStatus(HttpStatus.OK)
-    public boolean responsePasswordRest(@RequestBody @Valid CodeConfirmationDto codeConfirmationDto) {
+    public boolean responsePasswordRest(@RequestParam("codeConfirmationDto") String codeConfirmationDto) {
         //  return confirmationTokenService.checkToken(token); //TODO not complete
         return restPasswordService.checkCode(codeConfirmationDto);
        //return new ModelAndView("redirect:http://localhost:3000");

@@ -74,8 +74,8 @@ public class RestPasswordServiceImpl implements RestPasswordService {
     }
 
     @Override
-    public boolean checkCode(CodeConfirmationDto codeConfirmationDto) {
-        RestPassword confirmation = restPasswordRepository.findByConfirmationCode(codeConfirmationDto.getConfirmationCode());
+    public boolean checkCode(String codeConfirmationDto) {
+        RestPassword confirmation = restPasswordRepository.findByConfirmationCode(codeConfirmationDto);
         if (confirmation != null) {
 
             if (confirmation.getExpiryDate().before(new Timestamp(System.currentTimeMillis()))) {
