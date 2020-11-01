@@ -18,5 +18,9 @@ public class JwtDTO {
         this.email = email;
         this.roles = roles;
     }
+
+    public JwtDTO(String accessToken){
+        this.token =accessToken;
+    }
 }
 
