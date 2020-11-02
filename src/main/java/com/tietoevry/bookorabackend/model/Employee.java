@@ -44,8 +44,8 @@ public class Employee{
 
 
 
-    @OneToOne(mappedBy = "employee")
-    private ConfirmationToken confirmationToken;
+    @OneToMany(mappedBy = "employee")
+    private  Set<ConfirmationToken> confirmationToken = new HashSet<>();
 
     @OneToMany(mappedBy = "employee")
     private Set<RestPassword> restPassword=new HashSet<>();
