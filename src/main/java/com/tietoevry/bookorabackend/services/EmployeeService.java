@@ -9,6 +9,8 @@ public interface EmployeeService {
 
     MessageDTO createNewEmployee(SignUpDTO signUpDTO);
 
+    MessageDTO reActiveAccount(ReActiveEmailDTO reActiveEmailDTO);
+
     JwtDTO logIn(LogInDTO logInDTO);
 
     MessageDTO forgetPassword(ForgetPasswordDTO forgetPasswordDTO);
