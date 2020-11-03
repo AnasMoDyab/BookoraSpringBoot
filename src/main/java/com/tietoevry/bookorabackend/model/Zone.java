@@ -24,4 +24,11 @@ public class Zone {
 
     @OneToMany(mappedBy = "zone")
     private Set<Booking> zoneBookings;
+
+    public Zone(Integer floor, Character zone, Boolean activated, Integer capacity) {
+        this.floor = floor;
+        this.zone = zone;
+        this.activated = activated;
+        this.capacity = capacity;
+    }
 }
