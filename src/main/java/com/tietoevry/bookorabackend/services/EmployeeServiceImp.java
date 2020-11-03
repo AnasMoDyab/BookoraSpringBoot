@@ -1,44 +1,60 @@
 package com.tietoevry.bookorabackend.services;
 
 import com.tietoevry.bookorabackend.api.v1.mapper.EmployeeMapper;
-import com.tietoevry.bookorabackend.api.v1.model.EmployeeDTO;
-import com.tietoevry.bookorabackend.api.v1.model.EmployeeListDTO;
+import com.tietoevry.bookorabackend.api.v1.mapper.SignUpMapper;
+import com.tietoevry.bookorabackend.api.v1.model.*;
 import com.tietoevry.bookorabackend.controllers.EmployeeController;
-import com.tietoevry.bookorabackend.model.ConfirmationToken;
-import com.tietoevry.bookorabackend.model.ERole;
-import com.tietoevry.bookorabackend.model.Employee;
-import com.tietoevry.bookorabackend.model.Role;
+import com.tietoevry.bookorabackend.model.*;
 import com.tietoevry.bookorabackend.repositories.ConfirmationTokenRepository;
 import com.tietoevry.bookorabackend.repositories.EmployeeRepository;
+import com.tietoevry.bookorabackend.repositories.RestPasswordRepository;
 import com.tietoevry.bookorabackend.repositories.RoleRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.tietoevry.bookorabackend.security.jwt.JwtUtils;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.SimpleMailMessage;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.sql.Timestamp;
-import java.util.*;
+import java.util.Calendar;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
 public class EmployeeServiceImp implements EmployeeService {
 
+    private final AuthenticationManager authenticationManager;
     private final EmployeeMapper employeeMapper;
+    private final SignUpMapper signUpMapper;
+    private final PasswordEncoder encoder;
+    private final JwtUtils jwtUtils;
     private final EmployeeRepository employeeRepository;
     private final EmailSenderService emailSenderService;
-    private final ConfirmationTokenRepository confirmationTokenRepository;
     private final RoleRepository roleRepository;
-    @Autowired
-    PasswordEncoder encoder;
+    private final ConfirmationTokenRepository confirmationTokenRepository;
+    private final RestPasswordRepository restPasswordRepository;
 
-
-    public EmployeeServiceImp(EmployeeMapper employeeMapper, EmployeeRepository employeeRepository, EmailSenderService emailSenderService, ConfirmationTokenRepository confirmationTokenRepository, RoleRepository roleRepository) {
+    public EmployeeServiceImp(AuthenticationManager authenticationManager, EmployeeMapper employeeMapper, SignUpMapper signUpMapper, PasswordEncoder encoder, JwtUtils jwtUtils, EmployeeRepository employeeRepository, EmailSenderService emailSenderService, RoleRepository roleRepository, ConfirmationTokenRepository confirmationTokenRepository, RestPasswordRepository restPasswordRepository) {
+        this.authenticationManager = authenticationManager;
         this.employeeMapper = employeeMapper;
+        this.signUpMapper = signUpMapper;
+        this.encoder = encoder;
+        this.jwtUtils = jwtUtils;
         this.employeeRepository = employeeRepository;
         this.emailSenderService = emailSenderService;
-        this.confirmationTokenRepository = confirmationTokenRepository;
         this.roleRepository = roleRepository;
+        this.confirmationTokenRepository = confirmationTokenRepository;
+        this.restPasswordRepository = restPasswordRepository;
     }
+
+    @Value("${validDomain}")
+    private String validDomain;
 
     @Override
     public EmployeeListDTO getAllEmployees() {
@@ -63,59 +79,51 @@ public class EmployeeServiceImp implements EmployeeService {
     }
 
     @Override
-    public EmployeeDTO createNewEmployee(EmployeeDTO employeeDTO) {
+    public MessageDTO createNewEmployee(SignUpDTO signUpDTO) {
 
+        //Validate domain
+        String email = signUpDTO.getEmail();
+        String domain = email.substring(email.indexOf("@") + 1);;
+        if(!domain.equals(validDomain))
+            return new MessageDTO("Error: Email domain is not valid!");
 
-//problemt var med mapper
-
-        Employee employee = new Employee(employeeDTO.getFirstName(),employeeDTO.getLastName(),employeeDTO.getEmail(),
-                encoder.encode(employeeDTO.getPassword()));
-
-
-        if(existedByEmail(employeeDTO.getEmail())){
-            throw new RuntimeException("Email existed!"); //TODO make exception handler
+        if(existedByEmail(signUpDTO.getEmail())){
+            return new MessageDTO("Error: Email is already in use!");
         }
-        else {
-        //    Employee employee = employeeMapper.employeeDTOtoEmployee(employeeDTO); //Todo fix problem with mapper
+        else{
+            //Mapping signDTO to employee
+            Employee employee = signUpMapper.signUpDTOtoEmployee(signUpDTO);
 
-            Set<String> strRoles = employeeDTO.getRole();
+            //encode password
+            employee.setPassword(encoder.encode(signUpDTO.getPassword()));
+
+            //Check if the roles exist, if exist add to employee
+            Set<String> strRoles = signUpDTO.getRoles();
             Set<Role> roles = new HashSet<>();
-
             if (strRoles == null) {
-                Role userRole = roleRepository.findByName(ERole.ROLE_USER)
+                Role userRole = roleRepository.findByName(RoleEnum.ROLE_USER)
                         .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
                 roles.add(userRole);
             } else {
                 strRoles.forEach(role -> {
-                    switch (role) {
-                        case "admin":
-                            Role adminRole = roleRepository.findByName(ERole.ROLE_ADMIN)
-                                    .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
-                            roles.add(adminRole);
-
-                            break;
-                        case "mod":
-                            Role modRole = roleRepository.findByName(ERole.ROLE_MODERATOR)
-                                    .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
-                            roles.add(modRole);
-
-                            break;
-                        default:
-                            Role userRole = roleRepository.findByName(ERole.ROLE_USER)
-                                    .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
-                            roles.add(userRole);
+                    if ("admin".equals(role)) {
+                        Role adminRole = roleRepository.findByName(RoleEnum.ROLE_ADMIN)
+                                .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
+                        roles.add(adminRole);
                     }
                 });
             }
 
-
+            //Always add employee as a user
+            Role userRole = roleRepository.findByName(RoleEnum.ROLE_USER)
+                    .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
+            roles.add(userRole);
 
             employee.setRoles(roles);
             Employee savedEmployee = employeeRepository.save(employee);
 
-
             ConfirmationToken confirmationToken = new ConfirmationToken(savedEmployee);
-            confirmationToken.setExpiryDate(calculateExpiryDate(24 * 60));
+            confirmationToken.setExpiryDate(calculateExpiryDate(1)); //in unit of minute
             confirmationTokenRepository.save(confirmationToken);
 
             SimpleMailMessage mailMessage = new SimpleMailMessage();
@@ -123,15 +131,108 @@ public class EmployeeServiceImp implements EmployeeService {
             mailMessage.setSubject("Complete Registration!");
             mailMessage.setFrom("oslomet8@gmail.com");
             mailMessage.setText("To confirm your account, please click here : "
-                    +"http://localhost:8080/confirm-account?token="+confirmationToken.getConfirmationToken());
+                    + "http://localhost:8080/confirm-account?token=" + confirmationToken.getConfirmationToken());
 
             emailSenderService.sendEmail(mailMessage);
 
-            EmployeeDTO employeeDTOtoReturn = employeeMapper.employeeToEmployeeDTO(savedEmployee);
-            employeeDTO.setEmployeeUrl(getEmployeeUrl(savedEmployee.getId()));
-
-            return employeeDTOtoReturn;
+            return new MessageDTO("User registered successfully!");
         }
+
+    }
+
+    @Override
+    public MessageDTO reActiveAccount(ReActiveEmailDTO reActiveEmailDTO) {
+        String email = reActiveEmailDTO.getEmail();
+        String domain = email.substring(email.indexOf("@") + 1);
+
+        if (!domain.equals(validDomain))
+            return new MessageDTO("Error: Email domain is not valid!");
+
+
+        Employee employee = employeeRepository.findByEmailIgnoreCase(reActiveEmailDTO.getEmail());
+
+        ConfirmationToken confirmationToken = new ConfirmationToken(employee);
+        confirmationToken.setExpiryDate(calculateExpiryDate(3)); //in unit of minute
+        confirmationTokenRepository.save(confirmationToken);
+
+        SimpleMailMessage mailMessage = new SimpleMailMessage();
+        mailMessage.setTo(employee.getEmail());
+        mailMessage.setSubject("Complete Registration!");
+        mailMessage.setFrom("oslomet8@gmail.com");
+        mailMessage.setText("To confirm your account, please click here : "
+                + "http://localhost:8080/confirm-account?token=" + confirmationToken.getConfirmationToken());
+
+        emailSenderService.sendEmail(mailMessage);
+
+        return new MessageDTO("User registered successfully!");
+
+    }
+
+    @Override
+    public JwtDTO logIn(LogInDTO logInDTO) {
+        String email = logInDTO.getEmail();
+
+        Employee employee = employeeRepository.findByEmailIgnoreCase(email);
+
+        if (employee.isEnabled()) {
+
+            //Authenticate and return an Authentication object that can be used to find user information
+            Authentication authentication = authenticationManager.authenticate(
+                    new UsernamePasswordAuthenticationToken(logInDTO.getEmail(), logInDTO.getPassword()));
+
+            //Update SecurityContext using Authentication object
+            SecurityContextHolder.getContext().setAuthentication(authentication);
+
+            //Generate JWT
+            String jwt = jwtUtils.generateJwtToken(authentication);
+
+            //Get UserDetails from Authentication object
+            UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal(); //authentication.getPrincipal() return object of org.springframework.security.core.userdetails.User
+
+            //Get roles from UserDetails
+            List<String> roles = userDetails.getAuthorities().stream()
+                    .map(item -> item.getAuthority())
+                    .collect(Collectors.toList());
+
+            return new JwtDTO(jwt,
+                    userDetails.getId(),
+                    userDetails.getEmail(),
+                    roles);
+        }
+        return  new JwtDTO("Email is not activated"
+        )
+                ;
+    }
+
+    @Override
+    public MessageDTO forgetPassword(ForgetPasswordDTO forgetPasswordDTO) {
+        Employee existingEmployee = employeeRepository.findByEmailIgnoreCase(forgetPasswordDTO.getEmail());
+
+        if (existingEmployee != null) {
+            // Create token
+            RestPassword confiramtionId = new RestPassword(existingEmployee);
+            confiramtionId.setExpiryDate(calculateExpiryDate(6));
+            // Save it
+            restPasswordRepository.save(confiramtionId);
+
+            // Create the email
+            SimpleMailMessage mailMessage = new SimpleMailMessage();
+            mailMessage.setTo(existingEmployee.getEmail());
+            mailMessage.setSubject("Complete Password Reset!");
+            mailMessage.setFrom("oslomet8@gmail.com");
+            mailMessage.setText("To complete the password reset process, please use this code: "
+                    +confiramtionId.getConfirmationCode());
+
+            // Send the email
+            emailSenderService.sendEmail(mailMessage);
+
+            return new MessageDTO( "Request to reset password received. Check your inbox.");
+
+        } else {
+
+            return new MessageDTO(  "This email address does not exist!");
+        }
+
 
     }
 
@@ -165,6 +266,7 @@ public class EmployeeServiceImp implements EmployeeService {
         return false;
     }
 
+    //Setting expiryTime in unit of minute
     private Timestamp calculateExpiryDate(int expiryTime){
         Calendar calendar = Calendar.getInstance();
         calendar.add(Calendar.MINUTE,expiryTime);
