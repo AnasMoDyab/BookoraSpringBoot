@@ -56,6 +56,9 @@ public class EmployeeServiceImp implements EmployeeService {
     @Value("${validDomain}")
     private String validDomain;
 
+    @Value("${confirmationTokenValidMinute}")
+    private int validMinute;
+
     @Override
     public EmployeeListDTO getAllEmployees() {
         List<EmployeeDTO> employeeDTOList = employeeRepository.findAll().stream().map(employee -> {
@@ -152,7 +155,7 @@ public class EmployeeServiceImp implements EmployeeService {
         Employee employee = employeeRepository.findByEmailIgnoreCase(reActiveEmailDTO.getEmail());
 
         ConfirmationToken confirmationToken = new ConfirmationToken(employee);
-        confirmationToken.setExpiryDate(calculateExpiryDate(3)); //in unit of minute
+        confirmationToken.setExpiryDate(calculateExpiryDate(validMinute)); //in unit of minute
         confirmationTokenRepository.save(confirmationToken);
 
         SimpleMailMessage mailMessage = new SimpleMailMessage();
