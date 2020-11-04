@@ -12,28 +12,12 @@ public class ConfirmationTokenController {
 
     private final ConfirmationTokenService confirmationTokenService;
 
-
-
     public ConfirmationTokenController(ConfirmationTokenService confirmationTokenService, EmployeeServiceImp employeeServiceImp) {
         this.confirmationTokenService = confirmationTokenService;
-
-
     }
-
     @GetMapping("/confirm-account")
     @ResponseStatus(HttpStatus.OK)
     public MessageDTO messageDTO(@RequestParam("token") String token){
         return confirmationTokenService.checkToken(token); //TODO not complete
     }
-
-
-
-
-
-
-
-
-
-
-
 }
