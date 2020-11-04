@@ -37,7 +37,6 @@ public class ConfirmationTokenServiceImpl implements ConfirmationTokenService {
 
             Employee employee = employeeRepository.findByEmailIgnoreCase(token.getEmployee().getEmail());
             employee.setEnabled(true);
-            Employee savedEmployee = employeeRepository.save(employee);
             return new MessageDTO("Your account is activated!");
         }
         else{

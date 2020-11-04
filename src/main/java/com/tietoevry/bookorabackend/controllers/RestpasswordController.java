@@ -1,6 +1,5 @@
 package com.tietoevry.bookorabackend.controllers;
 
-import com.tietoevry.bookorabackend.api.v1.model.CodeConfirmationDto;
 import com.tietoevry.bookorabackend.api.v1.model.MessageDTO;
 import com.tietoevry.bookorabackend.api.v1.model.UpdatePasswordDTO;
 import com.tietoevry.bookorabackend.services.RestPasswordService;
@@ -19,15 +18,17 @@ public class RestpasswordController {
         this.restPasswordService = restPasswordService;
     }
 
-   @GetMapping("/confirm-reset")
+    //Use to check the activation code for resetting password
+    @GetMapping("/confirm-reset")
     @ResponseStatus(HttpStatus.OK)
     public boolean responsePasswordRest(@RequestParam("codeConfirmationDto") String codeConfirmationDto) {
         //  return confirmationTokenService.checkToken(token); //TODO not complete
         return restPasswordService.checkCode(codeConfirmationDto);
-       //return new ModelAndView("redirect:http://localhost:3000");
+        //return new ModelAndView("redirect:http://localhost:3000");
 
     }
 
+    //Use to update password
     @RequestMapping(value = "/reset-password", method = RequestMethod.POST)
     public MessageDTO resetUserPassword(@RequestBody @Valid UpdatePasswordDTO updatePasswordDTO) {
         return restPasswordService.updatePassword(updatePasswordDTO);

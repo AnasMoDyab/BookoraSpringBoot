@@ -7,7 +7,7 @@ import com.tietoevry.bookorabackend.controllers.EmployeeController;
 import com.tietoevry.bookorabackend.model.*;
 import com.tietoevry.bookorabackend.repositories.ConfirmationTokenRepository;
 import com.tietoevry.bookorabackend.repositories.EmployeeRepository;
-import com.tietoevry.bookorabackend.repositories.RestPasswordRepository;
+import com.tietoevry.bookorabackend.repositories.RestPasswordCodeRepository;
 import com.tietoevry.bookorabackend.repositories.RoleRepository;
 import com.tietoevry.bookorabackend.security.jwt.JwtUtils;
 import org.springframework.beans.factory.annotation.Value;
@@ -38,9 +38,9 @@ public class EmployeeServiceImp implements EmployeeService {
     private final EmailSenderService emailSenderService;
     private final RoleRepository roleRepository;
     private final ConfirmationTokenRepository confirmationTokenRepository;
-    private final RestPasswordRepository restPasswordRepository;
+    private final RestPasswordCodeRepository restPasswordCodeRepository;
 
-    public EmployeeServiceImp(AuthenticationManager authenticationManager, EmployeeMapper employeeMapper, SignUpMapper signUpMapper, PasswordEncoder encoder, JwtUtils jwtUtils, EmployeeRepository employeeRepository, EmailSenderService emailSenderService, RoleRepository roleRepository, ConfirmationTokenRepository confirmationTokenRepository, RestPasswordRepository restPasswordRepository) {
+    public EmployeeServiceImp(AuthenticationManager authenticationManager, EmployeeMapper employeeMapper, SignUpMapper signUpMapper, PasswordEncoder encoder, JwtUtils jwtUtils, EmployeeRepository employeeRepository, EmailSenderService emailSenderService, RoleRepository roleRepository, ConfirmationTokenRepository confirmationTokenRepository, RestPasswordCodeRepository restPasswordCodeRepository) {
         this.authenticationManager = authenticationManager;
         this.employeeMapper = employeeMapper;
         this.signUpMapper = signUpMapper;
@@ -50,7 +50,7 @@ public class EmployeeServiceImp implements EmployeeService {
         this.emailSenderService = emailSenderService;
         this.roleRepository = roleRepository;
         this.confirmationTokenRepository = confirmationTokenRepository;
-        this.restPasswordRepository = restPasswordRepository;
+        this.restPasswordCodeRepository = restPasswordCodeRepository;
     }
 
     @Value("${validDomain}")
@@ -58,6 +58,9 @@ public class EmployeeServiceImp implements EmployeeService {
 
     @Value("${confirmationTokenValidMinute}")
     private int validMinute;
+
+    @Value("${restPasswordCodeValidMinute}")
+    private int restPasswordCodeValidMinute;
 
     @Override
     public EmployeeListDTO getAllEmployees() {
@@ -144,7 +147,7 @@ public class EmployeeServiceImp implements EmployeeService {
     }
 
     @Override
-    public MessageDTO reActiveAccount(ReActiveEmailDTO reActiveEmailDTO) {
+    public MessageDTO resendConfirmationToken(ReActiveEmailDTO reActiveEmailDTO) {
         String email = reActiveEmailDTO.getEmail();
         String domain = email.substring(email.indexOf("@") + 1);
 
@@ -208,15 +211,16 @@ public class EmployeeServiceImp implements EmployeeService {
     }
 
     @Override
-    public MessageDTO forgetPassword(ForgetPasswordDTO forgetPasswordDTO) {
+    public MessageDTO sendForgetPasswordCode(ForgetPasswordDTO forgetPasswordDTO) {
         Employee existingEmployee = employeeRepository.findByEmailIgnoreCase(forgetPasswordDTO.getEmail());
 
         if (existingEmployee != null) {
             // Create token
-            RestPassword confiramtionId = new RestPassword(existingEmployee);
-            confiramtionId.setExpiryDate(calculateExpiryDate(6));
+            RestPasswordCode restPasswordCode = new RestPasswordCode(existingEmployee);
+            restPasswordCode.setExpiryDate(calculateExpiryDate(restPasswordCodeValidMinute));
+
             // Save it
-            restPasswordRepository.save(confiramtionId);
+            restPasswordCodeRepository.save(restPasswordCode);
 
             // Create the email
             SimpleMailMessage mailMessage = new SimpleMailMessage();
@@ -224,7 +228,7 @@ public class EmployeeServiceImp implements EmployeeService {
             mailMessage.setSubject("Complete Password Reset!");
             mailMessage.setFrom("oslomet8@gmail.com");
             mailMessage.setText("To complete the password reset process, please use this code: "
-                    +confiramtionId.getConfirmationCode());
+                    +restPasswordCode.getConfirmationCode());
 
             // Send the email
             emailSenderService.sendEmail(mailMessage);
@@ -257,9 +261,9 @@ public class EmployeeServiceImp implements EmployeeService {
     }
 
     private EmployeeDTO saveAndReturnDTO(Employee employee) {
-        Employee savedEmloyee = employeeRepository.save(employee);
-        EmployeeDTO employeeDTO = employeeMapper.employeeToEmployeeDTO(savedEmloyee);
-        employeeDTO.setEmployeeUrl(getEmployeeUrl(savedEmloyee.getId()));
+        Employee savedEmployee = employeeRepository.save(employee);
+        EmployeeDTO employeeDTO = employeeMapper.employeeToEmployeeDTO(savedEmployee);
+        employeeDTO.setEmployeeUrl(getEmployeeUrl(savedEmployee.getId()));
         return employeeDTO;
     }
 

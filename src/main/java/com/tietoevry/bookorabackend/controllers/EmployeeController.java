@@ -77,14 +77,14 @@ public class EmployeeController {
     @PostMapping({"/forgot-password"})
     public MessageDTO forgotUserPassword(@Valid @RequestBody ForgetPasswordDTO forgetPasswordDTO) {
 
-        return employeeService.forgetPassword(forgetPasswordDTO);
+        return employeeService.sendForgetPasswordCode(forgetPasswordDTO);
 
 
     }
     //ReActivation Account
     @RequestMapping(value = "/reactive-account", method = RequestMethod.POST)
     public MessageDTO resetUserPassword(@RequestBody @Valid ReActiveEmailDTO reActiveEmailDTO) {
-        return  employeeService.reActiveAccount(reActiveEmailDTO);
+        return  employeeService.resendConfirmationToken(reActiveEmailDTO);
     }
 }
 

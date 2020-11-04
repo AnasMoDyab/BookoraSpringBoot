@@ -28,6 +28,7 @@ public class DataLoader implements CommandLineRunner{
 
         LoadEmployees();
         loadRoles();
+        loadZones();
     }
 
     private void loadZones() {

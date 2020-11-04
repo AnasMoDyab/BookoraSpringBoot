@@ -3,6 +3,7 @@ package com.tietoevry.bookorabackend.model;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
 import javax.persistence.*;
 import java.sql.Timestamp;
 import java.util.Date;
@@ -11,7 +12,7 @@ import java.util.Date;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-public class RestPassword {
+public class RestPasswordCode {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
@@ -25,17 +26,14 @@ public class RestPassword {
 
     private Timestamp expiryDate;
 
-    public RestPassword(Employee employee) {
+    public RestPasswordCode(Employee employee) {
         this.employee = employee;
         createdDate = new Date();
         confirmationCode = getAlphaNumericString(8);
     }
 
 
-
-
-    static String getAlphaNumericString(int n)
-    {
+    static String getAlphaNumericString(int n) {
 
         // chose a Character random from this String
         String AlphaNumericString = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
@@ -50,7 +48,7 @@ public class RestPassword {
             // generate a random number between
             // 0 to AlphaNumericString variable length
             int index
-                    = (int)(AlphaNumericString.length()
+                    = (int) (AlphaNumericString.length()
                     * Math.random());
 
             // add Character one by one in end of sb
