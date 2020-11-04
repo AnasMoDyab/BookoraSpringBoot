@@ -44,6 +44,7 @@ public class ConfirmationTokenServiceImpl implements ConfirmationTokenService {
         }
         else{
            // return new MessageDTO("Error: The link is invalid or broken!");
+            //Added page
             return "linkInvalid.html";
         }
     }
