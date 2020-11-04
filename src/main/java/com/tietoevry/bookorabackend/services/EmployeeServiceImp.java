@@ -170,7 +170,7 @@ public class EmployeeServiceImp implements EmployeeService {
 
         emailSenderService.sendEmail(mailMessage);
 
-        return new MessageDTO("User registered successfully!");
+        return new MessageDTO("Cods is sent, Check your email!");
 
     }
 
