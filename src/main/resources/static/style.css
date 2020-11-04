@@ -1,0 +1,61 @@
+.text {
+    font-family: "Montserrat", sans-serif!important;
+    font-size: 20px!important;
+    align-items: center!important;
+    text-align: center!important;
+    color: #0B5C2B!important;
+
+}
+
+
+
+
+.center{
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.btn-color{
+    color: #454141 !important;
+    background-color: #c4daee !important;
+    border: 0;
+  /* -webkit-box-shadow: none;*/ 
+
+
+    font-weight: bold!important;
+
+}
+
+
+.box {
+
+    padding: 10px;
+    box-shadow: 1px 1px 1px 1px #E1E8EF;
+    background-color: white;
+    border: 2px solid #ffffff;
+    border-radius: 25px;
+}
+body{
+    background-image: url("./backe2.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+    margin: 20px;
+
+
+}
+.logo img{
+    height: 80px;
+    width: 80px;
+}
+.background .center >img{
+    position: relative;
+    float: left;
+    width:  80px;
+    height: 80px;
+    background-position: 50% 50%;
+    background-repeat:   no-repeat;
+    background-size:     cover;
+}
+
+
