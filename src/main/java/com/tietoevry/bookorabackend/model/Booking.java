@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.*;
 
 import javax.persistence.*;
-import java.util.Date;
+import java.time.LocalDate;
 
 @Data
 @NoArgsConstructor
@@ -19,11 +19,17 @@ public class Booking {
     private Long id;
 
     @JsonFormat(pattern = "dd/MM/yyyy")
-    private Date date;
+    private LocalDate date;
 
     @ManyToOne
     private Employee employee;
 
     @ManyToOne
     private Zone zone;
+
+    public Booking(LocalDate date, Employee employee, Zone zone) {
+        this.date = date;
+        this.employee = employee;
+        this.zone = zone;
+    }
 }

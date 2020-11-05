@@ -19,10 +19,10 @@ public class Zone {
 
     private Integer floor;
     private Character zone;
-    private Boolean activated;
+    private boolean activated;
     private Integer capacity;
 
-    @OneToMany(mappedBy = "zone")
+    @OneToMany(mappedBy = "zone", fetch = FetchType.LAZY)
     private Set<Booking> zoneBookings;
 
     public Zone(Integer floor, Character zone, Boolean activated, Integer capacity) {
