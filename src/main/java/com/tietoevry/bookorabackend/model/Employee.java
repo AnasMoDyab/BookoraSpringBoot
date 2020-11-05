@@ -42,6 +42,7 @@ public class Employee{
 
     private boolean isEnabled;
 
+    private boolean ableTochangePassword;
 
 
     @OneToMany(mappedBy = "employee")

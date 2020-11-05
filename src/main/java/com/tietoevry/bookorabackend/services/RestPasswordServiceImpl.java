@@ -34,10 +34,19 @@ public class RestPasswordServiceImpl implements RestPasswordService {
         }
         else {
 
-            employee.setPassword(encoder.encode(updatePasswordDTO.getPassword()));
-            employeeRepository.save(employee);
-            return new MessageDTO("Password successfully reset. You can now log in with the new credentials.");
+            if (employee.isAbleTochangePassword()) {
+
+                employee.setPassword(encoder.encode(updatePasswordDTO.getPassword()));
+                employee.setAbleTochangePassword(false);
+                employeeRepository.save(employee);
+
+                return new MessageDTO("Password successfully reset. You can now log in with the new credentials.");
+            } else {
+                return new MessageDTO("You can't change the password");
+            }
         }
+
+
 
     }
 

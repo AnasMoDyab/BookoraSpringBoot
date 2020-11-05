@@ -220,6 +220,7 @@ public class EmployeeServiceImp implements EmployeeService {
             restPasswordCode.setExpiryDate(calculateExpiryDate(restPasswordCodeValidMinute));
 
             // Save it
+            existingEmployee.setAbleTochangePassword(true);
             restPasswordCodeRepository.save(restPasswordCode);
 
             // Create the email
