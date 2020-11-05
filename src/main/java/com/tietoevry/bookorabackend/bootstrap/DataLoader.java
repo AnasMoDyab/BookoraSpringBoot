@@ -32,7 +32,7 @@ public class DataLoader implements CommandLineRunner{
         this.encoder = encoder;
     }
 
-    int numberOfBookings = 100;
+    int numberOfBookings = 300;
     int numberOfEmployees = 50;
 
     @Override

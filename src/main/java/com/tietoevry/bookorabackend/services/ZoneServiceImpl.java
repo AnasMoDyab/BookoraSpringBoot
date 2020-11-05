@@ -50,4 +50,10 @@ public class ZoneServiceImpl implements ZoneService {
 
         return totalBooking == capacity;
     }
+
+    @Override
+    public int getTotalBookingOfADayInAZone(Long id, LocalDate date) {
+        Zone zone = zoneRepository.findById(id).orElseThrow(RuntimeException::new);
+        return bookingRepository.findAllByDateAndZone(date, zone).size();
+    }
 }

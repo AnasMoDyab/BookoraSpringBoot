@@ -11,5 +11,7 @@ public interface ZoneService {
 
     ZoneDTO getZoneById(Long id);
 
-    boolean isFullOnADay(Long id, LocalDate date) ;
+    boolean isFullOnADay(Long id, LocalDate date);
+
+    int getTotalBookingOfADayInAZone(Long id, LocalDate date);
 }
