@@ -38,6 +38,10 @@ public class BookingServiceImpl implements BookingService {
         if(zoneService.isFullOnADay(zone.getId(), date)){
             return new MessageDTO("The zone is full");
         }
+        //check if employee already have booking on that day
+        else if (bookingRepository.findAllByDateAndEmployee(date,employee).size() != 0){
+            return new MessageDTO("You already have booking on that day");
+        }
         else{
             Booking booking = new Booking(date, employee, zone);
             bookingRepository.save(booking);

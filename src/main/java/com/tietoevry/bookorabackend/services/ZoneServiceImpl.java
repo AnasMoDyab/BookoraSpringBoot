@@ -36,13 +36,13 @@ public class ZoneServiceImpl implements ZoneService {
 
     @Override
     public ZoneDTO getZoneById(Long id) {
-        Zone zone = zoneRepository.findById(id).orElseThrow(RuntimeException::new);
+        Zone zone = zoneRepository.findById(id).orElseThrow(() -> new RuntimeException("zone id is not found"));
         return zoneMapper.zoneToZoneDTO(zone);
     }
 
     @Override
     public boolean isFullOnADay(Long id, LocalDate date) {
-        Zone zone = zoneRepository.findById(id).orElseThrow(RuntimeException::new);
+        Zone zone = zoneRepository.findById(id).orElseThrow(() -> new RuntimeException("zone id is not found"));
 
         Integer capacity = zone.getCapacity();
 
@@ -53,7 +53,7 @@ public class ZoneServiceImpl implements ZoneService {
 
     @Override
     public int getTotalBookingOfADayInAZone(Long id, LocalDate date) {
-        Zone zone = zoneRepository.findById(id).orElseThrow(RuntimeException::new);
+        Zone zone = zoneRepository.findById(id).orElseThrow(() -> new RuntimeException("zone id is not found"));
         return bookingRepository.findAllByDateAndZone(date, zone).size();
     }
 }
