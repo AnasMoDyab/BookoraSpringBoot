@@ -7,4 +7,5 @@ import java.util.List;
 
 public interface ZoneRepository extends JpaRepository<Zone,Long> {
     List<Zone> findByActivated(boolean activated);
+    List<Zone> findAllByFloor(Integer floor);
 }

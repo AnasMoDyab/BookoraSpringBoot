@@ -9,8 +9,8 @@ import com.tietoevry.bookorabackend.repositories.ZoneRepository;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 public class ZoneServiceImpl implements ZoneService {
@@ -27,10 +27,21 @@ public class ZoneServiceImpl implements ZoneService {
 
     @Override
     public ZoneListDTO getAllZones() {
-        List<ZoneDTO> zoneListDTO = zoneRepository.findAll().stream().map(zone -> {
+        List<ZoneDTO> zoneListDTO = new ArrayList<>();
+        for (Zone zone : zoneRepository.findAll()) {
             ZoneDTO zoneDTO = zoneMapper.zoneToZoneDTO(zone);
-            return zoneDTO;
-        }).collect(Collectors.toList());
+            zoneListDTO.add(zoneDTO);
+        }
+        return new ZoneListDTO(zoneListDTO);
+    }
+
+    @Override
+    public ZoneListDTO getZonesByFloor(Integer floor) {
+        List<ZoneDTO> zoneListDTO = new ArrayList<>();
+        for (Zone zone : zoneRepository.findAllByFloor(floor)) {
+            ZoneDTO zoneDTO = zoneMapper.zoneToZoneDTO(zone);
+            zoneListDTO.add(zoneDTO);
+        }
         return new ZoneListDTO(zoneListDTO);
     }
 

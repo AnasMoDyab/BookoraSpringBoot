@@ -9,6 +9,8 @@ public interface ZoneService {
 
     ZoneListDTO getAllZones();
 
+    ZoneListDTO getZonesByFloor(Integer floor);
+
     ZoneDTO getZoneById(Long id);
 
     boolean isFullOnADay(Long id, LocalDate date);

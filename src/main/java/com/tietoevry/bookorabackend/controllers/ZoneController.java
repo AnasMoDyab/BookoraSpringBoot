@@ -38,7 +38,14 @@ public class ZoneController {
         return zoneService.getAllZones();
     }
 
-    @GetMapping({"/{id}"})
+    @GetMapping({"/floor/{floor}"})
+    @PreAuthorize("hasAnyAuthority('ROLE_ADMIN', 'ROLE_USER')")
+    @ResponseStatus(HttpStatus.OK)
+    public ZoneListDTO getZoneListByFloor(@PathVariable Integer floor) {
+        return zoneService.getZonesByFloor(floor);
+    }
+
+    @GetMapping({"/zone/{id}"})
     @PreAuthorize("hasAnyAuthority('ROLE_ADMIN', 'ROLE_USER')")
     @ResponseStatus(HttpStatus.OK)
     public ZoneDTO getZoneById(@PathVariable Long id) {
@@ -55,5 +62,7 @@ public class ZoneController {
 
         return new StatusOfAZoneOnADayDTO(total, capacity);
     }
+
+
 
 }
