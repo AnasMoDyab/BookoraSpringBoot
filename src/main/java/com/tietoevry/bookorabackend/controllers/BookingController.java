@@ -5,6 +5,7 @@ import com.tietoevry.bookorabackend.api.v1.model.MessageDTO;
 import com.tietoevry.bookorabackend.services.BookingService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -24,6 +25,7 @@ public class BookingController {
     }
 
     @PostMapping("/book")
+    @PreAuthorize("hasAnyAuthority('ROLE_ADMIN', 'ROLE_USER')")
     @ResponseStatus(HttpStatus.CREATED)
     public MessageDTO bookOneZoneOnOneDay(@RequestBody @Valid BookingDTO bookingDTO) {
         return bookingService.bookOneZoneOfOneDay(bookingDTO);

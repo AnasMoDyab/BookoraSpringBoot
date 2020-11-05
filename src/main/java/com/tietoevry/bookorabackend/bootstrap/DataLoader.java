@@ -10,6 +10,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
+import java.util.HashSet;
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
@@ -37,8 +38,8 @@ public class DataLoader implements CommandLineRunner{
     @Override
     public void run(String... args) throws Exception {
 
-        LoadEmployees();
         loadRoles();
+        LoadEmployees();
         loadZones();
 
         for(int i = 0; i<numberOfBookings; i++)
@@ -46,7 +47,26 @@ public class DataLoader implements CommandLineRunner{
 
     }
 
+    private void loadRoles() {
+
+        Role role1 = new Role();
+        role1.setName(RoleEnum.ROLE_USER);
+        roleRepository.save(role1);
+
+        Role role2 = new Role();
+        role2.setName(RoleEnum.ROLE_ADMIN);
+        roleRepository.save(role2);
+    }
+
     private void LoadEmployees() {
+
+        Role user = new Role(1L, RoleEnum.ROLE_USER);
+        Role admin = new Role(2L,RoleEnum.ROLE_ADMIN);
+
+        HashSet<Role> allRoles = new HashSet<>();
+        allRoles.add(user);
+        allRoles.add(admin);
+
         Employee employee1 = new Employee("root", "root", "root@tietoevry.com","123456aB@");
         Employee employee2 = new Employee("John", "Johnson", "john@tietoevry.com","123456aB@");
         Employee employee3 = new Employee("Kari", "Hansen", "kari@gmail.com","123456aB@");
@@ -56,6 +76,9 @@ public class DataLoader implements CommandLineRunner{
         employee1.setPassword(encoder.encode(employee1.getPassword()));
         employee2.setPassword(encoder.encode(employee2.getPassword()));
         employee3.setPassword(encoder.encode(employee3.getPassword()));
+        employee1.setRoles(allRoles);
+        employee2.setRoles(allRoles);
+        employee3.setRoles(allRoles);
         employeeRepository.save(employee1);
         employeeRepository.save(employee2);
         employeeRepository.save(employee3);
@@ -64,18 +87,9 @@ public class DataLoader implements CommandLineRunner{
             Employee employee = new Employee("employee"+i, "employee"+i, "employee"+i+"@tietoevry.com","123456aB@");
             employee.setEnabled(true);
             employee.setPassword(encoder.encode(employee.getPassword()));
+            employee.setRoles(allRoles);
             employeeRepository.save(employee);
         }
-    }
-
-    private void loadRoles() {
-        Role role1 = new Role();
-        role1.setName(RoleEnum.ROLE_USER);
-        roleRepository.save(role1);
-
-        Role role2 = new Role();
-        role2.setName(RoleEnum.ROLE_ADMIN);
-        roleRepository.save(role2);
     }
 
     private void loadZones() {
