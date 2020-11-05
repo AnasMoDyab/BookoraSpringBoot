@@ -4,14 +4,12 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class ZoneDTO {
+public class ZoneListDTO {
 
-    private Long id ;
-    private Integer floor;
-    private Character zone;
-    private boolean activated;
-    private Integer capacity;
+    List<ZoneDTO> zoneDTOList;
 }
