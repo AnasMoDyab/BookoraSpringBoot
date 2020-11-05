@@ -15,16 +15,16 @@ public class ConfirmationTokenServiceImpl implements ConfirmationTokenService {
 
     private final ConfirmationTokenRepository confirmationTokenRepository;
     private final EmployeeRepository employeeRepository;
-    private final EmployeeMapper employeeMapper;
 
-    public ConfirmationTokenServiceImpl(ConfirmationTokenRepository confirmationTokenRepository, EmployeeRepository employeeRepository, EmployeeMapper employeeMapper) {
+
+    public ConfirmationTokenServiceImpl(ConfirmationTokenRepository confirmationTokenRepository, EmployeeRepository employeeRepository) {
         this.confirmationTokenRepository = confirmationTokenRepository;
         this.employeeRepository = employeeRepository;
-        this.employeeMapper = employeeMapper;
+
     }
 
     @Override
-    public MessageDTO checkToken(String confirmationToken) {
+    public String checkToken(String confirmationToken) {
 
         ConfirmationToken token = confirmationTokenRepository.findByConfirmationToken(confirmationToken);
 
@@ -32,16 +32,20 @@ public class ConfirmationTokenServiceImpl implements ConfirmationTokenService {
 
 
             if(token.getExpiryDate().before(new Timestamp(System.currentTimeMillis())) ){
-                return new MessageDTO("Error: token has expired!");/// TODO: redirect to sign in
+               // return new MessageDTO("Error: token has expired!");/// TODO: redirect to sign in
+                return "ExpiredToken.html";
             }
 
             Employee employee = employeeRepository.findByEmailIgnoreCase(token.getEmployee().getEmail());
             employee.setEnabled(true);
             employeeRepository.save(employee);
-            return new MessageDTO("Your account is activated!");
+           // return new MessageDTO("Your account is activated!");
+            return "confirm.html";
         }
         else{
-            return new MessageDTO("Error: The link is invalid or broken!");
+           // return new MessageDTO("Error: The link is invalid or broken!");
+            //Added page
+            return "linkInvalid.html";
         }
     }
 }
