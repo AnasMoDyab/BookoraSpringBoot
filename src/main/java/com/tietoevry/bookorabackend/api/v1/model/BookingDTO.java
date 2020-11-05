@@ -11,7 +11,6 @@ import java.time.LocalDate;
 @AllArgsConstructor
 public class BookingDTO {
 
-    private Long id;
     private LocalDate date;
     private Long employeeId;
     private Long zoneId;
