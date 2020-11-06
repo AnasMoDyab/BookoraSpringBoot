@@ -1,10 +1,7 @@
 package com.tietoevry.bookorabackend.services;
 
 import com.tietoevry.bookorabackend.api.v1.mapper.BookingMapper;
-import com.tietoevry.bookorabackend.api.v1.model.BookingDTO;
-import com.tietoevry.bookorabackend.api.v1.model.BookingListDTO;
-import com.tietoevry.bookorabackend.api.v1.model.EmployeeIdDTO;
-import com.tietoevry.bookorabackend.api.v1.model.MessageDTO;
+import com.tietoevry.bookorabackend.api.v1.model.*;
 import com.tietoevry.bookorabackend.model.Booking;
 import com.tietoevry.bookorabackend.model.Employee;
 import com.tietoevry.bookorabackend.model.Zone;
@@ -42,14 +39,13 @@ public class BookingServiceImpl implements BookingService {
         LocalDate date = bookingDTO.getDate();
 
         //check if the zone is full on that date
-        if(zoneService.isFullOnADay(zone.getId(), date)){
+        if (zoneService.isFullOnADay(zone.getId(), date)) {
             return new MessageDTO("The zone is full");
         }
         //check if employee already have booking on that day
-        else if (bookingRepository.findAllByDateAndEmployee(date,employee).size() != 0){
+        else if (bookingRepository.findAllByDateAndEmployee(date, employee).size() != 0) {
             return new MessageDTO("You already have booking on that day");
-        }
-        else{
+        } else {
             Booking booking = new Booking(date, employee, zone);
             bookingRepository.save(booking);
             return new MessageDTO("Booking success");
@@ -72,6 +68,7 @@ public class BookingServiceImpl implements BookingService {
 
         return new BookingListDTO(bookingDTOList);
     }
+
     @Override
     public BookingListDTO getAllValidBookingOfEmployee(EmployeeIdDTO employeeIdDTO) {
 
@@ -101,4 +98,19 @@ public class BookingServiceImpl implements BookingService {
 
         return new BookingListDTO(bookingDTOList);
     }
+
+    @Override
+    public BookingListDTO getAllBookingOfEmployeeInAPeriod(EmployeeBookingInAPeriodDTO employeeBookingInAPeriodDTO) {
+        Employee employee = employeeRepository.findById(employeeBookingInAPeriodDTO.getEmployeeId()).orElseThrow(RuntimeException::new);
+
+        List<BookingDTO> bookingDTOList = new ArrayList<>();
+
+        for (Booking booking : bookingRepository.findAllByEmployeeAndDateGreaterThanEqualAndDateLessThanEqual(employee, employeeBookingInAPeriodDTO.getFrom(), employeeBookingInAPeriodDTO.getTo())) {
+            BookingDTO bookingDTO = bookingMapper.bookingToBookingDTO(booking);
+            bookingDTOList.add(bookingDTO);
+        }
+
+        return new BookingListDTO(bookingDTOList);
+    }
+
 }

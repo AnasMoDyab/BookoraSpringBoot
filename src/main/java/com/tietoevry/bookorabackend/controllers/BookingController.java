@@ -1,9 +1,6 @@
 package com.tietoevry.bookorabackend.controllers;
 
-import com.tietoevry.bookorabackend.api.v1.model.BookingDTO;
-import com.tietoevry.bookorabackend.api.v1.model.BookingListDTO;
-import com.tietoevry.bookorabackend.api.v1.model.EmployeeIdDTO;
-import com.tietoevry.bookorabackend.api.v1.model.MessageDTO;
+import com.tietoevry.bookorabackend.api.v1.model.*;
 import com.tietoevry.bookorabackend.services.BookingService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.HttpStatus;
@@ -52,6 +49,13 @@ public class BookingController {
     @ResponseStatus(HttpStatus.OK)
     public BookingListDTO getAllPastBookingOfEmployee(@RequestBody @Valid EmployeeIdDTO employeeIdDTO) {
         return bookingService.getAllPastBookingOfEmployee(employeeIdDTO);
+    }
+
+    @PostMapping("/getAllBookingOfEmployeeInAPeriod")
+    @PreAuthorize("hasAnyAuthority('ROLE_ADMIN', 'ROLE_USER')")
+    @ResponseStatus(HttpStatus.OK)
+    public BookingListDTO getAllBookingOfEmployeeInAPeriod(@RequestBody @Valid EmployeeBookingInAPeriodDTO employeeBookingInAPeriodDTO) {
+        return bookingService.getAllBookingOfEmployeeInAPeriod(employeeBookingInAPeriodDTO);
     }
 
 }
