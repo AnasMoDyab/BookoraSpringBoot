@@ -7,8 +7,6 @@ import com.tietoevry.bookorabackend.model.RestPasswordCode;
 import com.tietoevry.bookorabackend.repositories.EmployeeRepository;
 import com.tietoevry.bookorabackend.repositories.RestPasswordCodeRepository;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -30,9 +28,6 @@ public class RestPasswordServiceImpl implements RestPasswordService {
 
     @Override
     public MessageDTO updatePassword(UpdatePasswordDTO updatePasswordDTO) {
-        System.out.println(updatePasswordDTO.email);
-
-
         Employee employee = employeeRepository.findByEmailIgnoreCase(updatePasswordDTO.getEmail());
         System.out.println(employee.getPassword());
         System.out.println(encoder.encode(updatePasswordDTO.getPassword()));
@@ -42,13 +37,10 @@ public class RestPasswordServiceImpl implements RestPasswordService {
         else {
 
             if (employee.isAbleTochangePassword()) {
-// Todo Employee shouldn't change to old password
               String oldPassword=  employee.getPassword();
               if(encoder.matches(updatePasswordDTO.getPassword(),oldPassword)){
-                  System.out.println("Yoh can't change to old password");
-                  return new MessageDTO("You have change to ");
+                  return new MessageDTO("You are not allowed to change to the same password as your old password");
               }
-                System.out.println("success");
 
                 employee.setPassword(encoder.encode(updatePasswordDTO.getPassword()));
                 employee.setAbleTochangePassword(false);
@@ -80,11 +72,3 @@ public class RestPasswordServiceImpl implements RestPasswordService {
         }
     }
 }
-
-
-
-
-
-
-
-
