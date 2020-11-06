@@ -6,6 +6,9 @@ import com.tietoevry.bookorabackend.model.Employee;
 import com.tietoevry.bookorabackend.model.RestPasswordCode;
 import com.tietoevry.bookorabackend.repositories.EmployeeRepository;
 import com.tietoevry.bookorabackend.repositories.RestPasswordCodeRepository;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -16,11 +19,13 @@ public class RestPasswordServiceImpl implements RestPasswordService {
     private final RestPasswordCodeRepository restPasswordCodeRepository;
     private final EmployeeRepository employeeRepository;
     private final PasswordEncoder encoder;
+    private final AuthenticationManager authenticationManager;
 
-    public RestPasswordServiceImpl(RestPasswordCodeRepository restPasswordCodeRepository, EmployeeRepository employeeRepository, PasswordEncoder encoder) {
+    public RestPasswordServiceImpl(RestPasswordCodeRepository restPasswordCodeRepository, EmployeeRepository employeeRepository, PasswordEncoder encoder, AuthenticationManager authenticationManager) {
         this.restPasswordCodeRepository = restPasswordCodeRepository;
         this.employeeRepository = employeeRepository;
         this.encoder = encoder;
+        this.authenticationManager = authenticationManager;
     }
 
     @Override
@@ -29,12 +34,21 @@ public class RestPasswordServiceImpl implements RestPasswordService {
 
 
         Employee employee = employeeRepository.findByEmailIgnoreCase(updatePasswordDTO.getEmail());
+        System.out.println(employee.getPassword());
+        System.out.println(encoder.encode(updatePasswordDTO.getPassword()));
         if (employee == null) {
             return new MessageDTO("Error: Email is invalid");
         }
         else {
 
             if (employee.isAbleTochangePassword()) {
+// Todo Employee shouldn't change to old password
+              String oldPassword=  employee.getPassword();
+              if(encoder.matches(updatePasswordDTO.getPassword(),oldPassword)){
+                  System.out.println("Yoh can't change to old password");
+                  return new MessageDTO("You have change to ");
+              }
+                System.out.println("success");
 
                 employee.setPassword(encoder.encode(updatePasswordDTO.getPassword()));
                 employee.setAbleTochangePassword(false);
