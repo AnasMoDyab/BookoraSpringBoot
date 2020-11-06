@@ -72,7 +72,6 @@ public class BookingServiceImpl implements BookingService {
 
         return new BookingListDTO(bookingDTOList);
     }
-
     @Override
     public BookingListDTO getAllValidBookingOfEmployee(EmployeeIdDTO employeeIdDTO) {
 
@@ -87,5 +86,19 @@ public class BookingServiceImpl implements BookingService {
 
         return new BookingListDTO(bookingDTOList);
 
+    }
+
+    @Override
+    public BookingListDTO getAllPastBookingOfEmployee(EmployeeIdDTO employeeIdDTO) {
+        Employee employee = employeeRepository.findById(employeeIdDTO.getEmployeeId()).orElseThrow(RuntimeException::new);
+
+        List<BookingDTO> bookingDTOList = new ArrayList<>();
+
+        for (Booking booking : bookingRepository.findAllByEmployeeAndDateBefore(employee, LocalDate.now())) {
+            BookingDTO bookingDTO = bookingMapper.bookingToBookingDTO(booking);
+            bookingDTOList.add(bookingDTO);
+        }
+
+        return new BookingListDTO(bookingDTOList);
     }
 }

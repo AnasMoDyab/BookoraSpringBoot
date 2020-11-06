@@ -12,4 +12,7 @@ public interface BookingService {
     BookingListDTO getAllBookingOfEmployee(EmployeeIdDTO employeeIdDTO);
     
     BookingListDTO getAllValidBookingOfEmployee(EmployeeIdDTO employeeIdDTO);
+
+    BookingListDTO getAllPastBookingOfEmployee(EmployeeIdDTO employeeIdDTO);
+
 }

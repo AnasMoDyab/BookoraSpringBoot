@@ -47,4 +47,11 @@ public class BookingController {
         return bookingService.getAllValidBookingOfEmployee(employeeIdDTO);
     }
 
+    @PostMapping("/getAllPastBookingOfEmployee")
+    @PreAuthorize("hasAnyAuthority('ROLE_ADMIN', 'ROLE_USER')")
+    @ResponseStatus(HttpStatus.OK)
+    public BookingListDTO getAllPastBookingOfEmployee(@RequestBody @Valid EmployeeIdDTO employeeIdDTO) {
+        return bookingService.getAllPastBookingOfEmployee(employeeIdDTO);
+    }
+
 }
