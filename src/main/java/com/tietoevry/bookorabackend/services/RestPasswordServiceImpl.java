@@ -39,7 +39,7 @@ public class RestPasswordServiceImpl implements RestPasswordService {
             if (employee.isAbleTochangePassword()) {
               String oldPassword=  employee.getPassword();
               if(encoder.matches(updatePasswordDTO.getPassword(),oldPassword)){
-                  return new MessageDTO("You are not allowed to change to the same password as your old password");
+                  return new MessageDTO("you have used the old password");
               }
 
                 employee.setPassword(encoder.encode(updatePasswordDTO.getPassword()));
