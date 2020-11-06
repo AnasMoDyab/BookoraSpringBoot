@@ -77,7 +77,14 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/confirm-reset").permitAll()
                 .antMatchers("/reset-password").permitAll()
                 .antMatchers("/signin").permitAll()
-
+                .antMatchers("/v3/api-docs",
+                "/configuration/ui",
+                "/swagger-resources/**",
+                "/configuration/security",
+                "/swagger-ui.html",
+                        "/swagger-ui/**",
+                "/webjars/**",
+                        "/swagger-ui/index.html?configUrl=/v3/api-docs/swagger-config").permitAll()
 
 
                 .anyRequest().authenticated().and()//allow all authenticated request
@@ -85,4 +92,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .addFilterBefore(authTokenFilter(), UsernamePasswordAuthenticationFilter.class);
 
     }
+
+
 }
