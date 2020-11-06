@@ -54,10 +54,10 @@ public class BookingServiceImpl implements BookingService {
     }
 
     @Override
-    public BookingListDTO getAllBookingOfEmployee(EmployeeIdDTO employeeIdDTO) {
+    public BookingListDTO getAllBookingOfEmployee(EmployeeEmailDTO employeeEmailDTO) {
 
 
-        Employee employee = employeeRepository.findById(employeeIdDTO.getEmployeeId()).orElseThrow(RuntimeException::new);
+        Employee employee = employeeRepository.findByEmail(employeeEmailDTO.getEmail()).orElseThrow(RuntimeException::new);
 
         List<BookingDTO> bookingDTOList = new ArrayList<>();
 
@@ -70,9 +70,9 @@ public class BookingServiceImpl implements BookingService {
     }
 
     @Override
-    public BookingListDTO getAllValidBookingOfEmployee(EmployeeIdDTO employeeIdDTO) {
+    public BookingListDTO getAllValidBookingOfEmployee(EmployeeEmailDTO employeeEmailDTO) {
 
-        Employee employee = employeeRepository.findById(employeeIdDTO.getEmployeeId()).orElseThrow(RuntimeException::new);
+        Employee employee = employeeRepository.findByEmail(employeeEmailDTO.getEmail()).orElseThrow(RuntimeException::new);
 
         List<BookingDTO> bookingDTOList = new ArrayList<>();
 
@@ -86,8 +86,8 @@ public class BookingServiceImpl implements BookingService {
     }
 
     @Override
-    public BookingListDTO getAllPastBookingOfEmployee(EmployeeIdDTO employeeIdDTO) {
-        Employee employee = employeeRepository.findById(employeeIdDTO.getEmployeeId()).orElseThrow(RuntimeException::new);
+    public BookingListDTO getAllPastBookingOfEmployee(EmployeeEmailDTO employeeEmailDTO) {
+        Employee employee = employeeRepository.findByEmail(employeeEmailDTO.getEmail()).orElseThrow(RuntimeException::new);
 
         List<BookingDTO> bookingDTOList = new ArrayList<>();
 
@@ -101,8 +101,7 @@ public class BookingServiceImpl implements BookingService {
 
     @Override
     public BookingListDTO getAllBookingOfEmployeeInAPeriod(EmployeeBookingInAPeriodDTO employeeBookingInAPeriodDTO) {
-        Employee employee = employeeRepository.findById(employeeBookingInAPeriodDTO.getEmployeeId()).orElseThrow(RuntimeException::new);
-
+        Employee employee = employeeRepository.findByEmail(employeeBookingInAPeriodDTO.getEmail()).orElseThrow(RuntimeException::new);
         List<BookingDTO> bookingDTOList = new ArrayList<>();
 
         for (Booking booking : bookingRepository.findAllByEmployeeAndDateGreaterThanEqualAndDateLessThanEqual(employee, employeeBookingInAPeriodDTO.getFrom(), employeeBookingInAPeriodDTO.getTo())) {

@@ -4,15 +4,11 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.time.LocalDate;
-
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class EmployeeBookingInAPeriodDTO {
+public class EmployeeEmailDTO {
 
     private String email;
-    private LocalDate from;
-    private LocalDate to;
 
 }

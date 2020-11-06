@@ -33,22 +33,22 @@ public class BookingController {
     @PostMapping("/getAllBookingOfEmployee")
     @PreAuthorize("hasAnyAuthority('ROLE_ADMIN', 'ROLE_USER')")
     @ResponseStatus(HttpStatus.OK)
-    public BookingListDTO getAllBookingOfEmployee(@RequestBody @Valid EmployeeIdDTO employeeIdDTO) {
-        return bookingService.getAllBookingOfEmployee(employeeIdDTO);
+    public BookingListDTO getAllBookingOfEmployee(@RequestBody @Valid EmployeeEmailDTO employeeEmailDTO) {
+        return bookingService.getAllBookingOfEmployee(employeeEmailDTO);
     }
 
     @PostMapping("/getAllValidBookingOfEmployee")
     @PreAuthorize("hasAnyAuthority('ROLE_ADMIN', 'ROLE_USER')")
     @ResponseStatus(HttpStatus.OK)
-    public BookingListDTO getAllValidBookingOfEmployee(@RequestBody @Valid EmployeeIdDTO employeeIdDTO) {
-        return bookingService.getAllValidBookingOfEmployee(employeeIdDTO);
+    public BookingListDTO getAllValidBookingOfEmployee(@RequestBody @Valid EmployeeEmailDTO employeeEmailDTO) {
+        return bookingService.getAllValidBookingOfEmployee(employeeEmailDTO);
     }
 
     @PostMapping("/getAllPastBookingOfEmployee")
     @PreAuthorize("hasAnyAuthority('ROLE_ADMIN', 'ROLE_USER')")
     @ResponseStatus(HttpStatus.OK)
-    public BookingListDTO getAllPastBookingOfEmployee(@RequestBody @Valid EmployeeIdDTO employeeIdDTO) {
-        return bookingService.getAllPastBookingOfEmployee(employeeIdDTO);
+    public BookingListDTO getAllPastBookingOfEmployee(@RequestBody @Valid EmployeeEmailDTO employeeEmailDTO) {
+        return bookingService.getAllPastBookingOfEmployee(employeeEmailDTO);
     }
 
     @PostMapping("/getAllBookingOfEmployeeInAPeriod")

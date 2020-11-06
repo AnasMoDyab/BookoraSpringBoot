@@ -6,11 +6,11 @@ public interface BookingService {
 
     MessageDTO bookOneZoneOfOneDay(BookingDTO bookingDTO);
 
-    BookingListDTO getAllBookingOfEmployee(EmployeeIdDTO employeeIdDTO);
-    
-    BookingListDTO getAllValidBookingOfEmployee(EmployeeIdDTO employeeIdDTO);
+    BookingListDTO getAllBookingOfEmployee(EmployeeEmailDTO employeeEmailDTO);
 
-    BookingListDTO getAllPastBookingOfEmployee(EmployeeIdDTO employeeIdDTO);
+    BookingListDTO getAllValidBookingOfEmployee(EmployeeEmailDTO employeeEmailDTO);
+
+    BookingListDTO getAllPastBookingOfEmployee(EmployeeEmailDTO employeeEmailDTO);
 
     BookingListDTO getAllBookingOfEmployeeInAPeriod(EmployeeBookingInAPeriodDTO employeeBookingInAPeriodDTO);
 
