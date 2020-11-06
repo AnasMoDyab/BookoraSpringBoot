@@ -1,6 +1,8 @@
 package com.tietoevry.bookorabackend.controllers;
 
 import com.tietoevry.bookorabackend.api.v1.model.BookingDTO;
+import com.tietoevry.bookorabackend.api.v1.model.BookingListDTO;
+import com.tietoevry.bookorabackend.api.v1.model.EmployeeIdDTO;
 import com.tietoevry.bookorabackend.api.v1.model.MessageDTO;
 import com.tietoevry.bookorabackend.services.BookingService;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -11,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
-@Tag(name = "Zones", description = "Zones API")
+@Tag(name = "Booking", description = "Booking API")
 @RestController
 @RequestMapping(BookingController.BASE_URL)
 public class BookingController {
@@ -29,6 +31,13 @@ public class BookingController {
     @ResponseStatus(HttpStatus.CREATED)
     public MessageDTO bookOneZoneOnOneDay(@RequestBody @Valid BookingDTO bookingDTO) {
         return bookingService.bookOneZoneOfOneDay(bookingDTO);
+    }
+
+    @PostMapping("/getAllBookingOfEmployee")
+    @PreAuthorize("hasAnyAuthority('ROLE_ADMIN', 'ROLE_USER')")
+    @ResponseStatus(HttpStatus.OK)
+    public BookingListDTO getAllBookingOfEmployee(@RequestBody @Valid EmployeeIdDTO employeeIdDTO) {
+        return bookingService.getAllBookingOfEmployee(employeeIdDTO);
     }
 
 }

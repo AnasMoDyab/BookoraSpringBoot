@@ -1,6 +1,9 @@
 package com.tietoevry.bookorabackend.services;
 
+import com.tietoevry.bookorabackend.api.v1.mapper.BookingMapper;
 import com.tietoevry.bookorabackend.api.v1.model.BookingDTO;
+import com.tietoevry.bookorabackend.api.v1.model.BookingListDTO;
+import com.tietoevry.bookorabackend.api.v1.model.EmployeeIdDTO;
 import com.tietoevry.bookorabackend.api.v1.model.MessageDTO;
 import com.tietoevry.bookorabackend.model.Booking;
 import com.tietoevry.bookorabackend.model.Employee;
@@ -11,6 +14,8 @@ import com.tietoevry.bookorabackend.repositories.ZoneRepository;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public class BookingServiceImpl implements BookingService {
@@ -19,12 +24,14 @@ public class BookingServiceImpl implements BookingService {
     private final ZoneRepository zoneRepository;
     private final EmployeeRepository employeeRepository;
     private final ZoneService zoneService;
+    private final BookingMapper bookingMapper;
 
-    public BookingServiceImpl(BookingRepository bookingRepository, ZoneRepository zoneRepository, EmployeeRepository employeeRepository, ZoneService zoneService) {
+    public BookingServiceImpl(BookingRepository bookingRepository, ZoneRepository zoneRepository, EmployeeRepository employeeRepository, ZoneService zoneService, BookingMapper bookingMapper) {
         this.bookingRepository = bookingRepository;
         this.zoneRepository = zoneRepository;
         this.employeeRepository = employeeRepository;
         this.zoneService = zoneService;
+        this.bookingMapper = bookingMapper;
     }
 
     @Override
@@ -48,5 +55,21 @@ public class BookingServiceImpl implements BookingService {
             return new MessageDTO("Booking success");
         }
 
+    }
+
+    @Override
+    public BookingListDTO getAllBookingOfEmployee(EmployeeIdDTO employeeIdDTO) {
+
+
+        Employee employee = employeeRepository.findById(employeeIdDTO.getEmployeeId()).orElseThrow(RuntimeException::new);
+
+        List<BookingDTO> bookingDTOList = new ArrayList<>();
+
+        for (Booking booking : bookingRepository.findAllByEmployee(employee)) {
+            BookingDTO bookingDTO = bookingMapper.bookingToBookingDTO(booking);
+            bookingDTOList.add(bookingDTO);
+        }
+
+        return new BookingListDTO(bookingDTOList);
     }
 }
