@@ -1,10 +1,7 @@
 package com.tietoevry.bookorabackend.controllers;
 
 
-import com.tietoevry.bookorabackend.api.v1.model.StatusOfAZoneOnADayDTO;
-import com.tietoevry.bookorabackend.api.v1.model.ZoneDTO;
-import com.tietoevry.bookorabackend.api.v1.model.ZoneDateDTO;
-import com.tietoevry.bookorabackend.api.v1.model.ZoneListDTO;
+import com.tietoevry.bookorabackend.api.v1.model.*;
 import com.tietoevry.bookorabackend.model.Zone;
 import com.tietoevry.bookorabackend.repositories.ZoneRepository;
 import com.tietoevry.bookorabackend.services.ZoneService;
@@ -14,6 +11,8 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.ArrayList;
+import java.util.List;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
 @Tag(name = "Zones", description = "Zones API")
@@ -61,6 +60,24 @@ public class ZoneController {
         int capacity = zone.getCapacity();
 
         return new StatusOfAZoneOnADayDTO(total, capacity);
+    }
+
+
+
+    @PostMapping("/checkStatusOfAllZoneInAFloor")
+    @PreAuthorize("hasAnyAuthority('ROLE_ADMIN', 'ROLE_USER')")
+    @ResponseStatus(HttpStatus.OK)
+    public List<StatusOfAZoneOnADayDTO> checkStatusOfAllZoneInAFloor(@RequestBody @Valid FloorDateDTO floorDateDTO) {
+        ZoneListDTO zoneListDTO = zoneService.getZonesByFloor(floorDateDTO.getFloorId());
+        List<StatusOfAZoneOnADayDTO> statusOfAZoneOnADayDTOList = new ArrayList<>();
+
+        for(ZoneDTO zoneDTO : zoneListDTO.getZoneDTOList()) {
+            int total = zoneService.getTotalBookingOfADayInAZone(zoneDTO.getId(), floorDateDTO.getDate());
+            int capacity = zoneDTO.getCapacity();
+            statusOfAZoneOnADayDTOList.add(new StatusOfAZoneOnADayDTO(total, capacity));
+        }
+
+         return  statusOfAZoneOnADayDTOList;
     }
 
 

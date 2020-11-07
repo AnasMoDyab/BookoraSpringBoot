@@ -62,6 +62,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
         http.headers().frameOptions().disable();//TODO for using H2, delete in production
 
+
         http.cors().and().csrf().disable()
                 //use AuthEntryPointJwt to handle exception
                 .exceptionHandling().authenticationEntryPoint(authenticationEntryPointJWT).and()
@@ -85,6 +86,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                         "/swagger-ui/**",
                 "/webjars/**",
                         "/swagger-ui/index.html?configUrl=/v3/api-docs/swagger-config").permitAll()
+
 
 
                 .anyRequest().authenticated().and()//allow all authenticated request
