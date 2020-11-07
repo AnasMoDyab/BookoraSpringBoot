@@ -83,6 +83,8 @@ public class ZoneServiceImpl implements ZoneService {
             statusOfAZoneOnADayDTOList.add(new StatusOfAZoneOnADayDTO(total, capacity));
         }
 
+
+
         return  statusOfAZoneOnADayDTOList;
     }
 
