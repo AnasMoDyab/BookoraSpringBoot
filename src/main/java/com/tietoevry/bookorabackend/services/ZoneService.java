@@ -1,9 +1,11 @@
 package com.tietoevry.bookorabackend.services;
 
-import com.tietoevry.bookorabackend.api.v1.model.ZoneDTO;
-import com.tietoevry.bookorabackend.api.v1.model.ZoneListDTO;
+import com.tietoevry.bookorabackend.api.v1.model.*;
+import org.springframework.web.bind.annotation.RequestBody;
 
+import javax.validation.Valid;
 import java.time.LocalDate;
+import java.util.List;
 
 public interface ZoneService {
 
@@ -15,5 +17,7 @@ public interface ZoneService {
 
     boolean isFullOnADay(Long id, LocalDate date);
 
-    int getTotalBookingOfADayInAZone(Long id, LocalDate date);
+    StatusOfAZoneOnADayDTO checkStatusOfAZoneOnADay(ZoneDateDTO zoneDateDTO);
+
+    List<StatusOfAZoneOnADayDTO> checkStatusOfAllZoneInAFloor( FloorDateDTO floorDateDTO);
 }

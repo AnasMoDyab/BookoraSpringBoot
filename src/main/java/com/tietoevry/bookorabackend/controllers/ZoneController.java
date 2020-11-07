@@ -55,11 +55,9 @@ public class ZoneController {
     @PreAuthorize("hasAnyAuthority('ROLE_ADMIN', 'ROLE_USER')")
     @ResponseStatus(HttpStatus.OK)
     public StatusOfAZoneOnADayDTO checkStatusOfAZoneOnADay(@RequestBody @Valid ZoneDateDTO zoneDateDTO) {
-        Zone zone = zoneRepository.getOne(zoneDateDTO.getZoneId());
-        int total = zoneService.getTotalBookingOfADayInAZone(zoneDateDTO.getZoneId(), zoneDateDTO.getDate());
-        int capacity = zone.getCapacity();
 
-        return new StatusOfAZoneOnADayDTO(total, capacity);
+        return  zoneService.checkStatusOfAZoneOnADay(zoneDateDTO);
+
     }
 
 
@@ -68,16 +66,7 @@ public class ZoneController {
     @PreAuthorize("hasAnyAuthority('ROLE_ADMIN', 'ROLE_USER')")
     @ResponseStatus(HttpStatus.OK)
     public List<StatusOfAZoneOnADayDTO> checkStatusOfAllZoneInAFloor(@RequestBody @Valid FloorDateDTO floorDateDTO) {
-        ZoneListDTO zoneListDTO = zoneService.getZonesByFloor(floorDateDTO.getFloorId());
-        List<StatusOfAZoneOnADayDTO> statusOfAZoneOnADayDTOList = new ArrayList<>();
-
-        for(ZoneDTO zoneDTO : zoneListDTO.getZoneDTOList()) {
-            int total = zoneService.getTotalBookingOfADayInAZone(zoneDTO.getId(), floorDateDTO.getDate());
-            int capacity = zoneDTO.getCapacity();
-            statusOfAZoneOnADayDTOList.add(new StatusOfAZoneOnADayDTO(total, capacity));
-        }
-
-         return  statusOfAZoneOnADayDTOList;
+       return zoneService.checkStatusOfAllZoneInAFloor( floorDateDTO);
     }
 
 
