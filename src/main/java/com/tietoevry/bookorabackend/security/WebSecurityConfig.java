@@ -89,7 +89,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
 
 
-                .anyRequest().authenticated().and()//allow all authenticated request
+               .and()//allow all authenticated request
                 //Tell Spring security to use AuthTokenFilter to filter before using UsernamePasswordAuthenticationFilter
                 .addFilterBefore(authTokenFilter(), UsernamePasswordAuthenticationFilter.class);
 
