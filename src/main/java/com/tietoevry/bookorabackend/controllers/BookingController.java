@@ -54,8 +54,15 @@ public class BookingController {
     @PostMapping("/getAllBookingOfEmployeeInAPeriod")
     @PreAuthorize("hasAnyAuthority('ROLE_ADMIN', 'ROLE_USER')")
     @ResponseStatus(HttpStatus.OK)
-    public BookingListDTO getAllBookingOfEmployeeInAPeriod(@RequestBody @Valid EmployeeBookingInAPeriodDTO employeeBookingInAPeriodDTO) {
+    public BookingToshowDtoList getAllBookingOfEmployeeInAPeriod(@RequestBody @Valid EmployeeBookingInAPeriodDTO employeeBookingInAPeriodDTO) {
         return bookingService.getAllBookingOfEmployeeInAPeriod(employeeBookingInAPeriodDTO);
+    }
+
+    @PostMapping("/deletebooking")
+    @PreAuthorize("hasAnyAuthority('ROLE_ADMIN', 'ROLE_USER')")
+    @ResponseStatus(HttpStatus.OK)
+    public MessageDTO deleteBokking(@RequestBody @Valid BookingDTO bookingDTO) {
+        return bookingService.bookOneZoneOfOneDay(bookingDTO);
     }
 
 }

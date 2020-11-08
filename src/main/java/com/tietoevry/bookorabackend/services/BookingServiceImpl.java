@@ -54,6 +54,18 @@ public class BookingServiceImpl implements BookingService {
     }
 
     @Override
+    public MessageDTO deleteOneBookingForEmployee(BookingDTO bookingDTO) {
+        return null;
+    }
+
+/*    @Override
+    public MessageDTO deleteOneBookingForEmployee(BookingDTO bookingDTO) {
+        Employee employee = employeeRepository.findById(bookingDTO.getEmployeeId()).orElseThrow(RuntimeException::new);
+
+
+    }*/
+
+    @Override
     public BookingListDTO getAllBookingOfEmployee(EmployeeEmailDTO employeeEmailDTO) {
 
 
@@ -100,16 +112,16 @@ public class BookingServiceImpl implements BookingService {
     }
 
     @Override
-    public BookingListDTO getAllBookingOfEmployeeInAPeriod(EmployeeBookingInAPeriodDTO employeeBookingInAPeriodDTO) {
+    public BookingToshowDtoList getAllBookingOfEmployeeInAPeriod(EmployeeBookingInAPeriodDTO employeeBookingInAPeriodDTO) {
         Employee employee = employeeRepository.findByEmail(employeeBookingInAPeriodDTO.getEmail()).orElseThrow(RuntimeException::new);
-        List<BookingDTO> bookingDTOList = new ArrayList<>();
+        List<BookingToshowDTO> bookingDTOList = new ArrayList<>();
 
         for (Booking booking : bookingRepository.findAllByEmployeeAndDateGreaterThanEqualAndDateLessThanEqual(employee, employeeBookingInAPeriodDTO.getFrom(), employeeBookingInAPeriodDTO.getTo())) {
-            BookingDTO bookingDTO = bookingMapper.bookingToBookingDTO(booking);
-            bookingDTOList.add(bookingDTO);
+            BookingToshowDTO bookingToshowDTO = bookingMapper.bookingToBookingToshowDto(booking);
+            bookingDTOList.add(bookingToshowDTO);
         }
 
-        return new BookingListDTO(bookingDTOList);
+        return new BookingToshowDtoList(bookingDTOList);
     }
 
 }
