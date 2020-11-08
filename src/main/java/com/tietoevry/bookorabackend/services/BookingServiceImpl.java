@@ -54,16 +54,20 @@ public class BookingServiceImpl implements BookingService {
     }
 
     @Override
-    public MessageDTO deleteOneBookingForEmployee(BookingDTO bookingDTO) {
-        return null;
+    public MessageDTO deleteOneBookingForEmployee(Long bookingId) {
+      Integer bookingIdtoDelete =   bookingRepository.deleteBookingById(bookingId);
+        System.out.println(bookingIdtoDelete);
+      if(bookingIdtoDelete!=0) {
+          return new MessageDTO("success deleted");
+      }
+      else{
+          return new MessageDTO("failed deleted");
+      }
+
     }
 
-/*    @Override
-    public MessageDTO deleteOneBookingForEmployee(BookingDTO bookingDTO) {
-        Employee employee = employeeRepository.findById(bookingDTO.getEmployeeId()).orElseThrow(RuntimeException::new);
 
 
-    }*/
 
     @Override
     public BookingListDTO getAllBookingOfEmployee(EmployeeEmailDTO employeeEmailDTO) {

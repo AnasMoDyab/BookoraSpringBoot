@@ -6,7 +6,7 @@ public interface BookingService {
 
     MessageDTO bookOneZoneOfOneDay(BookingDTO bookingDTO);
 
-    MessageDTO deleteOneBookingForEmployee(BookingDTO bookingDTO);
+    MessageDTO deleteOneBookingForEmployee(Long bookingId);
 
     BookingListDTO getAllBookingOfEmployee(EmployeeEmailDTO employeeEmailDTO);
 

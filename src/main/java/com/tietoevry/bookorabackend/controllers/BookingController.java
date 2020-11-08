@@ -5,6 +5,7 @@ import com.tietoevry.bookorabackend.services.BookingService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -58,11 +59,13 @@ public class BookingController {
         return bookingService.getAllBookingOfEmployeeInAPeriod(employeeBookingInAPeriodDTO);
     }
 
-    @PostMapping("/deletebooking")
+    @PostMapping("/deleteBooking")
+    @Transactional
     @PreAuthorize("hasAnyAuthority('ROLE_ADMIN', 'ROLE_USER')")
     @ResponseStatus(HttpStatus.OK)
-    public MessageDTO deleteBokking(@RequestBody @Valid BookingDTO bookingDTO) {
-        return bookingService.bookOneZoneOfOneDay(bookingDTO);
+    public MessageDTO deleteBokking(@RequestBody @Valid DeleteBookingByIdDTO deleteBookingByIdDTO) {
+        return bookingService.deleteOneBookingForEmployee(deleteBookingByIdDTO.getBookingId());
+
     }
 
 }
