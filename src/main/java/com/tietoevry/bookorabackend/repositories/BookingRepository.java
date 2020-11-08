@@ -9,6 +9,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 public interface BookingRepository extends JpaRepository<Booking,Long> {
+    Integer deleteBookingById(Long id);
     List<Booking> findAllByDateAndZone(LocalDate data, Zone zone);
     List<Booking> findAllByDateAndEmployee(LocalDate date, Employee employee);
     List<Booking> findAllByEmployee(Employee employee);
