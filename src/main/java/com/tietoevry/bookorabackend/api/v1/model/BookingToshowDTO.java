@@ -9,9 +9,9 @@ import java.time.LocalDate;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class BookingDTO {
+public class BookingToshowDTO {
+    private Long bookingId;
     private LocalDate date;
-    private Long employeeId;
-    private Long zoneId;
-
+    private Character zoneName;
+    private Integer floor;
 }
