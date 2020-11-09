@@ -12,7 +12,8 @@ public interface BookingMapper {
 
     BookingMapper INSTANCE = Mappers.getMapper(BookingMapper.class);
 
-
+    @Mapping(target = "zoneId", source = "zone.id")
+    @Mapping(target = "employeeId", source = "employee.id")
     BookingDTO bookingToBookingDTO(Booking booking);
 
     @Mapping(target = "zoneName", source = "zone.zone")
