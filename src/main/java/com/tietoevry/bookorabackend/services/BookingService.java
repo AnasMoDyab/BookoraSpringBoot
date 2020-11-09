@@ -4,7 +4,7 @@ import com.tietoevry.bookorabackend.api.v1.model.*;
 
 public interface BookingService {
 
-    MessageDTO bookOneZoneOfOneDay(BookingDTO bookingDTO);
+    BookingIdDTO bookOneZoneOfOneDay(BookingDTO bookingDTO);
 
     MessageDTO deleteOneBookingForEmployee(Long bookingId);
 

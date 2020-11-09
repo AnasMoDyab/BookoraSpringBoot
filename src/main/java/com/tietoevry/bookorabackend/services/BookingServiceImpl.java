@@ -32,7 +32,7 @@ public class BookingServiceImpl implements BookingService {
     }
 
     @Override
-    public MessageDTO bookOneZoneOfOneDay(BookingDTO bookingDTO) {
+    public BookingIdDTO bookOneZoneOfOneDay(BookingDTO bookingDTO) {
 
         Employee employee = employeeRepository.findById(bookingDTO.getEmployeeId()).orElseThrow(RuntimeException::new);
         Zone zone = zoneRepository.findById(bookingDTO.getZoneId()).orElseThrow(RuntimeException::new);
@@ -40,15 +40,15 @@ public class BookingServiceImpl implements BookingService {
 
         //check if the zone is full on that date
         if (zoneService.isFullOnADay(zone.getId(), date)) {
-            return new MessageDTO("The zone is full");
+            return new BookingIdDTO("The zone is full",null);
         }
         //check if employee already have booking on that day
         else if (bookingRepository.findAllByDateAndEmployee(date, employee).size() != 0) {
-            return new MessageDTO("You already have booking on that day");
+            return new BookingIdDTO("You already have booking on that day",null);
         } else {
             Booking booking = new Booking(date, employee, zone);
-            bookingRepository.save(booking);
-            return new MessageDTO("Booking success");
+            Booking savedBooking = bookingRepository.save(booking);
+            return new BookingIdDTO("Booking success", savedBooking.getId());
         }
 
     }
