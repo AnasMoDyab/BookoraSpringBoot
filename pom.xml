@@ -194,6 +194,16 @@
                 </configuration>
             </plugin>
 
+            <!--Use Surefire to choose tests in Maven test phase -->
+            <plugin>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <configuration>
+                    <groups>UnitTest</groups>
+                    <!--Example to exclude tests-->
+                    <!--<excludedGroups>IntegrationTest</excludedGroups>-->
+                </configuration>
+            </plugin>
+
         </plugins>
     </build>
 
