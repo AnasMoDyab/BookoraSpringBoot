@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
 @Tag(name = "Zones", description = "Zones API")
@@ -38,7 +39,7 @@ public class ZoneController {
     @ResponseStatus(HttpStatus.OK)
     public ZoneListDTO getZoneListByFloor(@PathVariable Integer floor)
     {
-        return zoneService.getZonesByFloor(floor);
+        return (ZoneListDTO) zoneService.getZonesByFloor(floor).getZoneDTOList().stream().sorted().collect(Collectors.toList());
     }
 
     @GetMapping({"/zone/{id}"})
