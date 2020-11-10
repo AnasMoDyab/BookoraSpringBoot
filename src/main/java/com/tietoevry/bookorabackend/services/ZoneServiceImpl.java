@@ -7,9 +7,7 @@ import com.tietoevry.bookorabackend.model.Zone;
 import com.tietoevry.bookorabackend.repositories.BookingRepository;
 import com.tietoevry.bookorabackend.repositories.ZoneRepository;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestBody;
 
-import javax.validation.Valid;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -31,9 +29,11 @@ public class ZoneServiceImpl implements ZoneService {
     public MessageDTO ZoneSettings(ZoneSettingDTO zoneSettingDTO) {
         Zone zoneToChange = zoneRepository.findZoneById(zoneSettingDTO.getZoneId());
         if(zoneToChange != null){
+
             zoneToChange.setActivated(zoneSettingDTO.isActivated());
             zoneToChange.setCapacity(zoneSettingDTO.getCapacity());
             zoneToChange.setFloor(zoneSettingDTO.getFloor());
+            zoneRepository.save(zoneToChange );
             return new MessageDTO("Modified successfully");
         }
         return new MessageDTO("The operation falid");
@@ -102,10 +102,10 @@ public class ZoneServiceImpl implements ZoneService {
     }
 
     @Override
-    public List<FloorStatusPeriodeDTO> checkStatusOfAllFloorPeriode(FloorsPeriodeDTO floorsPeriodeDTO) {
+    public List<FloorStatusPeriodeDTO> checkStatusOfAllFloorPeriode(PeriodeDTO periodeDTO) {
 
-       LocalDate from = floorsPeriodeDTO.getFrom();
-       LocalDate to = floorsPeriodeDTO.getTo();
+       LocalDate from = periodeDTO.getFrom();
+       LocalDate to = periodeDTO.getTo();
 
      List<Booking> bookingBookingList = bookingRepository.findAllByDateLessThanEqualAndDateGreaterThanEqual(to,from);
      int floor1total = 0,floor2total=0,floor3total=0,floor4total=0,floor5total=0,floor6total=0,floor7total=0;
@@ -161,6 +161,17 @@ List<FloorStatusPeriodeDTO> floorStatusPeriodeDTOS = new ArrayList<>();
         floorStatusPeriodeDTOS.add(floorStatusPeriodeDTO6);
         floorStatusPeriodeDTOS.add(floorStatusPeriodeDTO7);
         return floorStatusPeriodeDTOS;
+    }
+
+    @Override
+    public TotalBookingInBuildingDTO CheckStatusOfTheBuildingOnPeriode(PeriodeDTO BuildingPeriodeDTO) {
+        LocalDate from = BuildingPeriodeDTO.getFrom();
+        LocalDate to = BuildingPeriodeDTO.getTo();
+        List<Booking> bookingBookingList = bookingRepository.findAllByDateLessThanEqualAndDateGreaterThanEqual(to,from);
+        Integer totalBooking = bookingBookingList.size();
+        Integer totalCapacity =zoneRepository.selectTotalsCapacities();
+        Integer procentUsed = (totalBooking*100)/totalCapacity;
+        return  new TotalBookingInBuildingDTO(procentUsed);
     }
 
 

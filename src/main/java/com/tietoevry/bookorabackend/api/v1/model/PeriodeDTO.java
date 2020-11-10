@@ -9,7 +9,7 @@ import java.time.LocalDate;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class FloorsPeriodeDTO {
+public class PeriodeDTO {
 
    private  LocalDate from ;
    private LocalDate to;
