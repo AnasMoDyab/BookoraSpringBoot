@@ -2,6 +2,7 @@ package com.tietoevry.bookorabackend.controllers;
 
 
 import com.tietoevry.bookorabackend.api.v1.model.*;
+import com.tietoevry.bookorabackend.model.Zone;
 import com.tietoevry.bookorabackend.services.ZoneService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.HttpStatus;
@@ -9,8 +10,10 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
 @Tag(name = "Zones", description = "Zones API")
@@ -39,7 +42,14 @@ public class ZoneController {
     @ResponseStatus(HttpStatus.OK)
     public ZoneListDTO getZoneListByFloor(@PathVariable Integer floor)
     {
-        return (ZoneListDTO) zoneService.getZonesByFloor(floor).getZoneDTOList().stream().sorted().collect(Collectors.toList());
+        ZoneListDTO zoneListDTO =zoneService.getZonesByFloor(floor);
+        Comparator<ZoneDTO> compareById = (ZoneDTO zone1, ZoneDTO zone2) ->
+                zone1.getId().compareTo( zone2.getId() );
+
+        Collections.sort(zoneListDTO.getZoneDTOList(), compareById);
+
+
+        return zoneService.getZonesByFloor(floor);
     }
 
     @GetMapping({"/zone/{id}"})
