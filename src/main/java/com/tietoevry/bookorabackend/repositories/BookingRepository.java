@@ -16,4 +16,5 @@ public interface BookingRepository extends JpaRepository<Booking,Long> {
     List<Booking> findAllByEmployeeAndDateGreaterThanEqual(Employee employee, LocalDate date);
     List<Booking> findAllByEmployeeAndDateBefore(Employee employee, LocalDate date);
     List<Booking> findAllByEmployeeAndDateGreaterThanEqualAndDateLessThanEqual(Employee employee, LocalDate from, LocalDate to);
+    List<Booking>  findAllByDateLessThanEqualAndDateGreaterThanEqual(LocalDate to, LocalDate from);
 }

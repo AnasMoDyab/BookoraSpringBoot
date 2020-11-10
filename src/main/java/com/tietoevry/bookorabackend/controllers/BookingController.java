@@ -59,6 +59,16 @@ public class BookingController {
         return bookingService.getAllBookingOfEmployeeInAPeriod(employeeBookingInAPeriodDTO);
     }
 
+    @PostMapping("/getAllBookingOfEmployeesInAPeriodAdmin")
+    @PreAuthorize("hasAnyAuthority('ROLE_ADMIN')")
+    @ResponseStatus(HttpStatus.OK)
+    public BookingListDTOAdmin getAllBookingInAPeriodAdmin(@RequestBody @Valid AdminBookingForAllDTO adminBookingForAllDTO) {
+        return bookingService.getAllBookingInAPeriodAdmin(adminBookingForAllDTO);
+
+
+    }
+
+
     @PostMapping("/deleteBooking")
     @Transactional
     @PreAuthorize("hasAnyAuthority('ROLE_ADMIN', 'ROLE_USER')")
