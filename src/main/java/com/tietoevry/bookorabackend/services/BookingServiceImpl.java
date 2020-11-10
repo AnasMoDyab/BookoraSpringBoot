@@ -32,7 +32,7 @@ public class BookingServiceImpl implements BookingService {
     }
 
     @Override
-    public MessageDTO bookOneZoneOfOneDay(BookingDTO bookingDTO) {
+    public BookingIdDTO bookOneZoneOfOneDay(BookingDTO bookingDTO) {
 
         Employee employee = employeeRepository.findById(bookingDTO.getEmployeeId()).orElseThrow(RuntimeException::new);
         Zone zone = zoneRepository.findById(bookingDTO.getZoneId()).orElseThrow(RuntimeException::new);
@@ -40,18 +40,34 @@ public class BookingServiceImpl implements BookingService {
 
         //check if the zone is full on that date
         if (zoneService.isFullOnADay(zone.getId(), date)) {
-            return new MessageDTO("The zone is full");
+            return new BookingIdDTO("The zone is full",null);
         }
         //check if employee already have booking on that day
         else if (bookingRepository.findAllByDateAndEmployee(date, employee).size() != 0) {
-            return new MessageDTO("You already have booking on that day");
+            return new BookingIdDTO("You already have booking on that day",null);
         } else {
             Booking booking = new Booking(date, employee, zone);
-            bookingRepository.save(booking);
-            return new MessageDTO("Booking success");
+            Booking savedBooking = bookingRepository.save(booking);
+            return new BookingIdDTO("Booking success", savedBooking.getId());
         }
 
     }
+
+    @Override
+    public MessageDTO deleteOneBookingForEmployee(Long bookingId) {
+      Integer bookingIdtoDelete =   bookingRepository.deleteBookingById(bookingId);
+        System.out.println(bookingIdtoDelete);
+      if(bookingIdtoDelete!=0) {
+          return new MessageDTO("success deleted");
+      }
+      else{
+          return new MessageDTO("failed deleted");
+      }
+
+    }
+
+
+
 
     @Override
     public BookingListDTO getAllBookingOfEmployee(EmployeeEmailDTO employeeEmailDTO) {
@@ -100,16 +116,35 @@ public class BookingServiceImpl implements BookingService {
     }
 
     @Override
-    public BookingListDTO getAllBookingOfEmployeeInAPeriod(EmployeeBookingInAPeriodDTO employeeBookingInAPeriodDTO) {
-        Employee employee = employeeRepository.findByEmail(employeeBookingInAPeriodDTO.getEmail()).orElseThrow(RuntimeException::new);
-        List<BookingDTO> bookingDTOList = new ArrayList<>();
+    public BookingListDTOAdmin getAllBookingInAPeriodAdmin(AdminBookingForAllDTO adminBookingForAllDTO) {
+        List<Booking> bookings = bookingRepository.
+                findAllByDateLessThanEqualAndDateGreaterThanEqual(adminBookingForAllDTO.getTo()
+                ,adminBookingForAllDTO.getFrom());
 
-        for (Booking booking : bookingRepository.findAllByEmployeeAndDateGreaterThanEqualAndDateLessThanEqual(employee, employeeBookingInAPeriodDTO.getFrom(), employeeBookingInAPeriodDTO.getTo())) {
-            BookingDTO bookingDTO = bookingMapper.bookingToBookingDTO(booking);
-            bookingDTOList.add(bookingDTO);
+
+        List<BookingofEmployeeDTO> bookingofEmployeeDTOs = new ArrayList<>();
+
+        for(Booking booking : bookings){
+            BookingofEmployeeDTO bookingofEmployeeDTO = bookingMapper.bookingToBookingofEmployeeDTO(booking);
+
+            bookingofEmployeeDTOs.add( bookingofEmployeeDTO);
         }
 
-        return new BookingListDTO(bookingDTOList);
+
+        return new BookingListDTOAdmin( bookingofEmployeeDTOs);
+    }
+
+    @Override
+    public BookingToshowDtoList getAllBookingOfEmployeeInAPeriod(EmployeeBookingInAPeriodDTO employeeBookingInAPeriodDTO) {
+        Employee employee = employeeRepository.findByEmail(employeeBookingInAPeriodDTO.getEmail()).orElseThrow(RuntimeException::new);
+        List<BookingToshowDTO> bookingDTOList = new ArrayList<>();
+
+        for (Booking booking : bookingRepository.findAllByEmployeeAndDateGreaterThanEqualAndDateLessThanEqual(employee, employeeBookingInAPeriodDTO.getFrom(), employeeBookingInAPeriodDTO.getTo())) {
+            BookingToshowDTO bookingToshowDTO = bookingMapper.bookingToBookingToshowDto(booking);
+            bookingDTOList.add(bookingToshowDTO);
+        }
+
+        return new BookingToshowDtoList(bookingDTOList);
     }
 
 }

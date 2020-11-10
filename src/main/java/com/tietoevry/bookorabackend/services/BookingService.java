@@ -4,7 +4,9 @@ import com.tietoevry.bookorabackend.api.v1.model.*;
 
 public interface BookingService {
 
-    MessageDTO bookOneZoneOfOneDay(BookingDTO bookingDTO);
+    BookingIdDTO bookOneZoneOfOneDay(BookingDTO bookingDTO);
+
+    MessageDTO deleteOneBookingForEmployee(Long bookingId);
 
     BookingListDTO getAllBookingOfEmployee(EmployeeEmailDTO employeeEmailDTO);
 
@@ -12,6 +14,9 @@ public interface BookingService {
 
     BookingListDTO getAllPastBookingOfEmployee(EmployeeEmailDTO employeeEmailDTO);
 
-    BookingListDTO getAllBookingOfEmployeeInAPeriod(EmployeeBookingInAPeriodDTO employeeBookingInAPeriodDTO);
+    BookingListDTOAdmin  getAllBookingInAPeriodAdmin(AdminBookingForAllDTO adminBookingForAllDTO);
+
+
+    BookingToshowDtoList  getAllBookingOfEmployeeInAPeriod(EmployeeBookingInAPeriodDTO employeeBookingInAPeriodDTO);
 
 }

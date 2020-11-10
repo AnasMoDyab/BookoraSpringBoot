@@ -5,6 +5,7 @@ import com.tietoevry.bookorabackend.services.BookingService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -26,7 +27,7 @@ public class BookingController {
     @PostMapping("/book")
     @PreAuthorize("hasAnyAuthority('ROLE_ADMIN', 'ROLE_USER')")
     @ResponseStatus(HttpStatus.CREATED)
-    public MessageDTO bookOneZoneOnOneDay(@RequestBody @Valid BookingDTO bookingDTO) {
+    public BookingIdDTO bookOneZoneOnOneDay(@RequestBody @Valid BookingDTO bookingDTO) {
         return bookingService.bookOneZoneOfOneDay(bookingDTO);
     }
 
@@ -54,8 +55,27 @@ public class BookingController {
     @PostMapping("/getAllBookingOfEmployeeInAPeriod")
     @PreAuthorize("hasAnyAuthority('ROLE_ADMIN', 'ROLE_USER')")
     @ResponseStatus(HttpStatus.OK)
-    public BookingListDTO getAllBookingOfEmployeeInAPeriod(@RequestBody @Valid EmployeeBookingInAPeriodDTO employeeBookingInAPeriodDTO) {
+    public BookingToshowDtoList getAllBookingOfEmployeeInAPeriod(@RequestBody @Valid EmployeeBookingInAPeriodDTO employeeBookingInAPeriodDTO) {
         return bookingService.getAllBookingOfEmployeeInAPeriod(employeeBookingInAPeriodDTO);
+    }
+
+    @PostMapping("/getAllBookingOfEmployeesInAPeriodAdmin")
+    @PreAuthorize("hasAnyAuthority('ROLE_ADMIN')")
+    @ResponseStatus(HttpStatus.OK)
+    public BookingListDTOAdmin getAllBookingInAPeriodAdmin(@RequestBody @Valid AdminBookingForAllDTO adminBookingForAllDTO) {
+        return bookingService.getAllBookingInAPeriodAdmin(adminBookingForAllDTO);
+
+
+    }
+
+
+    @PostMapping("/deleteBooking")
+    @Transactional
+    @PreAuthorize("hasAnyAuthority('ROLE_ADMIN', 'ROLE_USER')")
+    @ResponseStatus(HttpStatus.OK)
+    public MessageDTO deleteBokking(@RequestBody @Valid DeleteBookingByIdDTO deleteBookingByIdDTO) {
+        return bookingService.deleteOneBookingForEmployee(deleteBookingByIdDTO.getBookingId());
+
     }
 
 }

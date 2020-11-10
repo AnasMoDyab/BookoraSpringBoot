@@ -4,14 +4,14 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.time.LocalDate;
-
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class BookingDTO {
-    private LocalDate date;
-    private Long employeeId;
+public class ZoneSettingDTO {
+
+    private Integer floor;
     private Long zoneId;
+    private int capacity;
+    private boolean activated;
 
 }
