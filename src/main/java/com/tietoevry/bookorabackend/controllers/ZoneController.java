@@ -49,7 +49,7 @@ public class ZoneController {
         Collections.sort(zoneListDTO.getZoneDTOList(), compareById);
 
 
-        return zoneService.getZonesByFloor(floor);
+        return zoneListDTO;
     }
 
     @GetMapping({"/zone/{id}"})
