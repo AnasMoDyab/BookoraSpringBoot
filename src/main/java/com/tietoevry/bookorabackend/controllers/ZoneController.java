@@ -72,6 +72,14 @@ public class ZoneController {
         return zoneService.ZoneSettings(zoneSettingDTO);
     }
 
+    @PostMapping("/CheckStatusOfAllFloorPeriode")
+    @PreAuthorize("hasAnyAuthority('ROLE_ADMIN')")
+    @ResponseStatus(HttpStatus.OK)
+    public List<FloorStatusPeriodeDTO> CheckStatusOfAllFloorPeriode(@RequestBody @Valid FloorsPeriodeDTO floorsPeriodeDTO) {
+        return zoneService.checkStatusOfAllFloorPeriode(floorsPeriodeDTO);
+    }
+
+
 
 
 }
