@@ -194,7 +194,7 @@
                 </configuration>
             </plugin>
 
-            <!--Use Surefire to choose tests in Maven test phase -->
+            <!--Use Surefire to choose tests in Maven test phase, NB! Surefire pick up tests with name Test-->
             <plugin>
                 <artifactId>maven-surefire-plugin</artifactId>
                 <configuration>
@@ -202,6 +202,20 @@
                     <!--Example to exclude tests-->
                     <!--<excludedGroups>IntegrationTest</excludedGroups>-->
                 </configuration>
+            </plugin>
+
+            <!-- Use Failsafe ofr integration test, NB! Failsafe pick up test with name IT-->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-failsafe-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>integration-test</goal>
+                            <goal>verify</goal>
+                        </goals>
+                    </execution>
+                </executions>
             </plugin>
 
         </plugins>
