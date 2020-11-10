@@ -14,6 +14,8 @@ public interface BookingService {
 
     BookingListDTO getAllPastBookingOfEmployee(EmployeeEmailDTO employeeEmailDTO);
 
+    BookingListDTOAdmin  getAllBookingInAPeriodAdmin(AdminBookingForAllDTO adminBookingForAllDTO);
+
 
     BookingToshowDtoList  getAllBookingOfEmployeeInAPeriod(EmployeeBookingInAPeriodDTO employeeBookingInAPeriodDTO);
 

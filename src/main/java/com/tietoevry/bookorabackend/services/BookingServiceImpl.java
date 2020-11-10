@@ -116,6 +116,25 @@ public class BookingServiceImpl implements BookingService {
     }
 
     @Override
+    public BookingListDTOAdmin getAllBookingInAPeriodAdmin(AdminBookingForAllDTO adminBookingForAllDTO) {
+        List<Booking> bookings = bookingRepository.
+                findAllByDateLessThanEqualAndDateGreaterThanEqual(adminBookingForAllDTO.getTo()
+                ,adminBookingForAllDTO.getFrom());
+
+
+        List<BookingofEmployeeDTO> bookingofEmployeeDTOs = new ArrayList<>();
+
+        for(Booking booking : bookings){
+            BookingofEmployeeDTO bookingofEmployeeDTO = bookingMapper.bookingToBookingofEmployeeDTO(booking);
+
+            bookingofEmployeeDTOs.add( bookingofEmployeeDTO);
+        }
+
+
+        return new BookingListDTOAdmin( bookingofEmployeeDTOs);
+    }
+
+    @Override
     public BookingToshowDtoList getAllBookingOfEmployeeInAPeriod(EmployeeBookingInAPeriodDTO employeeBookingInAPeriodDTO) {
         Employee employee = employeeRepository.findByEmail(employeeBookingInAPeriodDTO.getEmail()).orElseThrow(RuntimeException::new);
         List<BookingToshowDTO> bookingDTOList = new ArrayList<>();
