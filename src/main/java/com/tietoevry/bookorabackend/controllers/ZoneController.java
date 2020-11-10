@@ -62,7 +62,14 @@ public class ZoneController {
     @ResponseStatus(HttpStatus.OK)
     public List<StatusOfAZoneOnADayDTO> checkStatusOfAllZoneInAFloor
             (@RequestBody @Valid FloorDateDTO floorDateDTO) {
-       return zoneService.checkStatusOfAllZoneInAFloor( floorDateDTO);
+        return zoneService.checkStatusOfAllZoneInAFloor( floorDateDTO);
+    }
+
+    @PostMapping("/ZoneSettings")
+    @PreAuthorize("hasAnyAuthority('ROLE_ADMIN')")
+    @ResponseStatus(HttpStatus.OK)
+    public MessageDTO ZoneSetings(@RequestBody @Valid ZoneSettingDTO zoneSettingDTO) {
+        return zoneService.ZoneSettings(zoneSettingDTO);
     }
 
 
