@@ -27,6 +27,18 @@ public class ZoneServiceImpl implements ZoneService {
     }
 
     @Override
+    public MessageDTO ZoneSettings(ZoneSettingDTO zoneSettingDTO) {
+        Zone zoneToChange = zoneRepository.findZoneById(zoneSettingDTO.getZoneId());
+        if(zoneToChange != null){
+            zoneToChange.setActivated(zoneSettingDTO.isActivated());
+            zoneToChange.setCapacity(zoneSettingDTO.getCapacity());
+            zoneToChange.setFloor(zoneSettingDTO.getFloor());
+            return new MessageDTO("Modified successfully");
+        }
+        return new MessageDTO("The operation falid");
+    }
+
+    @Override
     public ZoneListDTO getAllZones() {
         List<ZoneDTO> zoneListDTO = new ArrayList<>();
         for (Zone zone : zoneRepository.findAll()) {
@@ -93,6 +105,7 @@ public class ZoneServiceImpl implements ZoneService {
         Zone zone = zoneRepository.findById(id).orElseThrow(() -> new RuntimeException("zone id is not found"));
         return bookingRepository.findAllByDateAndZone(date, zone).size();
     }
+
 }
 
 
