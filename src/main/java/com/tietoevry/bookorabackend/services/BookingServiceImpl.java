@@ -40,11 +40,11 @@ public class BookingServiceImpl implements BookingService {
 
         //check if the zone is full on that date
         if (zoneService.isFullOnADay(zone.getId(), date)) {
-            return new BookingIdDTO("The zone is full",null);
+            return new BookingIdDTO("The zone is full", null);
         }
         //check if employee already have booking on that day
         else if (bookingRepository.findAllByDateAndEmployee(date, employee).size() != 0) {
-            return new BookingIdDTO("You already have booking on that day",null);
+            return new BookingIdDTO("You already have booking on that day", null);
         } else {
             Booking booking = new Booking(date, employee, zone);
             Booking savedBooking = bookingRepository.save(booking);
@@ -55,18 +55,14 @@ public class BookingServiceImpl implements BookingService {
 
     @Override
     public MessageDTO deleteOneBookingForEmployee(Long bookingId) {
-      Integer bookingIdtoDelete =   bookingRepository.deleteBookingById(bookingId);
-        System.out.println(bookingIdtoDelete);
-      if(bookingIdtoDelete!=0) {
-          return new MessageDTO("success deleted");
-      }
-      else{
-          return new MessageDTO("failed deleted");
-      }
+        Integer bookingIdToDelete = bookingRepository.deleteBookingById(bookingId);
+        if (bookingIdToDelete != 0) {
+            return new MessageDTO("success deleted");
+        } else {
+            return new MessageDTO("failed deleted");
+        }
 
     }
-
-
 
 
     @Override
@@ -122,16 +118,16 @@ public class BookingServiceImpl implements BookingService {
                 ,adminBookingForAllDTO.getFrom());
 
 
-        List<BookingofEmployeeDTO> bookingofEmployeeDTOs = new ArrayList<>();
+        List<BookingofEmployeeDTO> bookingOfEmployeeDTOs = new ArrayList<>();
 
         for(Booking booking : bookings){
             BookingofEmployeeDTO bookingofEmployeeDTO = bookingMapper.bookingToBookingofEmployeeDTO(booking);
 
-            bookingofEmployeeDTOs.add( bookingofEmployeeDTO);
+            bookingOfEmployeeDTOs.add( bookingofEmployeeDTO);
         }
 
 
-        return new BookingListDTOAdmin( bookingofEmployeeDTOs);
+        return new BookingListDTOAdmin( bookingOfEmployeeDTOs);
     }
 
     @Override
