@@ -45,7 +45,7 @@ public class EmployeeController {
     }
 
 
-    @GetMapping("/{email}")
+    @GetMapping("/email/{email}")
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     @ResponseStatus(HttpStatus.OK)
     public EmployeeDTO getEmployeeByEmail(@PathVariable String email) {
