@@ -31,8 +31,9 @@ import static org.mockito.Mockito.times;
 //NB! Failsafe pick up test with name IT
 
 @DisplayName("BookingServiceImp unit test")
-@ExtendWith(MockitoExtension.class)
 @Tag("Development")
+@Tag("UnitTest")
+@ExtendWith(MockitoExtension.class)
 class BookingServiceImplUnitTest {
 
     @Mock
@@ -56,7 +57,6 @@ class BookingServiceImplUnitTest {
     }
 
     @DisplayName("Delete booking with correct Id")
-    @Tag("UnitTest")
     @Test
     void deleteOneBookingForEmployeeWithCorrectIdTest() {
         //Given with correct id
@@ -71,7 +71,6 @@ class BookingServiceImplUnitTest {
     }
 
     @DisplayName("Delete booking with wrong Id")
-    @Tag("UnitTest")
     @Test
     void deleteOneBookingForEmployeeWithWrongIdTest() {
         //Given with wrong id
@@ -86,7 +85,6 @@ class BookingServiceImplUnitTest {
     }
 
     @DisplayName("Get all booking of employee")
-    @Tag("UnitTest")
     @Test
     void getAllBookingOfEmployee() {
         //Given
@@ -136,7 +134,6 @@ class BookingServiceImplUnitTest {
     }
 
     @DisplayName("Get all past booking of employee")
-    @Tag("UnitTest")
     @Test
     void getAllPastBookingOfEmployee() {
         //Given
@@ -160,7 +157,7 @@ class BookingServiceImplUnitTest {
         then(bookingRepository).should(times(1)).findAllByEmployeeAndDateBefore(any(Employee.class), any(LocalDate.class));
     }
 
-    @Tag("UnitTest")
+    @DisplayName("Get all past booking of employee in a period for admin")
     @Test
     void getAllBookingInAPeriodAdmin() {
         //Given
@@ -180,7 +177,6 @@ class BookingServiceImplUnitTest {
     }
 
     @DisplayName("Get all booking of employee in a period")
-    @Tag("UnitTest")
     @Test
     void getAllBookingOfEmployeeInAPeriod() {
         //Given
@@ -205,7 +201,6 @@ class BookingServiceImplUnitTest {
     }
 
     @DisplayName("Book a zone in a day")
-    @Tag("UnitTest")
     @Nested
     class BookingTest {
 
@@ -230,7 +225,6 @@ class BookingServiceImplUnitTest {
         }
 
         @DisplayName("Book a zone which is full")
-        @Tag("UnitTest")
         @Test
         void bookOneZoneOfOneDayWhichIsFullTest() {
             //Given
@@ -248,7 +242,6 @@ class BookingServiceImplUnitTest {
         }
 
         @DisplayName("Book a zone in a day which the employee already have booking")
-        @Tag("UnitTest")
         @Test
         void bookOneZoneOfOneDayWhichAlreadyHaveBookingTest() {
             //Given
@@ -269,7 +262,6 @@ class BookingServiceImplUnitTest {
         }
 
         @DisplayName("Book a zone in a day successfully")
-        @Tag("UnitTest")
         @Test
         void bookOneZoneOfOneDaySuccessfullyTest() {
             //Given
