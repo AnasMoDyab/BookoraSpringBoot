@@ -17,7 +17,9 @@ import java.util.List;
 import static org.hamcrest.core.Is.is;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
+import static org.mockito.BDDMockito.then;
 import static org.mockito.Mockito.reset;
+import static org.mockito.Mockito.times;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
@@ -65,6 +67,7 @@ class ZoneControllerTest {
                 .andExpect(jsonPath("$.zoneDTOList[0].zone", is("A")))
                 .andExpect(jsonPath("$.zoneDTOList[0].activated", is(true)))
                 .andExpect(jsonPath("$.zoneDTOList[0].capacity", is(10)));
+        then(zoneService).should(times(1)).getAllZones();
     }
 
     @Test
@@ -89,6 +92,7 @@ class ZoneControllerTest {
                 .andExpect(jsonPath("$.zoneDTOList[0].zone", is("A")))
                 .andExpect(jsonPath("$.zoneDTOList[0].activated", is(true)))
                 .andExpect(jsonPath("$.zoneDTOList[0].capacity", is(10)));
+        then(zoneService).should(times(1)).getZonesByFloor(any());
     }
 
     @DisplayName("Get zone by id")
@@ -107,6 +111,7 @@ class ZoneControllerTest {
                 .andExpect(jsonPath("$.zone", is("A")))
                 .andExpect(jsonPath("$.activated", is(true)))
                 .andExpect(jsonPath("$.capacity", is(10)));
+        then(zoneService).should(times(1)).getZoneById(any());
     }
 
     @Disabled
@@ -126,6 +131,7 @@ class ZoneControllerTest {
                 .andExpect(jsonPath("$.totalReservation", is(10)))
                 .andExpect(jsonPath("$.capacity", is(20)))
                 .andExpect(jsonPath("$.bookedPercentage", is(50)));
+        then(zoneService).should(times(1)).checkStatusOfAZoneOnADay(any());
     }
 
 
@@ -145,6 +151,7 @@ class ZoneControllerTest {
                 .andExpect(jsonPath("$[0].totalReservation", is(10)))
                 .andExpect(jsonPath("$[0].capacity", is(20)))
                 .andExpect(jsonPath("$[0].bookedPercentage", is(50)));
+        then(zoneService).should(times(1)).checkStatusOfAllZoneInAFloor(any());
     }
 
     @Test
@@ -160,6 +167,7 @@ class ZoneControllerTest {
         //then
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.message", is("test")));
+        then(zoneService).should(times(1)).ZoneSettings(any());
     }
 
     @Test
@@ -177,6 +185,7 @@ class ZoneControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$[0].floor", is(1)))
                 .andExpect(jsonPath("$[0].totalBooking", is(30)));
+        then(zoneService).should(times(1)).checkStatusOfAllFloorPeriode(any());
     }
 
     @Test
@@ -192,5 +201,6 @@ class ZoneControllerTest {
         //then
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.totalForAllFloor", is(10)));
+        then(zoneService).should(times(1)).CheckStatusOfTheBuildingOnPeriode(any());
     }
 }
