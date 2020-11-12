@@ -246,30 +246,37 @@ public class EmployeeServiceImp implements EmployeeService {
     }
 
     @Override
-    public EmployeeDTO saveEmployeeByDTO(EmployeeDTO employeeDTO) {
-        Employee employeeToSave = employeeMapper.employeeDTOtoEmployee((employeeDTO));
+    public MessageDTO UpdateEmployee(EmailDTO emailDTO) {
 
-        Role user = new Role(1L, RoleEnum.ROLE_USER);
-        Role admin = new Role(2L,RoleEnum.ROLE_ADMIN);
+        Employee employee = employeeRepository.findByEmailIgnoreCase(emailDTO.getEmail());
 
-        HashSet<Role> Roles = new HashSet<>();
 
-        for(String role : employeeDTO.getRole()){
+        if (employee != null) {
+            employee.setRoles(null);
 
-            if(role.equals("admin")){
-                Roles.add(admin);
+            Role user = new Role(1L, RoleEnum.ROLE_USER);
+            Role admin = new Role(2L, RoleEnum.ROLE_ADMIN);
+
+            HashSet<Role> Roles = new HashSet<>();
+
+            for (String role : emailDTO.getRole()) {
+
+                if (role.equals("admin")) {
+                    Roles.add(admin);
+                }
+
+                if (role.equals("user")) {
+                    Roles.add(user);
+                }
+
             }
+            employee.setRoles(Roles);
 
-            if(role.equals("user")){
-                Roles.add(user);
-            }
+            employeeRepository.save(employee);
 
+            return new MessageDTO("Updated succed");
         }
-        employeeToSave.setRoles(Roles);
-
-        employeeRepository.save(employeeToSave);
-
-        return saveAndReturnDTO(employeeToSave);
+        return new MessageDTO("Updated failed");
     }
 
     @Override

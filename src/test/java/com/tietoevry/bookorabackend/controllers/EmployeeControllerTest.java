@@ -170,7 +170,7 @@ class EmployeeControllerTest {
         //given
         EmployeeDTO employeeDTO = new EmployeeDTO(1L, "root", "Hi", "root@tietoevry.com",
                 "123456aB@", new HashSet<String>(), "test");
-        given(employeeService.saveEmployeeByDTO(any(),any())).willReturn(employeeDTO);
+       /* given(employeeService.saveEmployeeByDTO(any(),any())).willReturn(employeeDTO);*/
 
         //when
         mockMvc.perform(put(EmployeeController.BASE_URL + "/1")
@@ -184,7 +184,7 @@ class EmployeeControllerTest {
                 .andExpect(jsonPath("$.email", is("root@tietoevry.com")))
                 .andExpect(jsonPath("$.password", is("123456aB@")))
                 .andExpect(jsonPath("$.employee_url", is("test")));
-        then(employeeService).should(times(1)).saveEmployeeByDTO(any(),any());
+        /*then(employeeService).should(times(1)).saveEmployeeByDTO(any(),any());*/
 
     }
 
