@@ -246,9 +246,28 @@ public class EmployeeServiceImp implements EmployeeService {
     }
 
     @Override
-    public EmployeeDTO saveEmployeeByDTO(Long id, EmployeeDTO employeeDTO) {
+    public EmployeeDTO saveEmployeeByDTO(EmployeeDTO employeeDTO) {
         Employee employeeToSave = employeeMapper.employeeDTOtoEmployee((employeeDTO));
-        employeeToSave.setId(id);
+
+        Role user = new Role(1L, RoleEnum.ROLE_USER);
+        Role admin = new Role(2L,RoleEnum.ROLE_ADMIN);
+
+        HashSet<Role> Roles = new HashSet<>();
+
+        for(String role : employeeDTO.getRole()){
+
+            if(role.equals("admin")){
+                Roles.add(admin);
+            }
+
+            if(role.equals("user")){
+                Roles.add(user);
+            }
+
+        }
+        employeeToSave.setRoles(Roles);
+
+        employeeRepository.save(employeeToSave);
 
         return saveAndReturnDTO(employeeToSave);
     }

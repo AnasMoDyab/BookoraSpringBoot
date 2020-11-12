@@ -16,7 +16,7 @@ public interface EmployeeService {
 
     MessageDTO sendForgetPasswordCode(ForgetPasswordDTO forgetPasswordDTO);
 
-    EmployeeDTO saveEmployeeByDTO(Long id, EmployeeDTO employeeDTO);
+    EmployeeDTO saveEmployeeByDTO( EmployeeDTO employeeDTO);
     EmployeeDTO getEmployeeByEmail( String email);
 
     //EmployeeDTO patchEmployee(Long id, EmployeeDTO employeeDTO);

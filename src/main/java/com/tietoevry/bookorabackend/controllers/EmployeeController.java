@@ -70,11 +70,11 @@ public class EmployeeController {
     }
 
 
-    @PutMapping({"/{id}"})
+    @PostMapping("/updateEmployee")
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     @ResponseStatus(HttpStatus.OK)
-    public EmployeeDTO updateEmployee(@PathVariable Long id, @RequestBody EmployeeDTO employeeDTO) {
-        return employeeService.saveEmployeeByDTO(id, employeeDTO);
+    public EmployeeDTO updateEmployee( @RequestBody EmployeeDTO employeeDTO) {
+        return employeeService.saveEmployeeByDTO( employeeDTO);
     }
 
     @DeleteMapping({"/{id}"})
