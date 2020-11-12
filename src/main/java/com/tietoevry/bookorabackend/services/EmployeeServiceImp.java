@@ -84,6 +84,7 @@ public class EmployeeServiceImp implements EmployeeService {
                 .orElseThrow(RuntimeException::new);//TODO make exception handler
     }
 
+
     @Override
     public MessageDTO createNewEmployee(SignUpDTO signUpDTO) {
 
@@ -250,6 +251,27 @@ public class EmployeeServiceImp implements EmployeeService {
         employeeToSave.setId(id);
 
         return saveAndReturnDTO(employeeToSave);
+    }
+
+    @Override
+    public EmployeeDTO getEmployeeByEmail(String email) {
+        String domain = email.substring(email.indexOf("@") + 1);;
+        if(!domain.equals(validDomain))
+            return null;
+   Employee employee  =employeeRepository.findByEmailIgnoreCase(email);
+        System.out.println(employee.getEmail());
+   if(employee!=null){
+     EmployeeDTO employeeDTO=employeeMapper.employeeToEmployeeDTO(employee);
+     Set<String>roles = new HashSet<>();
+     for(Role role : employee.getRoles()){
+         roles.add(role.getName().toString());
+     }
+     employeeDTO.setRole(roles);
+     return employeeDTO;
+
+   }
+
+return null;
     }
 
     @Override

@@ -2,7 +2,6 @@ package com.tietoevry.bookorabackend.controllers;
 
 
 import com.tietoevry.bookorabackend.api.v1.model.*;
-import com.tietoevry.bookorabackend.model.Zone;
 import com.tietoevry.bookorabackend.services.ZoneService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.HttpStatus;
@@ -10,7 +9,6 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;

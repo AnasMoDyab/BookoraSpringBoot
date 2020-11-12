@@ -45,6 +45,18 @@ public class EmployeeController {
     }
 
 
+    @GetMapping("/getEmployee")
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
+    @ResponseStatus(HttpStatus.OK)
+    public EmployeeDTO getEmployeeByEmail(@RequestBody EmailDTO emailDTO) {
+
+        return employeeService.getEmployeeByEmail(emailDTO.getEmail());
+    }
+
+
+
+
+
     @PostMapping("/signup")
     @ResponseStatus(HttpStatus.CREATED)
     public MessageDTO createNewEmployee(@RequestBody @Valid SignUpDTO signUpDTO) {
@@ -52,7 +64,7 @@ public class EmployeeController {
     }
 
     @PostMapping("/signin")
-    @ResponseStatus(HttpStatus.OK)
+    @ResponseStatus(HttpStatus.OK) //todo Block user after attemping 3 times to login with wrong password(Brute-force attacks)
     public JwtDTO authenticateUser(@Valid @RequestBody LogInDTO logInDTO) {
         return employeeService.logIn(logInDTO);
     }

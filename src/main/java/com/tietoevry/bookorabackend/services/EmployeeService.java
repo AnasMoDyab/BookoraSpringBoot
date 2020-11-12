@@ -1,6 +1,7 @@
 package com.tietoevry.bookorabackend.services;
 
 import com.tietoevry.bookorabackend.api.v1.model.*;
+import org.springframework.web.bind.annotation.PathVariable;
 
 public interface EmployeeService {
     EmployeeListDTO getAllEmployees();
@@ -16,6 +17,7 @@ public interface EmployeeService {
     MessageDTO sendForgetPasswordCode(ForgetPasswordDTO forgetPasswordDTO);
 
     EmployeeDTO saveEmployeeByDTO(Long id, EmployeeDTO employeeDTO);
+    EmployeeDTO getEmployeeByEmail( String email);
 
     //EmployeeDTO patchEmployee(Long id, EmployeeDTO employeeDTO);
 
