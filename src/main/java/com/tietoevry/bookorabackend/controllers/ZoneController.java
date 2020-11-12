@@ -2,7 +2,6 @@ package com.tietoevry.bookorabackend.controllers;
 
 
 import com.tietoevry.bookorabackend.api.v1.model.*;
-import com.tietoevry.bookorabackend.model.Zone;
 import com.tietoevry.bookorabackend.services.ZoneService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.HttpStatus;
@@ -10,7 +9,6 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
@@ -79,21 +77,21 @@ public class ZoneController {
     @PostMapping("/ZoneSettings")
     @PreAuthorize("hasAnyAuthority('ROLE_ADMIN')")
     @ResponseStatus(HttpStatus.OK)
-    public MessageDTO ZoneSetings(@RequestBody @Valid ZoneSettingDTO zoneSettingDTO) {
+    public MessageDTO ZoneSettings(@RequestBody @Valid ZoneSettingDTO zoneSettingDTO) {
         return zoneService.ZoneSettings(zoneSettingDTO);
     }
 
     @PostMapping("/CheckStatusOfAllFloorPeriode")
     @PreAuthorize("hasAnyAuthority('ROLE_ADMIN')")
     @ResponseStatus(HttpStatus.OK)
-    public List<FloorStatusPeriodeDTO> CheckStatusOfAllFloorPeriode(@RequestBody @Valid PeriodeDTO periodeDTO) {
+    public List<FloorStatusPeriodeDTO> CheckStatusOfAllFloorPeriod(@RequestBody @Valid PeriodeDTO periodeDTO) {
         return zoneService.checkStatusOfAllFloorPeriode(periodeDTO);
     }
 
     @PostMapping("/CheckStatusOfBuildingOnPeriode")
     @PreAuthorize("hasAnyAuthority('ROLE_ADMIN')")
     @ResponseStatus(HttpStatus.OK)
-    public TotalBookingInBuildingDTO CheckStatusOfBuildingOnPeriode(@RequestBody @Valid PeriodeDTO periodeDTO) {
+    public TotalBookingInBuildingDTO CheckStatusOfBuildingOnPeriod(@RequestBody @Valid PeriodeDTO periodeDTO) {
         return zoneService.CheckStatusOfTheBuildingOnPeriode(periodeDTO);
     }
 
