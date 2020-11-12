@@ -73,7 +73,7 @@ public class EmployeeController {
     @PostMapping("/updateEmployee")
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     @ResponseStatus(HttpStatus.OK)
-    public EmployeeDTO updateEmployee( @RequestBody EmailDTO emailDTO) {
+    public MessageDTO UpdateEmployee( @RequestBody EmailDTO emailDTO) {
         return employeeService.UpdateEmployee(emailDTO);
     }
 
