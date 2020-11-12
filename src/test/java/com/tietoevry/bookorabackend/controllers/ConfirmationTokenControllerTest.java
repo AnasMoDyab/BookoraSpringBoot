@@ -19,8 +19,9 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
 
 @DisplayName("ConfirmationTokenController unit test")
-@ExtendWith(MockitoExtension.class)
 @Tag("development")
+@Tag("UnitTest")
+@ExtendWith(MockitoExtension.class)
 class ConfirmationTokenControllerTest {
 
     @Mock
@@ -41,7 +42,6 @@ class ConfirmationTokenControllerTest {
     }
 
     @DisplayName("Test confirm account with MockMvc")
-    @Tag("UnitTest")
     @Test
     void confirmAccountMvcTest() throws Exception {
         mockMvc.perform(get("/confirm-account").param("token", "abc"))
