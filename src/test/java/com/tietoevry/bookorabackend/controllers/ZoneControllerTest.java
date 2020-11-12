@@ -37,8 +37,6 @@ class ZoneControllerTest {
 
     MockMvc mockMvc;
 
-    ZoneListDTO zoneListDTO;
-
     @BeforeEach
     void setUp() {
         mockMvc = MockMvcBuilders.standaloneSetup(zoneController).build();
@@ -53,7 +51,7 @@ class ZoneControllerTest {
     @Test
     void getZoneList() throws Exception {
         //given
-        zoneListDTO = new ZoneListDTO(new ArrayList<>());
+        ZoneListDTO zoneListDTO = new ZoneListDTO(new ArrayList<>());
         ZoneDTO zoneDTO = new ZoneDTO(1l, 1, 'A', true, 10);
         zoneListDTO.getZoneDTOList().add(zoneDTO);
         given(zoneService.getAllZones()).willReturn(zoneListDTO);
