@@ -101,14 +101,14 @@ public class ZoneServiceImpl implements ZoneService {
     }
 
     @Override
-    public List<FloorStatusPeriodeDTO> checkStatusOfAllFloorPeriod(PeriodeDTO periodeDTO) {
+    public List<FloorStatusPeriodDTO> checkStatusOfAllFloorPeriod(PeriodeDTO periodeDTO) {
 
         LocalDate from = periodeDTO.getFrom();
         LocalDate to = periodeDTO.getTo();
 
         List<Booking> bookingBookingList = bookingRepository.findAllByDateLessThanEqualAndDateGreaterThanEqual(to, from);
         int floor1total = 0, floor2total = 0, floor3total = 0, floor4total = 0, floor5total = 0, floor6total = 0, floor7total = 0;
-        List<FloorStatusPeriodeDTO> floorStatusPeriodeDTOS = new ArrayList<>();
+        List<FloorStatusPeriodDTO> floorStatusPeriodDTOS = new ArrayList<>();
 
         for (Booking booking : bookingBookingList) {
 
@@ -141,21 +141,21 @@ public class ZoneServiceImpl implements ZoneService {
             }
         }
 
-        FloorStatusPeriodeDTO floorStatusPeriodeDTO1 = new FloorStatusPeriodeDTO(1, floor1total);
-        FloorStatusPeriodeDTO floorStatusPeriodeDTO2 = new FloorStatusPeriodeDTO(2, floor2total);
-        FloorStatusPeriodeDTO floorStatusPeriodeDTO3 = new FloorStatusPeriodeDTO(3, floor3total);
-        FloorStatusPeriodeDTO floorStatusPeriodeDTO4 = new FloorStatusPeriodeDTO(4, floor4total);
-        FloorStatusPeriodeDTO floorStatusPeriodeDTO5 = new FloorStatusPeriodeDTO(5, floor5total);
-        FloorStatusPeriodeDTO floorStatusPeriodeDTO6 = new FloorStatusPeriodeDTO(6, floor6total);
-        FloorStatusPeriodeDTO floorStatusPeriodeDTO7 = new FloorStatusPeriodeDTO(7, floor7total);
-        floorStatusPeriodeDTOS.add(floorStatusPeriodeDTO1);
-        floorStatusPeriodeDTOS.add(floorStatusPeriodeDTO2);
-        floorStatusPeriodeDTOS.add(floorStatusPeriodeDTO3);
-        floorStatusPeriodeDTOS.add(floorStatusPeriodeDTO4);
-        floorStatusPeriodeDTOS.add(floorStatusPeriodeDTO5);
-        floorStatusPeriodeDTOS.add(floorStatusPeriodeDTO6);
-        floorStatusPeriodeDTOS.add(floorStatusPeriodeDTO7);
-        return floorStatusPeriodeDTOS;
+        FloorStatusPeriodDTO floorStatusPeriodDTO1 = new FloorStatusPeriodDTO(1, floor1total);
+        FloorStatusPeriodDTO floorStatusPeriodDTO2 = new FloorStatusPeriodDTO(2, floor2total);
+        FloorStatusPeriodDTO floorStatusPeriodDTO3 = new FloorStatusPeriodDTO(3, floor3total);
+        FloorStatusPeriodDTO floorStatusPeriodDTO4 = new FloorStatusPeriodDTO(4, floor4total);
+        FloorStatusPeriodDTO floorStatusPeriodDTO5 = new FloorStatusPeriodDTO(5, floor5total);
+        FloorStatusPeriodDTO floorStatusPeriodDTO6 = new FloorStatusPeriodDTO(6, floor6total);
+        FloorStatusPeriodDTO floorStatusPeriodDTO7 = new FloorStatusPeriodDTO(7, floor7total);
+        floorStatusPeriodDTOS.add(floorStatusPeriodDTO1);
+        floorStatusPeriodDTOS.add(floorStatusPeriodDTO2);
+        floorStatusPeriodDTOS.add(floorStatusPeriodDTO3);
+        floorStatusPeriodDTOS.add(floorStatusPeriodDTO4);
+        floorStatusPeriodDTOS.add(floorStatusPeriodDTO5);
+        floorStatusPeriodDTOS.add(floorStatusPeriodDTO6);
+        floorStatusPeriodDTOS.add(floorStatusPeriodDTO7);
+        return floorStatusPeriodDTOS;
     }
 
     @Override

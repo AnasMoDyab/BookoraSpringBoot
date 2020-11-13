@@ -84,7 +84,7 @@ public class ZoneController {
     @PostMapping("/CheckStatusOfAllFloorPeriode")
     @PreAuthorize("hasAnyAuthority('ROLE_ADMIN')")
     @ResponseStatus(HttpStatus.OK)
-    public List<FloorStatusPeriodeDTO> CheckStatusOfAllFloorPeriod(@RequestBody @Valid PeriodeDTO periodeDTO) {
+    public List<FloorStatusPeriodDTO> CheckStatusOfAllFloorPeriod(@RequestBody @Valid PeriodeDTO periodeDTO) {
         return zoneService.checkStatusOfAllFloorPeriod(periodeDTO);
     }
 

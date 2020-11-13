@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class FloorStatusPeriodeDTO {
+public class FloorStatusPeriodDTO {
     private Integer floor;
     private Integer TotalBooking;
 }
