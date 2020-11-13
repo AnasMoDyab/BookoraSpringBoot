@@ -21,6 +21,6 @@ public interface ZoneService {
 
 
     List<StatusOfAZoneOnADayDTO> checkStatusOfAllZoneInAFloor( FloorDateDTO floorDateDTO);
-    List<FloorStatusPeriodeDTO>  checkStatusOfAllFloorPeriode(PeriodeDTO periodeDTO);
-    TotalBookingInBuildingDTO CheckStatusOfTheBuildingOnPeriode( PeriodeDTO floorsPeriodeDTO);
+    List<FloorStatusPeriodeDTO> checkStatusOfAllFloorPeriod(PeriodeDTO periodeDTO);
+    TotalBookingInBuildingDTO CheckStatusOfTheBuildingOnPeriod(PeriodeDTO floorsPeriodeDTO);
 }

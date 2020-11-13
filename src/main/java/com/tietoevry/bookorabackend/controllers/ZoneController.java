@@ -85,14 +85,14 @@ public class ZoneController {
     @PreAuthorize("hasAnyAuthority('ROLE_ADMIN')")
     @ResponseStatus(HttpStatus.OK)
     public List<FloorStatusPeriodeDTO> CheckStatusOfAllFloorPeriod(@RequestBody @Valid PeriodeDTO periodeDTO) {
-        return zoneService.checkStatusOfAllFloorPeriode(periodeDTO);
+        return zoneService.checkStatusOfAllFloorPeriod(periodeDTO);
     }
 
     @PostMapping("/CheckStatusOfBuildingOnPeriode")
     @PreAuthorize("hasAnyAuthority('ROLE_ADMIN')")
     @ResponseStatus(HttpStatus.OK)
     public TotalBookingInBuildingDTO CheckStatusOfBuildingOnPeriod(@RequestBody @Valid PeriodeDTO periodeDTO) {
-        return zoneService.CheckStatusOfTheBuildingOnPeriode(periodeDTO);
+        return zoneService.CheckStatusOfTheBuildingOnPeriod(periodeDTO);
     }
 
 

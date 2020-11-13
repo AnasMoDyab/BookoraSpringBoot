@@ -28,12 +28,12 @@ public class ZoneServiceImpl implements ZoneService {
     @Override
     public MessageDTO zoneSettings(ZoneSettingDTO zoneSettingDTO) {
         Zone zoneToChange = zoneRepository.findZoneById(zoneSettingDTO.getZoneId());
-        if(zoneToChange != null){
+        if (zoneToChange != null) {
 
             zoneToChange.setActivated(zoneSettingDTO.isActivated());
             zoneToChange.setCapacity(zoneSettingDTO.getCapacity());
             zoneToChange.setFloor(zoneSettingDTO.getFloor());
-            zoneRepository.save(zoneToChange );
+            zoneRepository.save(zoneToChange);
             return new MessageDTO("Modified successfully");
         }
         return new MessageDTO("The operation failed");
@@ -90,69 +90,64 @@ public class ZoneServiceImpl implements ZoneService {
         ZoneListDTO zoneListDTO = getZonesByFloor(floorDateDTO.getFloorId());
         List<StatusOfAZoneOnADayDTO> statusOfAZoneOnADayDTOList = new ArrayList<>();
 
-        for(ZoneDTO zoneDTO : zoneListDTO.getZoneDTOList()) {
+        for (ZoneDTO zoneDTO : zoneListDTO.getZoneDTOList()) {
             int total = getTotalBookingOfADayInAZone(zoneDTO.getId(), floorDateDTO.getDate());
             int capacity = zoneDTO.getCapacity();
             statusOfAZoneOnADayDTOList.add(new StatusOfAZoneOnADayDTO(total, capacity));
         }
 
 
-
-        return  statusOfAZoneOnADayDTOList;
+        return statusOfAZoneOnADayDTOList;
     }
 
     @Override
-    public List<FloorStatusPeriodeDTO> checkStatusOfAllFloorPeriode(PeriodeDTO periodeDTO) {
+    public List<FloorStatusPeriodeDTO> checkStatusOfAllFloorPeriod(PeriodeDTO periodeDTO) {
 
-       LocalDate from = periodeDTO.getFrom();
-       LocalDate to = periodeDTO.getTo();
+        LocalDate from = periodeDTO.getFrom();
+        LocalDate to = periodeDTO.getTo();
 
-     List<Booking> bookingBookingList = bookingRepository.findAllByDateLessThanEqualAndDateGreaterThanEqual(to,from);
-     int floor1total = 0,floor2total=0,floor3total=0,floor4total=0,floor5total=0,floor6total=0,floor7total=0;
-List<FloorStatusPeriodeDTO> floorStatusPeriodeDTOS = new ArrayList<>();
+        List<Booking> bookingBookingList = bookingRepository.findAllByDateLessThanEqualAndDateGreaterThanEqual(to, from);
+        int floor1total = 0, floor2total = 0, floor3total = 0, floor4total = 0, floor5total = 0, floor6total = 0, floor7total = 0;
+        List<FloorStatusPeriodeDTO> floorStatusPeriodeDTOS = new ArrayList<>();
 
-        for(Booking booking : bookingBookingList){
+        for (Booking booking : bookingBookingList) {
 
-         Integer floor = booking.getZone().getFloor();
+            Integer floor = booking.getZone().getFloor();
 
-         switch (floor){
+            switch (floor) {
 
-             case 1 :
-                 floor1total++;
+                case 1:
+                    floor1total++;
 
-                 break;
-             case 2 :
-                 floor2total++;
-                break;
-             case 3 :
-                 floor3total++;
-                 break;
-             case 4 :
-                 floor4total++;
-                 break;
-             case 5 :
-                 floor5total++;
-                 break;
-             case 6 :
-                 floor6total++;
-                 break;
-             case 7 :
-                 floor7total++;
-                 break;
+                    break;
+                case 2:
+                    floor2total++;
+                    break;
+                case 3:
+                    floor3total++;
+                    break;
+                case 4:
+                    floor4total++;
+                    break;
+                case 5:
+                    floor5total++;
+                    break;
+                case 6:
+                    floor6total++;
+                    break;
+                case 7:
+                    floor7total++;
+                    break;
+            }
+        }
 
-
-         }
-
-
-     }
-
-        FloorStatusPeriodeDTO   floorStatusPeriodeDTO1 = new FloorStatusPeriodeDTO(1,floor1total);
-        FloorStatusPeriodeDTO   floorStatusPeriodeDTO2 = new FloorStatusPeriodeDTO(2,floor2total);
-        FloorStatusPeriodeDTO   floorStatusPeriodeDTO3 = new FloorStatusPeriodeDTO(3,floor3total);
-        FloorStatusPeriodeDTO   floorStatusPeriodeDTO4 = new FloorStatusPeriodeDTO(4,floor4total);
-        FloorStatusPeriodeDTO   floorStatusPeriodeDTO5 = new FloorStatusPeriodeDTO(5,floor5total);
-        FloorStatusPeriodeDTO   floorStatusPeriodeDTO6 = new FloorStatusPeriodeDTO(6,floor6total);
-        FloorStatusPeriodeDTO   floorStatusPeriodeDTO7 = new FloorStatusPeriodeDTO(7,floor7total);
+        FloorStatusPeriodeDTO floorStatusPeriodeDTO1 = new FloorStatusPeriodeDTO(1, floor1total);
+        FloorStatusPeriodeDTO floorStatusPeriodeDTO2 = new FloorStatusPeriodeDTO(2, floor2total);
+        FloorStatusPeriodeDTO floorStatusPeriodeDTO3 = new FloorStatusPeriodeDTO(3, floor3total);
+        FloorStatusPeriodeDTO floorStatusPeriodeDTO4 = new FloorStatusPeriodeDTO(4, floor4total);
+        FloorStatusPeriodeDTO floorStatusPeriodeDTO5 = new FloorStatusPeriodeDTO(5, floor5total);
+        FloorStatusPeriodeDTO floorStatusPeriodeDTO6 = new FloorStatusPeriodeDTO(6, floor6total);
+        FloorStatusPeriodeDTO floorStatusPeriodeDTO7 = new FloorStatusPeriodeDTO(7, floor7total);
         floorStatusPeriodeDTOS.add(floorStatusPeriodeDTO1);
         floorStatusPeriodeDTOS.add(floorStatusPeriodeDTO2);
         floorStatusPeriodeDTOS.add(floorStatusPeriodeDTO3);
@@ -164,14 +159,14 @@ List<FloorStatusPeriodeDTO> floorStatusPeriodeDTOS = new ArrayList<>();
     }
 
     @Override
-    public TotalBookingInBuildingDTO CheckStatusOfTheBuildingOnPeriode(PeriodeDTO BuildingPeriodeDTO) {
+    public TotalBookingInBuildingDTO CheckStatusOfTheBuildingOnPeriod(PeriodeDTO BuildingPeriodeDTO) {
         LocalDate from = BuildingPeriodeDTO.getFrom();
         LocalDate to = BuildingPeriodeDTO.getTo();
-        List<Booking> bookingBookingList = bookingRepository.findAllByDateLessThanEqualAndDateGreaterThanEqual(to,from);
+        List<Booking> bookingBookingList = bookingRepository.findAllByDateLessThanEqualAndDateGreaterThanEqual(to, from);
         Integer totalBooking = bookingBookingList.size();
-        Integer totalCapacity =zoneRepository.selectTotalsCapacities();
-        Integer procentUsed = (totalBooking*100)/totalCapacity;
-        return  new TotalBookingInBuildingDTO(procentUsed);
+        Integer totalCapacity = zoneRepository.selectTotalsCapacities();
+        Integer procentUsed = (totalBooking * 100) / totalCapacity;
+        return new TotalBookingInBuildingDTO(procentUsed);
     }
 
 
