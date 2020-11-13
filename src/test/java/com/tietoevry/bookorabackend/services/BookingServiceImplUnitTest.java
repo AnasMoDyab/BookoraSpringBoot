@@ -24,6 +24,7 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.BDDMockito.then;
+import static org.mockito.Mockito.reset;
 import static org.mockito.Mockito.times;
 
 
@@ -47,13 +48,16 @@ class BookingServiceImplUnitTest {
     @Mock
     BookingMapper bookingMapper;
 
-
     @InjectMocks
     BookingServiceImpl bookingService;
 
-    @BeforeEach
-    void setUp() {
-
+    @AfterEach
+    void tearDown() {
+        reset(bookingRepository);
+        reset(zoneRepository);
+        reset(employeeRepository);
+        reset(zoneService);
+        reset(bookingMapper);
     }
 
     @DisplayName("Delete booking with correct Id")
