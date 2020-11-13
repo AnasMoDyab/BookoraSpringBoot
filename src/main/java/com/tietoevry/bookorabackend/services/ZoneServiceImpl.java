@@ -96,7 +96,6 @@ public class ZoneServiceImpl implements ZoneService {
             statusOfAZoneOnADayDTOList.add(new StatusOfAZoneOnADayDTO(total, capacity));
         }
 
-
         return statusOfAZoneOnADayDTOList;
     }
 
@@ -118,7 +117,6 @@ public class ZoneServiceImpl implements ZoneService {
 
                 case 1:
                     floor1total++;
-
                     break;
                 case 2:
                     floor2total++;
@@ -169,12 +167,9 @@ public class ZoneServiceImpl implements ZoneService {
         return new TotalBookingInBuildingDTO(percentUsed);
     }
 
-
     public int getTotalBookingOfADayInAZone(Long id, LocalDate date) {
         Zone zone = zoneRepository.findById(id).orElseThrow(() -> new RuntimeException("zone id is not found"));
         return bookingRepository.findAllByDateAndZone(date, zone).size();
     }
 
 }
-
-
