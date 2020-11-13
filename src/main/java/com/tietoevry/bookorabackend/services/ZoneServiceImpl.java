@@ -36,7 +36,7 @@ public class ZoneServiceImpl implements ZoneService {
             zoneRepository.save(zoneToChange );
             return new MessageDTO("Modified successfully");
         }
-        return new MessageDTO("The operation falid");
+        return new MessageDTO("The operation failed");
     }
 
     @Override
