@@ -159,7 +159,7 @@ class ZoneControllerTest {
     void zoneSettings() throws Exception {
         //given
         MessageDTO messageDTO = new MessageDTO("test");
-        given(zoneService.ZoneSettings(any())).willReturn(messageDTO);
+        given(zoneService.zoneSettings(any())).willReturn(messageDTO);
 
         //when
         mockMvc.perform(post(ZoneController.BASE_URL + "/ZoneSettings")
@@ -168,15 +168,15 @@ class ZoneControllerTest {
         //then
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.message", is("test")));
-        then(zoneService).should(times(1)).ZoneSettings(any());
+        then(zoneService).should(times(1)).zoneSettings(any());
     }
 
     @Test
     void checkStatusOfAllFloorPeriod() throws Exception {
         //given
-        List<FloorStatusPeriodeDTO> list = new ArrayList<>();
-        list.add(new FloorStatusPeriodeDTO(1, 30));
-        given(zoneService.checkStatusOfAllFloorPeriode(any())).willReturn(list);
+        List<FloorStatusPeriodDTO> list = new ArrayList<>();
+        list.add(new FloorStatusPeriodDTO(1, 30));
+        given(zoneService.checkStatusOfAllFloorPeriod(any())).willReturn(list);
 
         //when
         mockMvc.perform(post(ZoneController.BASE_URL + "/CheckStatusOfAllFloorPeriode")
@@ -186,14 +186,14 @@ class ZoneControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$[0].floor", is(1)))
                 .andExpect(jsonPath("$[0].totalBooking", is(30)));
-        then(zoneService).should(times(1)).checkStatusOfAllFloorPeriode(any());
+        then(zoneService).should(times(1)).checkStatusOfAllFloorPeriod(any());
     }
 
     @Test
     void checkStatusOfBuildingOnPeriod() throws Exception {
         //given
         TotalBookingInBuildingDTO totalBookingInBuildingDTO = new TotalBookingInBuildingDTO(10);
-        given(zoneService.CheckStatusOfTheBuildingOnPeriode(any())).willReturn(totalBookingInBuildingDTO);
+        given(zoneService.CheckStatusOfTheBuildingOnPeriod(any())).willReturn(totalBookingInBuildingDTO);
 
         //when
         mockMvc.perform(post(ZoneController.BASE_URL + "/CheckStatusOfBuildingOnPeriode")
@@ -202,6 +202,6 @@ class ZoneControllerTest {
         //then
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.totalForAllFloor", is(10)));
-        then(zoneService).should(times(1)).CheckStatusOfTheBuildingOnPeriode(any());
+        then(zoneService).should(times(1)).CheckStatusOfTheBuildingOnPeriod(any());
     }
 }
