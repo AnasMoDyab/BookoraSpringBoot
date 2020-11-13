@@ -113,9 +113,7 @@ class EmployeeControllerTest {
         given(employeeService.getEmployeeByEmail(any())).willReturn(employeeDTO);
 
         //when
-        mockMvc.perform(get(EmployeeController.BASE_URL+"/getEmployee")
-                    .contentType(MediaType.APPLICATION_JSON)
-                    .content("{\"email\":\"root@tietoevry.com\"}"))
+        mockMvc.perform(get(EmployeeController.BASE_URL+"/email/{email}", "test" ))
                 //then
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.id", is(1)))
@@ -125,6 +123,7 @@ class EmployeeControllerTest {
                 .andExpect(jsonPath("$.password", is("123456aB@")))
                 .andExpect(jsonPath("$.employee_url", is("test")));
         then(employeeService).should(times(1)).getEmployeeByEmail(any());
+
 
     }
 
@@ -168,23 +167,16 @@ class EmployeeControllerTest {
     @Test
     void updateEmployee() throws Exception {
         //given
-        EmployeeDTO employeeDTO = new EmployeeDTO(1L, "root", "Hi", "root@tietoevry.com",
-                "123456aB@", new HashSet<String>(), "test");
-       /* given(employeeService.saveEmployeeByDTO(any(),any())).willReturn(employeeDTO);*/
+       given(employeeService.UpdateEmployee(any())).willReturn(new MessageDTO("test"));
 
         //when
-        mockMvc.perform(put(EmployeeController.BASE_URL + "/1")
+        mockMvc.perform(post(EmployeeController.BASE_URL + "/updateEmployee")
                 .contentType(MediaType.APPLICATION_JSON)
-                .content("{\"lastName\":\"root\",\"firstName\":\"Hi\",\"email\":\"root@tietoevry.com\",\"password\":\"123456aB@\",\"roles\":[\"user\"]}"))
+                .content("{\"email\":\"root@tietoevry.com\",\"roles\":[\"user\"]}"))
                 //then
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.id", is(1)))
-                .andExpect(jsonPath("$.firstName", is("root")))
-                .andExpect(jsonPath("$.lastName", is("Hi")))
-                .andExpect(jsonPath("$.email", is("root@tietoevry.com")))
-                .andExpect(jsonPath("$.password", is("123456aB@")))
-                .andExpect(jsonPath("$.employee_url", is("test")));
-        /*then(employeeService).should(times(1)).saveEmployeeByDTO(any(),any());*/
+                .andExpect(jsonPath("$.message", is("test")));
+        then(employeeService).should(times(1)).UpdateEmployee(any());
 
     }
 
