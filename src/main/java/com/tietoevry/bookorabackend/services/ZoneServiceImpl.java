@@ -159,14 +159,14 @@ public class ZoneServiceImpl implements ZoneService {
     }
 
     @Override
-    public TotalBookingInBuildingDTO CheckStatusOfTheBuildingOnPeriod(PeriodeDTO BuildingPeriodeDTO) {
-        LocalDate from = BuildingPeriodeDTO.getFrom();
-        LocalDate to = BuildingPeriodeDTO.getTo();
+    public TotalBookingInBuildingDTO CheckStatusOfTheBuildingOnPeriod(PeriodeDTO buildingPeriodDTO) {
+        LocalDate from = buildingPeriodDTO.getFrom();
+        LocalDate to = buildingPeriodDTO.getTo();
         List<Booking> bookingBookingList = bookingRepository.findAllByDateLessThanEqualAndDateGreaterThanEqual(to, from);
         Integer totalBooking = bookingBookingList.size();
         Integer totalCapacity = zoneRepository.selectTotalsCapacities();
-        Integer procentUsed = (totalBooking * 100) / totalCapacity;
-        return new TotalBookingInBuildingDTO(procentUsed);
+        Integer percentUsed = (totalBooking * 100) / totalCapacity;
+        return new TotalBookingInBuildingDTO(percentUsed);
     }
 
 
