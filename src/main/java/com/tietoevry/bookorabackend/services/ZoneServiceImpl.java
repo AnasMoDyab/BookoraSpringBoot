@@ -26,7 +26,7 @@ public class ZoneServiceImpl implements ZoneService {
     }
 
     @Override
-    public MessageDTO ZoneSettings(ZoneSettingDTO zoneSettingDTO) {
+    public MessageDTO zoneSettings(ZoneSettingDTO zoneSettingDTO) {
         Zone zoneToChange = zoneRepository.findZoneById(zoneSettingDTO.getZoneId());
         if(zoneToChange != null){
 
