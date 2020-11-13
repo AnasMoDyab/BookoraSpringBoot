@@ -8,6 +8,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.http.MediaType;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
@@ -50,6 +51,7 @@ class ZoneControllerTest {
     }
 
     @DisplayName("Get zone list")
+    @WithMockUser(username="admin",roles={"USER","ADMIN"})
     @Test
     void getZoneList() throws Exception {
         //given
@@ -114,7 +116,6 @@ class ZoneControllerTest {
         then(zoneService).should(times(1)).getZoneById(any());
     }
 
-    @Disabled
     @DisplayName("Check status of a zone on a day")
     @Test
     void checkStatusOfAZoneOnADay() throws Exception {
