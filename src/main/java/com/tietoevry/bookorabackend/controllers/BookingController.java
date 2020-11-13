@@ -73,7 +73,7 @@ public class BookingController {
     @Transactional
     @PreAuthorize("hasAnyAuthority('ROLE_ADMIN', 'ROLE_USER')")
     @ResponseStatus(HttpStatus.OK)
-    public MessageDTO deleteBokking(@RequestBody @Valid DeleteBookingByIdDTO deleteBookingByIdDTO) {
+    public MessageDTO deleteBooking(@RequestBody @Valid DeleteBookingByIdDTO deleteBookingByIdDTO) {
         return bookingService.deleteOneBookingForEmployee(deleteBookingByIdDTO.getBookingId());
 
     }
