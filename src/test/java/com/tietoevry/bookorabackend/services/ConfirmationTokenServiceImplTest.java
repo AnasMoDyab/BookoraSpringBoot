@@ -65,7 +65,8 @@ class ConfirmationTokenServiceImplTest {
     @Test
     void checkExpiredToken() {
         //given
-        confirmationToken = new ConfirmationToken(null,null,null,null, Timestamp.valueOf("2020-11-11 11:11:11"));
+        confirmationToken = new ConfirmationToken(null, null, null, null,
+                Timestamp.valueOf("2020-11-11 11:11:11"));
         given(confirmationTokenRepository.findByConfirmationToken(any())).willReturn(confirmationToken);
 
         //when
@@ -80,9 +81,11 @@ class ConfirmationTokenServiceImplTest {
     @Test
     void checkValidToken() {
         //given
-        confirmationToken = new ConfirmationToken(null,null,null,null, Timestamp.valueOf("2022-11-11 11:11:11"));
         Employee employee = new Employee();
         employee.setEnabled(false);
+        confirmationToken = new ConfirmationToken(null, null, null, employee,
+                Timestamp.valueOf("2022-11-11 11:11:11"));
+
         given(confirmationTokenRepository.findByConfirmationToken(any())).willReturn(confirmationToken);
         given(employeeRepository.findByEmailIgnoreCase(any())).willReturn(employee);
 
@@ -91,6 +94,7 @@ class ConfirmationTokenServiceImplTest {
 
         //then
         assertThat(message).isEqualTo("confirm.html");
+        assertThat(employee.isEnabled()).isEqualTo(true);
         then(confirmationTokenRepository).should(times(1)).findByConfirmationToken(any());
         then(employeeRepository).should(times(1)).findByEmailIgnoreCase(any());
         then(employeeRepository).should(times(1)).save(any());
