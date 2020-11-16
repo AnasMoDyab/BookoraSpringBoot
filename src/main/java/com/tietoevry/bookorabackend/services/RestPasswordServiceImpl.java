@@ -29,29 +29,29 @@ public class RestPasswordServiceImpl implements RestPasswordService {
     @Override
     public MessageDTO updatePassword(UpdatePasswordDTO updatePasswordDTO) {
         Employee employee = employeeRepository.findByEmailIgnoreCase(updatePasswordDTO.getEmail());
-        System.out.println(employee.getPassword());
-        System.out.println(encoder.encode(updatePasswordDTO.getPassword()));
+
         if (employee == null) {
             return new MessageDTO("Error: Email is invalid");
-        }
-        else {
+
+        } else {
 
             if (employee.isAbleTochangePassword()) {
-              String oldPassword=  employee.getPassword();
-              if(encoder.matches(updatePasswordDTO.getPassword(),oldPassword)){
-                  return new MessageDTO("you have used the old password");
-              }
+                String oldPassword = employee.getPassword();
+
+                if (encoder.matches(updatePasswordDTO.getPassword(), oldPassword)) {
+                    return new MessageDTO("you have used the old password");
+                }
 
                 employee.setPassword(encoder.encode(updatePasswordDTO.getPassword()));
                 employee.setAbleTochangePassword(false);
                 employeeRepository.save(employee);
 
                 return new MessageDTO("Password successfully reset. You can now log in with the new credentials.");
+
             } else {
                 return new MessageDTO("You can't change the password");
             }
         }
-
 
 
     }
@@ -59,13 +59,9 @@ public class RestPasswordServiceImpl implements RestPasswordService {
     @Override
     public boolean checkCode(String codeConfirmationDto) {
         RestPasswordCode confirmation = restPasswordCodeRepository.findByConfirmationCode(codeConfirmationDto);
-        if (confirmation != null) {
 
-            if (confirmation.getExpiryDate().before(new Timestamp(System.currentTimeMillis()))) {
-                return false;
-            } else {
-                return true;
-            }
+        if (confirmation != null) {
+            return !confirmation.getExpiryDate().before(new Timestamp(System.currentTimeMillis()));
 
         } else {
             return false;
