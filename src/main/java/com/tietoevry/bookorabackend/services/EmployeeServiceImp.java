@@ -39,6 +39,12 @@ public class EmployeeServiceImp implements EmployeeService {
     private final RoleRepository roleRepository;
     private final ConfirmationTokenRepository confirmationTokenRepository;
     private final RestPasswordCodeRepository restPasswordCodeRepository;
+    @Value("${validDomain}")
+    private String validDomain;
+    @Value("${confirmationTokenValidMinute}")
+    private int validMinute;
+    @Value("${restPasswordCodeValidMinute}")
+    private int restPasswordCodeValidMinute;
 
     public EmployeeServiceImp(AuthenticationManager authenticationManager, EmployeeMapper employeeMapper, SignUpMapper signUpMapper, PasswordEncoder encoder, JwtUtils jwtUtils, EmployeeRepository employeeRepository, EmailSenderService emailSenderService, RoleRepository roleRepository, ConfirmationTokenRepository confirmationTokenRepository, RestPasswordCodeRepository restPasswordCodeRepository) {
         this.authenticationManager = authenticationManager;
@@ -52,15 +58,6 @@ public class EmployeeServiceImp implements EmployeeService {
         this.confirmationTokenRepository = confirmationTokenRepository;
         this.restPasswordCodeRepository = restPasswordCodeRepository;
     }
-
-    @Value("${validDomain}")
-    private String validDomain;
-
-    @Value("${confirmationTokenValidMinute}")
-    private int validMinute;
-
-    @Value("${restPasswordCodeValidMinute}")
-    private int restPasswordCodeValidMinute;
 
     @Override
     public EmployeeListDTO getAllEmployees() {
@@ -81,7 +78,7 @@ public class EmployeeServiceImp implements EmployeeService {
                     employeeDTO.setEmployeeUrl(getEmployeeUrl(id));
                     return employeeDTO;
                 })
-                .orElseThrow(RuntimeException::new);//TODO make exception handler
+                .orElseThrow(RuntimeException::new);
     }
 
 
@@ -90,14 +87,13 @@ public class EmployeeServiceImp implements EmployeeService {
 
         //Validate domain
         String email = signUpDTO.getEmail();
-        String domain = email.substring(email.indexOf("@") + 1);;
-        if(!domain.equals(validDomain))
+        String domain = email.substring(email.indexOf("@") + 1);
+        if (!domain.equals(validDomain))
             return new MessageDTO("Error: Email domain is not valid!");
 
-        if(existedByEmail(signUpDTO.getEmail())){
+        if (existedByEmail(signUpDTO.getEmail())) {
             return new MessageDTO("Error: Email is already in use!");
-        }
-        else{
+        } else {
             //Mapping signDTO to employee
             Employee employee = signUpMapper.signUpDTOtoEmployee(signUpDTO);
 
@@ -206,9 +202,8 @@ public class EmployeeServiceImp implements EmployeeService {
                     userDetails.getEmail(),
                     roles);
         }
-        return  new JwtDTO("Email is not activated"
-        )
-                ;
+
+        return new JwtDTO("Email is not activated");
     }
 
     @Override
@@ -230,23 +225,23 @@ public class EmployeeServiceImp implements EmployeeService {
             mailMessage.setSubject("Complete Password Reset!");
             mailMessage.setFrom("oslomet8@gmail.com");
             mailMessage.setText("To complete the password reset process, please use this code: "
-                    +restPasswordCode.getConfirmationCode());
+                    + restPasswordCode.getConfirmationCode());
 
             // Send the email
             emailSenderService.sendEmail(mailMessage);
 
-            return new MessageDTO( "Request to reset password received. Check your inbox.");
+            return new MessageDTO("Request to reset password received. Check your inbox.");
 
         } else {
 
-            return new MessageDTO(  "This email address does not exist!");
+            return new MessageDTO("This email address does not exist!");
         }
 
 
     }
 
     @Override
-    public MessageDTO UpdateEmployee(EmailDTO emailDTO) {
+    public MessageDTO updateEmployee(EmailDTO emailDTO) {
 
         Employee employee = employeeRepository.findByEmailIgnoreCase(emailDTO.getEmail());
 
@@ -274,30 +269,35 @@ public class EmployeeServiceImp implements EmployeeService {
 
             employeeRepository.save(employee);
 
-            return new MessageDTO("Updated succed");
+            return new MessageDTO("Updated success");
         }
         return new MessageDTO("Updated failed");
     }
 
     @Override
     public EmployeeDTO getEmployeeByEmail(String email) {
-        String domain = email.substring(email.indexOf("@") + 1);;
-        if(!domain.equals(validDomain))
+        String domain = email.substring(email.indexOf("@") + 1);
+
+        if (!domain.equals(validDomain)) {
             return null;
-   Employee employee  =employeeRepository.findByEmailIgnoreCase(email);
-        System.out.println(employee.getEmail());
-   if(employee!=null){
-     EmployeeDTO employeeDTO=employeeMapper.employeeToEmployeeDTO(employee);
-     Set<String>roles = new HashSet<>();
-     for(Role role : employee.getRoles()){
-         roles.add(role.getName().toString());
-     }
-     employeeDTO.setRole(roles);
-     return employeeDTO;
+        }
 
-   }
+        Employee employee = employeeRepository.findByEmailIgnoreCase(email);
 
-return null;
+        if (employee != null) {
+            EmployeeDTO employeeDTO = employeeMapper.employeeToEmployeeDTO(employee);
+            Set<String> roles = new HashSet<>();
+
+            for (Role role : employee.getRoles()) {
+                roles.add(role.getName().toString());
+            }
+
+            employeeDTO.setRole(roles);
+            return employeeDTO;
+
+        }
+
+        return null;
     }
 
     @Override
@@ -309,23 +309,15 @@ return null;
         return EmployeeController.BASE_URL + "/" + id;
     }
 
-    private EmployeeDTO saveAndReturnDTO(Employee employee) {
-        Employee savedEmployee = employeeRepository.save(employee);
-        EmployeeDTO employeeDTO = employeeMapper.employeeToEmployeeDTO(savedEmployee);
-        employeeDTO.setEmployeeUrl(getEmployeeUrl(savedEmployee.getId()));
-        return employeeDTO;
-    }
-
-    private boolean existedByEmail(String email){
+    private boolean existedByEmail(String email) {
         Employee employee = employeeRepository.findByEmailIgnoreCase(email);
-        if (employee != null) return true;
-        return false;
+        return employee != null;
     }
 
     //Setting expiryTime in unit of minute
-    private Timestamp calculateExpiryDate(int expiryTime){
+    private Timestamp calculateExpiryDate(int expiryTime) {
         Calendar calendar = Calendar.getInstance();
-        calendar.add(Calendar.MINUTE,expiryTime);
+        calendar.add(Calendar.MINUTE, expiryTime);
         return new Timestamp(calendar.getTime().getTime());
     }
 }

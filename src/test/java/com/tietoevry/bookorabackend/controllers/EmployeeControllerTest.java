@@ -167,7 +167,7 @@ class EmployeeControllerTest {
     @Test
     void updateEmployee() throws Exception {
         //given
-       given(employeeService.UpdateEmployee(any())).willReturn(new MessageDTO("test"));
+       given(employeeService.updateEmployee(any())).willReturn(new MessageDTO("test"));
 
         //when
         mockMvc.perform(post(EmployeeController.BASE_URL + "/updateEmployee")
@@ -176,7 +176,7 @@ class EmployeeControllerTest {
                 //then
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.message", is("test")));
-        then(employeeService).should(times(1)).UpdateEmployee(any());
+        then(employeeService).should(times(1)).updateEmployee(any());
 
     }
 

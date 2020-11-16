@@ -74,7 +74,7 @@ public class EmployeeController {
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     @ResponseStatus(HttpStatus.OK)
     public MessageDTO UpdateEmployee( @RequestBody EmailDTO emailDTO) {
-        return employeeService.UpdateEmployee(emailDTO);
+        return employeeService.updateEmployee(emailDTO);
     }
 
     @DeleteMapping({"/{id}"})
