@@ -1,7 +1,5 @@
 package com.tietoevry.bookorabackend.services;
 
-import com.tietoevry.bookorabackend.api.v1.mapper.EmployeeMapper;
-import com.tietoevry.bookorabackend.api.v1.model.MessageDTO;
 import com.tietoevry.bookorabackend.model.ConfirmationToken;
 import com.tietoevry.bookorabackend.model.Employee;
 import com.tietoevry.bookorabackend.repositories.ConfirmationTokenRepository;
@@ -28,23 +26,18 @@ public class ConfirmationTokenServiceImpl implements ConfirmationTokenService {
 
         ConfirmationToken token = confirmationTokenRepository.findByConfirmationToken(confirmationToken);
 
-        if(token != null){
+        if (token != null) {
 
-
-            if(token.getExpiryDate().before(new Timestamp(System.currentTimeMillis())) ){
-               // return new MessageDTO("Error: token has expired!");/// TODO: redirect to sign in
+            if (token.getExpiryDate().before(new Timestamp(System.currentTimeMillis()))) {
                 return "ExpiredToken.html";
             }
 
             Employee employee = employeeRepository.findByEmailIgnoreCase(token.getEmployee().getEmail());
             employee.setEnabled(true);
             employeeRepository.save(employee);
-           // return new MessageDTO("Your account is activated!");
             return "confirm.html";
-        }
-        else{
-           // return new MessageDTO("Error: The link is invalid or broken!");
-            //Added page
+
+        } else {
             return "linkInvalid.html";
         }
     }
