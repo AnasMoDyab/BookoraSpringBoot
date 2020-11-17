@@ -66,7 +66,7 @@ class signUpIT {
     @Test
     void signUpWithExistingEmailDomain() {
         //given
-        SignUpDTO signUpDTO = new SignUpDTO("testFirst", "testLast","test@tietoevry.com", "123456aB@",null);
+        SignUpDTO signUpDTO = new SignUpDTO("testFirst", "testLast","test2@tietoevry.com", "123456aB@",null);
 
         //when
         restTemplate
