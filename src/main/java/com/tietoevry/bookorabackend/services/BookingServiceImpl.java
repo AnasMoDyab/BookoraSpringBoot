@@ -32,7 +32,7 @@ public class BookingServiceImpl implements BookingService {
     }
 
     @Override
-    public BookingIdDTO bookOneZoneOfOneDay(BookingDTO bookingDTO) {
+    public BookingIdDTO bookOneZoneOfOneDay(BookingDTO bookingDTO) throws Exception {
 
         Employee employee = employeeRepository.findById(bookingDTO.getEmployeeId()).orElseThrow(RuntimeException::new);
         Zone zone = zoneRepository.findById(bookingDTO.getZoneId()).orElseThrow(RuntimeException::new);

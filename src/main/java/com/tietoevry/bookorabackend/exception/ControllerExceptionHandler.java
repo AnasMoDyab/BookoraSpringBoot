@@ -44,5 +44,13 @@ public class ControllerExceptionHandler {
         return new ResponseEntity<>(messageDTO,HttpStatus.NOT_FOUND);
     }
 
+    @ExceptionHandler(ZoneNotFoundException.class)
+    public ResponseEntity<MessageDTO> handleZoneNotFoundException(Exception exception){
+
+        MessageDTO messageDTO = new MessageDTO(exception.getMessage());
+
+        return new ResponseEntity<>(messageDTO,HttpStatus.NOT_FOUND);
+    }
+
 
 }

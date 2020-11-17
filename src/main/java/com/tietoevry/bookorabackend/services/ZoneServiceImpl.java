@@ -2,6 +2,7 @@ package com.tietoevry.bookorabackend.services;
 
 import com.tietoevry.bookorabackend.api.v1.mapper.ZoneMapper;
 import com.tietoevry.bookorabackend.api.v1.model.*;
+import com.tietoevry.bookorabackend.exception.ZoneNotFoundException;
 import com.tietoevry.bookorabackend.model.Booking;
 import com.tietoevry.bookorabackend.model.Zone;
 import com.tietoevry.bookorabackend.repositories.BookingRepository;
@@ -60,14 +61,14 @@ public class ZoneServiceImpl implements ZoneService {
     }
 
     @Override
-    public ZoneDTO getZoneById(Long id) {
-        Zone zone = zoneRepository.findById(id).orElseThrow(() -> new RuntimeException("zone id is not found"));
+    public ZoneDTO getZoneById(Long id) throws Exception{
+        Zone zone = zoneRepository.findById(id).orElseThrow(() -> new ZoneNotFoundException("zone id is not found"));
         return zoneMapper.zoneToZoneDTO(zone);
     }
 
     @Override
-    public boolean isFullOnADay(Long id, LocalDate date) {
-        Zone zone = zoneRepository.findById(id).orElseThrow(() -> new RuntimeException("zone id is not found"));
+    public boolean isFullOnADay(Long id, LocalDate date) throws Exception {
+        Zone zone = zoneRepository.findById(id).orElseThrow(() -> new ZoneNotFoundException("zone id is not found"));
 
         Integer capacity = zone.getCapacity();
 
@@ -76,7 +77,7 @@ public class ZoneServiceImpl implements ZoneService {
         return totalBooking == capacity;
     }
 
-    public StatusOfAZoneOnADayDTO checkStatusOfAZoneOnADay(ZoneDateDTO zoneDateDTO) {
+    public StatusOfAZoneOnADayDTO checkStatusOfAZoneOnADay(ZoneDateDTO zoneDateDTO) throws Exception {
         Zone zone = zoneRepository.getOne(zoneDateDTO.getZoneId());
         int total = getTotalBookingOfADayInAZone(zoneDateDTO.getZoneId(), zoneDateDTO.getDate());
         int capacity = zone.getCapacity();
@@ -85,7 +86,7 @@ public class ZoneServiceImpl implements ZoneService {
     }
 
     @Override
-    public List<StatusOfAZoneOnADayDTO> checkStatusOfAllZoneInAFloor(FloorDateDTO floorDateDTO) {
+    public List<StatusOfAZoneOnADayDTO> checkStatusOfAllZoneInAFloor(FloorDateDTO floorDateDTO) throws Exception {
 
         ZoneListDTO zoneListDTO = getZonesByFloor(floorDateDTO.getFloorId());
         List<StatusOfAZoneOnADayDTO> statusOfAZoneOnADayDTOList = new ArrayList<>();
@@ -167,8 +168,8 @@ public class ZoneServiceImpl implements ZoneService {
         return new TotalBookingInBuildingDTO(percentUsed);
     }
 
-    public int getTotalBookingOfADayInAZone(Long id, LocalDate date) {
-        Zone zone = zoneRepository.findById(id).orElseThrow(() -> new RuntimeException("zone id is not found"));
+    public int getTotalBookingOfADayInAZone(Long id, LocalDate date) throws Exception {
+        Zone zone = zoneRepository.findById(id).orElseThrow(() -> new ZoneNotFoundException("zone id is not found"));
         return bookingRepository.findAllByDateAndZone(date, zone).size();
     }
 

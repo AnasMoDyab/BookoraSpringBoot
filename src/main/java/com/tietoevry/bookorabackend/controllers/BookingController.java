@@ -27,7 +27,7 @@ public class BookingController {
     @PostMapping("/book")
     @PreAuthorize("hasAnyAuthority('ROLE_ADMIN', 'ROLE_USER')")
     @ResponseStatus(HttpStatus.CREATED)
-    public BookingIdDTO bookOneZoneOnOneDay(@RequestBody @Valid BookingDTO bookingDTO) {
+    public BookingIdDTO bookOneZoneOnOneDay(@RequestBody @Valid BookingDTO bookingDTO) throws Exception {
         return bookingService.bookOneZoneOfOneDay(bookingDTO);
     }
 

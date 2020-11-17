@@ -53,7 +53,7 @@ public class ZoneController {
     @GetMapping({"/zone/{id}"})
     @PreAuthorize("hasAnyAuthority('ROLE_ADMIN', 'ROLE_USER')")
     @ResponseStatus(HttpStatus.OK)
-    public ZoneDTO getZoneById(@PathVariable Long id) {
+    public ZoneDTO getZoneById(@PathVariable Long id) throws Exception {
         return zoneService.getZoneById(id);
     }
 
@@ -61,7 +61,7 @@ public class ZoneController {
     @PreAuthorize("hasAnyAuthority('ROLE_ADMIN', 'ROLE_USER')")
     @ResponseStatus(HttpStatus.OK)
     public StatusOfAZoneOnADayDTO checkStatusOfAZoneOnADay
-            (@RequestBody @Valid ZoneDateDTO zoneDateDTO) {
+            (@RequestBody @Valid ZoneDateDTO zoneDateDTO) throws Exception {
 
         return  zoneService.checkStatusOfAZoneOnADay(zoneDateDTO);
     }
@@ -70,7 +70,7 @@ public class ZoneController {
     @PreAuthorize("hasAnyAuthority('ROLE_ADMIN', 'ROLE_USER')")
     @ResponseStatus(HttpStatus.OK)
     public List<StatusOfAZoneOnADayDTO> checkStatusOfAllZoneInAFloor
-            (@RequestBody @Valid FloorDateDTO floorDateDTO) {
+            (@RequestBody @Valid FloorDateDTO floorDateDTO) throws Exception {
         return zoneService.checkStatusOfAllZoneInAFloor( floorDateDTO);
     }
 
