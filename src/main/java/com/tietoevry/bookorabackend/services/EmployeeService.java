@@ -7,7 +7,7 @@ public interface EmployeeService {
 
     EmployeeDTO getEmployeeById(Long id);
 
-    MessageDTO createNewEmployee(SignUpDTO signUpDTO);
+    MessageDTO createNewEmployee(SignUpDTO signUpDTO) throws Exception;
 
     MessageDTO resendConfirmationToken(ReActiveEmailDTO reActiveEmailDTO);
 

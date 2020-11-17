@@ -16,18 +16,17 @@ import javax.validation.Valid;
 @RestController
 @RequestMapping(EmployeeController.BASE_URL)
 public class EmployeeController {
+
     public static final String BASE_URL = "/api/v1/employees";
     private final EmployeeService employeeService;
     private final ConfirmationTokenService confirmationTokenService;
     private final EmployeeRepository employeeRepository;
-
 
     public EmployeeController(EmployeeService employeeService, ConfirmationTokenService confirmationTokenService, EmployeeRepository employeeRepository
     ) {
         this.employeeService = employeeService;
         this.confirmationTokenService = confirmationTokenService;
         this.employeeRepository = employeeRepository;
-
     }
 
     @GetMapping
@@ -44,22 +43,16 @@ public class EmployeeController {
         return employeeService.getEmployeeById(id);
     }
 
-
     @GetMapping("/email/{email}")
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     @ResponseStatus(HttpStatus.OK)
     public EmployeeDTO getEmployeeByEmail(@PathVariable String email) {
-
         return employeeService.getEmployeeByEmail(email);
     }
 
-
-
-
-
     @PostMapping("/signup")
     @ResponseStatus(HttpStatus.CREATED)
-    public MessageDTO createNewEmployee(@RequestBody @Valid SignUpDTO signUpDTO) {
+    public MessageDTO createNewEmployee(@RequestBody @Valid SignUpDTO signUpDTO) throws Exception {
         return employeeService.createNewEmployee(signUpDTO);
     }
 
@@ -68,7 +61,6 @@ public class EmployeeController {
     public JwtDTO authenticateUser(@Valid @RequestBody LogInDTO logInDTO) {
         return employeeService.logIn(logInDTO);
     }
-
 
     @PostMapping("/updateEmployee")
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
@@ -84,15 +76,12 @@ public class EmployeeController {
         employeeService.deleteEmployeeDTO(id);
     }
 
-
     // Receive the address and send an email
     @PostMapping({"/forgot-password"})
     public MessageDTO forgotUserPassword(@Valid @RequestBody ForgetPasswordDTO forgetPasswordDTO) {
-
         return employeeService.sendForgetPasswordCode(forgetPasswordDTO);
-
-
     }
+
     //ReActivation Account
     @RequestMapping(value = "/reactive-account", method = RequestMethod.POST)
     public MessageDTO resetUserPassword(@RequestBody @Valid ReActiveEmailDTO reActiveEmailDTO) {

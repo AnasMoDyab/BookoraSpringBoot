@@ -4,6 +4,8 @@ import com.tietoevry.bookorabackend.api.v1.mapper.EmployeeMapper;
 import com.tietoevry.bookorabackend.api.v1.mapper.SignUpMapper;
 import com.tietoevry.bookorabackend.api.v1.model.*;
 import com.tietoevry.bookorabackend.controllers.EmployeeController;
+import com.tietoevry.bookorabackend.exception.InvalidDomainException;
+import com.tietoevry.bookorabackend.exception.UserExistedException;
 import com.tietoevry.bookorabackend.model.*;
 import com.tietoevry.bookorabackend.repositories.ConfirmationTokenRepository;
 import com.tietoevry.bookorabackend.repositories.EmployeeRepository;
@@ -83,16 +85,17 @@ public class EmployeeServiceImp implements EmployeeService {
 
 
     @Override
-    public MessageDTO createNewEmployee(SignUpDTO signUpDTO) {
+    public MessageDTO createNewEmployee(SignUpDTO signUpDTO) throws UserExistedException, InvalidDomainException {
 
         //Validate domain
         String email = signUpDTO.getEmail();
         String domain = email.substring(email.indexOf("@") + 1);
         if (!domain.equals(validDomain))
-            return new MessageDTO("Error: Email domain is not valid!");
+            //return new MessageDTO("Error: Email domain is not valid!");
+            throw new InvalidDomainException("Error: Email domain is not valid!");
 
         if (existedByEmail(signUpDTO.getEmail())) {
-            return new MessageDTO("Error: Email is already in use!");
+            throw new UserExistedException("Error: Email is already in use!");
         } else {
             //Mapping signDTO to employee
             Employee employee = signUpMapper.signUpDTOtoEmployee(signUpDTO);

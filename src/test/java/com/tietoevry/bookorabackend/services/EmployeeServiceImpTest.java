@@ -118,7 +118,7 @@ class EmployeeServiceImpTest {
 
     @DisplayName("Create new employee with invalid domain")
     @Test
-    void createNewEmployeeWithInvalidDomain() {
+    void createNewEmployeeWithInvalidDomain() throws Exception {
         //given
         SignUpDTO signUpDTO = new SignUpDTO();
         signUpDTO.setEmail("abc@invalid.com");
@@ -132,7 +132,7 @@ class EmployeeServiceImpTest {
 
     @DisplayName("Create new employee with already existing email")
     @Test
-    void createNewEmployeeWithAlreadyExistingEmail() {
+    void createNewEmployeeWithAlreadyExistingEmail() throws Exception {
         //given
         SignUpDTO signUpDTO = new SignUpDTO();
         signUpDTO.setEmail("abc@tietoevry.com");
@@ -152,7 +152,7 @@ class EmployeeServiceImpTest {
 
     @DisplayName("Create new employee with default role")
     @Test
-    void createNewEmployeeWithDefaultRole() {
+    void createNewEmployeeWithDefaultRole() throws Exception {
         //given
         SignUpDTO signUpDTO = new SignUpDTO();
         signUpDTO.setEmail("abc@tietoevry.com");
@@ -181,7 +181,7 @@ class EmployeeServiceImpTest {
 
     @DisplayName("Create new employee with admin role")
     @Test
-    void createNewEmployeeWithAdminRole() {
+    void createNewEmployeeWithAdminRole() throws Exception {
         //given
         SignUpDTO signUpDTO = new SignUpDTO();
         signUpDTO.setEmail("abc@tietoevry.com");
