@@ -5,6 +5,7 @@ import com.tietoevry.bookorabackend.api.v1.mapper.SignUpMapper;
 import com.tietoevry.bookorabackend.api.v1.model.*;
 import com.tietoevry.bookorabackend.controllers.EmployeeController;
 import com.tietoevry.bookorabackend.exception.InvalidDomainException;
+import com.tietoevry.bookorabackend.exception.RoleNotFoundException;
 import com.tietoevry.bookorabackend.exception.UserExistedException;
 import com.tietoevry.bookorabackend.model.*;
 import com.tietoevry.bookorabackend.repositories.ConfirmationTokenRepository;
@@ -85,7 +86,7 @@ public class EmployeeServiceImp implements EmployeeService {
 
 
     @Override
-    public MessageDTO createNewEmployee(SignUpDTO signUpDTO) throws UserExistedException, InvalidDomainException {
+    public MessageDTO createNewEmployee(SignUpDTO signUpDTO) throws RoleNotFoundException, Exception {
 
         //Validate domain
         String email = signUpDTO.getEmail();
@@ -108,21 +109,21 @@ public class EmployeeServiceImp implements EmployeeService {
             Set<Role> roles = new HashSet<>();
             if (strRoles == null) {
                 Role userRole = roleRepository.findByName(RoleEnum.ROLE_USER)
-                        .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
+                        .orElseThrow(() -> new RoleNotFoundException("Error: Role is not found."));
                 roles.add(userRole);
             } else {
-                strRoles.forEach(role -> {
+                for (String role : strRoles) {
                     if ("admin".equals(role)) {
                         Role adminRole = roleRepository.findByName(RoleEnum.ROLE_ADMIN)
-                                .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
+                                .orElseThrow( ()-> new RoleNotFoundException("Error: Role is not found."));
                         roles.add(adminRole);
                     }
-                });
+                }
             }
 
             //Always add employee as a user
             Role userRole = roleRepository.findByName(RoleEnum.ROLE_USER)
-                    .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
+                    .orElseThrow(() -> new RoleNotFoundException("Error: Role is not found."));
             roles.add(userRole);
 
             employee.setRoles(roles);

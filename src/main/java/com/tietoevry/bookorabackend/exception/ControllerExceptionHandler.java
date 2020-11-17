@@ -33,7 +33,16 @@ public class ControllerExceptionHandler {
 
         MessageDTO messageDTO = new MessageDTO(exception.getMessage());
 
-        return new ResponseEntity<>(messageDTO,HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>(messageDTO,HttpStatus.NOT_FOUND);
     }
+
+    @ExceptionHandler(RoleNotFoundException.class)
+    public ResponseEntity<MessageDTO> handleRoleNotFoundException(Exception exception){
+
+        MessageDTO messageDTO = new MessageDTO(exception.getMessage());
+
+        return new ResponseEntity<>(messageDTO,HttpStatus.NOT_FOUND);
+    }
+
 
 }
