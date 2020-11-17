@@ -3,6 +3,8 @@ package com.tietoevry.bookorabackend.services;
 import com.tietoevry.bookorabackend.api.v1.mapper.EmployeeMapper;
 import com.tietoevry.bookorabackend.api.v1.mapper.SignUpMapper;
 import com.tietoevry.bookorabackend.api.v1.model.*;
+import com.tietoevry.bookorabackend.exception.InvalidDomainException;
+import com.tietoevry.bookorabackend.exception.UserExistedException;
 import com.tietoevry.bookorabackend.model.Employee;
 import com.tietoevry.bookorabackend.model.Role;
 import com.tietoevry.bookorabackend.repositories.ConfirmationTokenRepository;
@@ -27,13 +29,16 @@ import java.util.*;
 
 import static com.tietoevry.bookorabackend.model.RoleEnum.ROLE_ADMIN;
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.BDDMockito.then;
 import static org.mockito.Mockito.reset;
 import static org.mockito.Mockito.times;
+/**
 
+*/
 @DisplayName("EmployeeServiceImp unit test")
 @Tag("Development")
 @Tag("UnitTest")
@@ -124,10 +129,13 @@ class EmployeeServiceImpTest {
         signUpDTO.setEmail("abc@invalid.com");
 
         //when
-        MessageDTO message = employeeServiceImp.createNewEmployee(signUpDTO);
+        assertThatThrownBy(() -> {
+            employeeServiceImp.createNewEmployee(signUpDTO);
+        })
+                //then
+                .isInstanceOf(InvalidDomainException.class)
+                .hasMessage("Error: Email domain is not valid!");
 
-        //then
-        assertThat(message.getMessage()).isEqualTo("Error: Email domain is not valid!");
     }
 
     @DisplayName("Create new employee with already existing email")
@@ -143,10 +151,14 @@ class EmployeeServiceImpTest {
         given(employeeRepository.findByEmailIgnoreCase(any())).willReturn(new Employee());
 
         //when
-        MessageDTO message = employeeServiceImp.createNewEmployee(signUpDTO);
+        //when
+        assertThatThrownBy(() -> {
+            employeeServiceImp.createNewEmployee(signUpDTO);
+        })
+                //then
+                .isInstanceOf(UserExistedException.class)
+                .hasMessage("Error: Email is already in use!");
 
-        //then
-        assertThat(message.getMessage()).isEqualTo("Error: Email is already in use!");
         then(employeeRepository).should(times(1)).findByEmailIgnoreCase(any());
     }
 
