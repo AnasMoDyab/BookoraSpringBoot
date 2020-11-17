@@ -139,7 +139,7 @@ class ZoneServiceImplTest {
 
     @DisplayName("Get zone by ID")
     @Test
-    void getZoneById() {
+    void getZoneById() throws Exception {
         //given
         Zone zone = new Zone(1L, 1, 'A', true, 10, new HashSet<Booking>());
         ZoneDTO zoneDTO = new ZoneDTO(1L, 1, 'A', true, 10);
@@ -162,7 +162,7 @@ class ZoneServiceImplTest {
 
     @DisplayName("Check if a zone on a day which is full")
     @Test
-    void isFullOnADay() {
+    void isFullOnADay() throws Exception {
         //given
         Zone zone = new Zone(1L, 1, 'A', true, 1, new HashSet<Booking>());
         List<Booking> list = new ArrayList<>();
@@ -181,7 +181,7 @@ class ZoneServiceImplTest {
 
     @DisplayName("Check if a zone on a day which is available")
     @Test
-    void isAvailableOnADay() {
+    void isAvailableOnADay() throws Exception {
         //given
         Zone zone = new Zone(1L, 1, 'A', true, 2, new HashSet<Booking>());
         List<Booking> list = new ArrayList<>();
@@ -200,7 +200,7 @@ class ZoneServiceImplTest {
 
     @DisplayName("Check status of a zone on a day")
     @Test
-    void checkStatusOfAZoneOnADay() {
+    void checkStatusOfAZoneOnADay() throws Exception {
         //given
         Zone zone = new Zone(1L, 1, 'A', true, 1, new HashSet<Booking>());
         ZoneDateDTO zoneDateDTO = new ZoneDateDTO(1L, LocalDate.of(2020, 11, 11));
@@ -223,7 +223,7 @@ class ZoneServiceImplTest {
 
     @DisplayName("Check status of all zone in a floor")
     @Test
-    void checkStatusOfAllZoneInAFloor() {
+    void checkStatusOfAllZoneInAFloor() throws Exception {
         //given
         Zone zone = new Zone(1L, 1, 'A', true, 10, new HashSet<Booking>());
         List<Zone> list = new ArrayList<>();
@@ -314,7 +314,7 @@ class ZoneServiceImplTest {
 
     @DisplayName("Get total booking of a day in a zone")
     @Test
-    void getTotalBookingOfADayInAZone() {
+    void getTotalBookingOfADayInAZone() throws Exception {
         //given
         Zone zone = new Zone(1L, 1, 'A', true, 1, new HashSet<Booking>());
         List<Booking> list = new ArrayList<>();

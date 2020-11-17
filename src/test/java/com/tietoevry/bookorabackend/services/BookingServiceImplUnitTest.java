@@ -230,7 +230,7 @@ class BookingServiceImplUnitTest {
 
         @DisplayName("Book a zone which is full")
         @Test
-        void bookOneZoneOfOneDayWhichIsFullTest() {
+        void bookOneZoneOfOneDayWhichIsFullTest() throws Exception {
             //Given
             given(zoneService.isFullOnADay(1L, date)).willReturn(true);
 
@@ -247,7 +247,7 @@ class BookingServiceImplUnitTest {
 
         @DisplayName("Book a zone in a day which the employee already have booking")
         @Test
-        void bookOneZoneOfOneDayWhichAlreadyHaveBookingTest() {
+        void bookOneZoneOfOneDayWhichAlreadyHaveBookingTest() throws Exception {
             //Given
             bookings.add(booking);
             given(zoneService.isFullOnADay(1L, date)).willReturn(false);
@@ -265,9 +265,10 @@ class BookingServiceImplUnitTest {
             then(bookingRepository).should(times(1)).findAllByDateAndEmployee(any(LocalDate.class), any(Employee.class));
         }
 
+
         @DisplayName("Book a zone in a day successfully")
         @Test
-        void bookOneZoneOfOneDaySuccessfullyTest() {
+        void bookOneZoneOfOneDaySuccessfullyTest() throws Exception {
             //Given
             booking.setDate(date);
             Booking savedBooking = new Booking();
