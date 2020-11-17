@@ -1,6 +1,7 @@
-package com.tietoevry.bookorabackend.IT;
+package com.tietoevry.bookorabackend.integrationTest;
 
-import com.tietoevry.bookorabackend.api.v1.model.*;
+import com.tietoevry.bookorabackend.api.v1.model.MessageDTO;
+import com.tietoevry.bookorabackend.api.v1.model.SignUpDTO;
 import com.tietoevry.bookorabackend.controllers.EmployeeController;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
@@ -12,7 +13,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.springframework.http.HttpStatus.CREATED;
+import static org.springframework.http.HttpStatus.*;
 
 //NB! Surefire pick up tests with name Test
 //NB! Failsafe pick up test with name IT
@@ -20,7 +21,7 @@ import static org.springframework.http.HttpStatus.CREATED;
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @Tag("Development")
 @Tag("IntegrationTest")
-class ITSignIn {
+class signUpIT {
 
     @LocalServerPort
     private int port;
@@ -28,8 +29,6 @@ class ITSignIn {
     TestRestTemplate restTemplate = new TestRestTemplate();
 
     HttpHeaders headers = new HttpHeaders();
-
-
 
     @DisplayName("Sign up with valid information")
     @Test
@@ -59,34 +58,29 @@ class ITSignIn {
                         , signUpDTO, MessageDTO.class);
 
         //then
-        System.out.println(response);
-        //assertThat(response.getStatusCode()).isEqualTo(CREATED);
+        assertThat(response.getStatusCode()).isEqualTo(NOT_FOUND);
         assertThat(response.getBody().getMessage()).isEqualTo("Error: Email domain is not valid!");
     }
 
-
+    @DisplayName("Sign up with existing email domain")
     @Test
-    void signIn() {
-        LogInDTO logInDTO = new LogInDTO("root@tietoevry.com", "123456aB@");
+    void signUpWithExistingEmailDomain() {
+        //given
+        SignUpDTO signUpDTO = new SignUpDTO("testFirst", "testLast","test@tietoevry.com", "123456aB@",null);
 
-        ResponseEntity<JwtDTO> response = restTemplate
-                .postForEntity("http://localhost:" + port + EmployeeController.BASE_URL + "/signin"
-                        , logInDTO, JwtDTO.class);
+        //when
+        restTemplate
+                .postForEntity("http://localhost:" + port + EmployeeController.BASE_URL + "/signup"
+                        , signUpDTO, MessageDTO.class);
+        ResponseEntity<MessageDTO> response = restTemplate
+                .postForEntity("http://localhost:" + port + EmployeeController.BASE_URL + "/signup"
+                        , signUpDTO, MessageDTO.class);
 
-        System.out.println(response);
-
+        //then
+        assertThat(response.getStatusCode()).isEqualTo(CONFLICT);
+        assertThat(response.getBody().getMessage()).isEqualTo("Error: Email is already in use!");
     }
 
-    @Test
-    void test() {
 
-
-        ResponseEntity<EmployeeListDTO> response = restTemplate
-                .getForEntity("http://localhost:" + port + EmployeeController.BASE_URL
-                        , EmployeeListDTO.class);
-
-        System.out.println(response);
-
-    }
 
 }
