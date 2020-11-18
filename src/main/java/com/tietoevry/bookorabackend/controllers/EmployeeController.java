@@ -40,7 +40,7 @@ public class EmployeeController {
     @GetMapping({"/{id}"})
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     @ResponseStatus(HttpStatus.OK)
-    public EmployeeDTO getEmployeeById(@PathVariable Long id) {
+    public EmployeeDTO getEmployeeById(@PathVariable Long id) throws EmployeeNotFoundException {
         return employeeService.getEmployeeById(id);
     }
 
