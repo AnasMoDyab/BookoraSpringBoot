@@ -79,17 +79,16 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/reset-password").permitAll()
                 .antMatchers("/signin").permitAll()
                 .antMatchers("/v3/api-docs",
-                "/configuration/ui",
-                "/swagger-resources/**",
-                "/configuration/security",
-                "/swagger-ui.html",
+                        "/configuration/ui",
+                        "/swagger-resources/**",
+                        "/configuration/security",
+                        "/swagger-ui.html",
                         "/swagger-ui/**",
-                "/webjars/**",
+                        "/webjars/**",
                         "/swagger-ui/index.html?configUrl=/v3/api-docs/swagger-config").permitAll()
 
 
-
-               .and()//allow all authenticated request
+                .and()//allow all authenticated request
                 //Tell Spring security to use AuthTokenFilter to filter before using UsernamePasswordAuthenticationFilter
                 .addFilterBefore(authTokenFilter(), UsernamePasswordAuthenticationFilter.class);
 
