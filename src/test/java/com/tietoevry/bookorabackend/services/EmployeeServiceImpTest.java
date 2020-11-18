@@ -262,7 +262,7 @@ class EmployeeServiceImpTest {
 
     @DisplayName("Log in with an activated account")
     @Test
-    void logIn() throws EmployeeNotFoundException {
+    void logIn() throws Exception {
         //given
         LogInDTO logInDTO = new LogInDTO("email", "password");
         Employee employee = new Employee();
@@ -296,7 +296,7 @@ class EmployeeServiceImpTest {
 
     @DisplayName("Log in with an non-activated account")
     @Test
-    void logInWithNonActivatedAccount() throws EmployeeNotFoundException {
+    void logInWithNonActivatedAccount() throws Exception {
         //given
         LogInDTO logInDTO = new LogInDTO("email", "password");
         Employee employee = new Employee();
