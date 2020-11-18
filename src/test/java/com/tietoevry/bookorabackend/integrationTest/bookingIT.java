@@ -1,9 +1,6 @@
 package com.tietoevry.bookorabackend.integrationTest;
 
-import com.tietoevry.bookorabackend.api.v1.model.BookingDTO;
-import com.tietoevry.bookorabackend.api.v1.model.BookingIdDTO;
-import com.tietoevry.bookorabackend.api.v1.model.JwtDTO;
-import com.tietoevry.bookorabackend.api.v1.model.LogInDTO;
+import com.tietoevry.bookorabackend.api.v1.model.*;
 import com.tietoevry.bookorabackend.controllers.BookingController;
 import com.tietoevry.bookorabackend.controllers.EmployeeController;
 import org.junit.jupiter.api.BeforeEach;
@@ -23,8 +20,7 @@ import java.time.LocalDate;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
-import static org.springframework.http.HttpStatus.CREATED;
-import static org.springframework.http.HttpStatus.NOT_FOUND;
+import static org.springframework.http.HttpStatus.*;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @Tag("Development")
@@ -132,5 +128,25 @@ public class bookingIT {
                 //then
                 .isInstanceOf(ResourceAccessException.class);
     }
+
+    @DisplayName("Delete a booking with valid JWT")
+    @Test
+    void deleteABookingWithValidJWT() {
+        //given
+        DeleteBookingByIdDTO deleteBookingByIdDTO = new DeleteBookingByIdDTO(1);
+        headers.set("Authorization", "Bearer " + validJwt);
+
+        HttpEntity<DeleteBookingByIdDTO> request = new HttpEntity<>(deleteBookingByIdDTO, headers);
+
+        //when
+        ResponseEntity<BookingIdDTO> response = restTemplate
+                .postForEntity("http://localhost:" + port + BookingController.BASE_URL + "/deleteBooking"
+                        , request, BookingIdDTO.class);
+
+        //then
+        assertThat(response.getStatusCode()).isEqualTo(OK);
+        assertThat(response.getBody().getMessage()).isEqualTo("success deleted");
+    }
+
 
 }
