@@ -159,7 +159,7 @@ public class DataLoader implements CommandLineRunner{
 
     private Employee getOneRandomEmployee(){
         int max = (int) employeeRepository.count();
-        Long randomId = (long) ThreadLocalRandom.current().nextInt(1, max+1);
+        Long randomId = (long) ThreadLocalRandom.current().nextInt(2, max+1);
         return employeeRepository.getOne(randomId);
     }
 
