@@ -1,4 +1,5 @@
 package com.tietoevry.bookorabackend.repositories;
+
 import com.tietoevry.bookorabackend.model.RestPasswordCode;
 import org.springframework.data.jpa.repository.JpaRepository;
 

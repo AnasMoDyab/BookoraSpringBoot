@@ -1,7 +1,6 @@
 package com.tietoevry.bookorabackend.services;
 
 import com.tietoevry.bookorabackend.api.v1.model.*;
-import com.tietoevry.bookorabackend.exception.EmployeeNotActivatedException;
 import com.tietoevry.bookorabackend.exception.EmployeeNotFoundException;
 
 public interface EmployeeService {
@@ -13,12 +12,13 @@ public interface EmployeeService {
 
     MessageDTO resendConfirmationToken(ReActiveEmailDTO reActiveEmailDTO);
 
-    JwtDTO logIn(LogInDTO logInDTO) throws EmployeeNotFoundException, EmployeeNotActivatedException, Exception;
+    JwtDTO logIn(LogInDTO logInDTO) throws Exception;
 
     MessageDTO sendForgetPasswordCode(ForgetPasswordDTO forgetPasswordDTO);
 
     MessageDTO updateEmployee(EmailDTO emailDTO);
-    EmployeeDTO getEmployeeByEmail( String email);
+
+    EmployeeDTO getEmployeeByEmail(String email);
 
     //EmployeeDTO patchEmployee(Long id, EmployeeDTO employeeDTO);
 

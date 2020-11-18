@@ -14,7 +14,7 @@ import java.util.Set;
 @ToString(exclude = {"roles", "confirmationToken"})
 @EqualsAndHashCode(exclude = {"roles", "confirmationToken"})
 @Entity
-public class Employee{
+public class Employee {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -46,10 +46,10 @@ public class Employee{
 
 
     @OneToMany(mappedBy = "employee")
-    private  Set<ConfirmationToken> confirmationToken = new HashSet<>();
+    private Set<ConfirmationToken> confirmationToken = new HashSet<>();
 
     @OneToMany(mappedBy = "employee")
-    private Set<RestPasswordCode> restPasswordCode =new HashSet<>();
+    private Set<RestPasswordCode> restPasswordCode = new HashSet<>();
 
     public Employee(@NotNull(message = "You must fill in first name.") String firstName, @NotNull(message = "You must fill in last name.") String lastName, @NotNull(message = "You must fill in e-mail.") @Email String email, @NotNull String password) {
         this.firstName = firstName;

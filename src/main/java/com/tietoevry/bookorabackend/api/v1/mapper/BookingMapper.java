@@ -8,8 +8,6 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.factory.Mappers;
 
-import java.time.LocalDate;
-
 @Mapper
 public interface BookingMapper {
 
@@ -22,7 +20,7 @@ public interface BookingMapper {
     @Mapping(target = "zoneName", source = "zone.zone")
     @Mapping(target = "bookingId", source = "booking.id")
     @Mapping(target = "floor", source = "zone.floor")
-  BookingToshowDTO bookingToBookingToshowDto(Booking booking);
+    BookingToshowDTO bookingToBookingToshowDto(Booking booking);
 
     @Mapping(target = "zoneName", source = "zone.zone")
     @Mapping(target = "bookingId", source = "booking.id")

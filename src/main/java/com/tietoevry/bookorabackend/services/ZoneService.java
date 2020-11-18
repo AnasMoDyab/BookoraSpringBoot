@@ -1,7 +1,6 @@
 package com.tietoevry.bookorabackend.services;
 
 import com.tietoevry.bookorabackend.api.v1.model.*;
-import com.tietoevry.bookorabackend.exception.ZoneNotFoundException;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -15,13 +14,14 @@ public interface ZoneService {
 
     ZoneDTO getZoneById(Long id) throws Exception;
 
-    boolean isFullOnADay(Long id, LocalDate date) throws ZoneNotFoundException, Exception;
+    boolean isFullOnADay(Long id, LocalDate date) throws Exception;
 
     StatusOfAZoneOnADayDTO checkStatusOfAZoneOnADay(ZoneDateDTO zoneDateDTO) throws Exception;
 
 
+    List<StatusOfAZoneOnADayDTO> checkStatusOfAllZoneInAFloor(FloorDateDTO floorDateDTO) throws Exception;
 
-    List<StatusOfAZoneOnADayDTO> checkStatusOfAllZoneInAFloor( FloorDateDTO floorDateDTO) throws Exception;
     List<FloorStatusPeriodDTO> checkStatusOfAllFloorPeriod(PeriodeDTO periodeDTO);
+
     TotalBookingInBuildingDTO CheckStatusOfTheBuildingOnPeriod(PeriodeDTO floorsPeriodDTO);
 }

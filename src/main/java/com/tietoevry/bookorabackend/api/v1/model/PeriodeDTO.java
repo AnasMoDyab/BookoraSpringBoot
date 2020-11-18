@@ -11,7 +11,7 @@ import java.time.LocalDate;
 @AllArgsConstructor
 public class PeriodeDTO {
 
-   private  LocalDate from ;
-   private LocalDate to;
+    private LocalDate from;
+    private LocalDate to;
 
 }

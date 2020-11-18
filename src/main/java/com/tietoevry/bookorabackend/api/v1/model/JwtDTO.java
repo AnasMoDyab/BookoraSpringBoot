@@ -23,8 +23,8 @@ public class JwtDTO {
         this.roles = roles;
     }
 
-    public JwtDTO(String accessToken){
-        this.token =accessToken;
+    public JwtDTO(String accessToken) {
+        this.token = accessToken;
     }
 }
 

@@ -61,7 +61,7 @@ public class ZoneServiceImpl implements ZoneService {
     }
 
     @Override
-    public ZoneDTO getZoneById(Long id) throws Exception{
+    public ZoneDTO getZoneById(Long id) throws Exception {
         Zone zone = zoneRepository.findById(id).orElseThrow(() -> new ZoneNotFoundException("zone id is not found"));
         return zoneMapper.zoneToZoneDTO(zone);
     }

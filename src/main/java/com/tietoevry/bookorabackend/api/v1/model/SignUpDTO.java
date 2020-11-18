@@ -22,10 +22,11 @@ public class SignUpDTO {
     private String firstName;
 
     @NotBlank
-    @Size(max = 50) @Email
+    @Size(max = 50)
+    @Email
     private String email;
 
-    @NotBlank 
+    @NotBlank
     @ValidPassword
     private String password;
 

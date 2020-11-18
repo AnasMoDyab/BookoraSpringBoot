@@ -23,8 +23,7 @@ public class ZoneController {
 
     private final ZoneService zoneService;
 
-    public ZoneController(ZoneService zoneService)
-    {
+    public ZoneController(ZoneService zoneService) {
         this.zoneService = zoneService;
     }
 
@@ -38,11 +37,10 @@ public class ZoneController {
     @GetMapping({"/floor/{floor}"})
     @PreAuthorize("hasAnyAuthority('ROLE_ADMIN', 'ROLE_USER')")
     @ResponseStatus(HttpStatus.OK)
-    public ZoneListDTO getZoneListByFloor(@PathVariable Integer floor)
-    {
-        ZoneListDTO zoneListDTO =zoneService.getZonesByFloor(floor);
+    public ZoneListDTO getZoneListByFloor(@PathVariable Integer floor) {
+        ZoneListDTO zoneListDTO = zoneService.getZonesByFloor(floor);
         Comparator<ZoneDTO> compareById = (ZoneDTO zone1, ZoneDTO zone2) ->
-                zone1.getId().compareTo( zone2.getId() );
+                zone1.getId().compareTo(zone2.getId());
 
         Collections.sort(zoneListDTO.getZoneDTOList(), compareById);
 
@@ -63,7 +61,7 @@ public class ZoneController {
     public StatusOfAZoneOnADayDTO checkStatusOfAZoneOnADay
             (@RequestBody @Valid ZoneDateDTO zoneDateDTO) throws Exception {
 
-        return  zoneService.checkStatusOfAZoneOnADay(zoneDateDTO);
+        return zoneService.checkStatusOfAZoneOnADay(zoneDateDTO);
     }
 
     @PostMapping("/checkStatusOfAllZoneInAFloor")
@@ -71,7 +69,7 @@ public class ZoneController {
     @ResponseStatus(HttpStatus.OK)
     public List<StatusOfAZoneOnADayDTO> checkStatusOfAllZoneInAFloor
             (@RequestBody @Valid FloorDateDTO floorDateDTO) throws Exception {
-        return zoneService.checkStatusOfAllZoneInAFloor( floorDateDTO);
+        return zoneService.checkStatusOfAllZoneInAFloor(floorDateDTO);
     }
 
     @PostMapping("/ZoneSettings")
@@ -94,7 +92,6 @@ public class ZoneController {
     public TotalBookingInBuildingDTO CheckStatusOfBuildingOnPeriod(@RequestBody @Valid PeriodeDTO periodeDTO) {
         return zoneService.CheckStatusOfTheBuildingOnPeriod(periodeDTO);
     }
-
 
 
 }

@@ -58,7 +58,8 @@ public class EmployeeController {
     }
 
     @PostMapping("/signin")
-    @ResponseStatus(HttpStatus.OK) //todo Block user after attemping 3 times to login with wrong password(Brute-force attacks)
+    @ResponseStatus(HttpStatus.OK)
+    //todo Block user after attemping 3 times to login with wrong password(Brute-force attacks)
     public JwtDTO authenticateUser(@Valid @RequestBody LogInDTO logInDTO) throws Exception {
         return employeeService.logIn(logInDTO);
     }
@@ -66,7 +67,7 @@ public class EmployeeController {
     @PostMapping("/updateEmployee")
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     @ResponseStatus(HttpStatus.OK)
-    public MessageDTO UpdateEmployee( @RequestBody EmailDTO emailDTO) {
+    public MessageDTO UpdateEmployee(@RequestBody EmailDTO emailDTO) {
         return employeeService.updateEmployee(emailDTO);
     }
 
@@ -86,7 +87,7 @@ public class EmployeeController {
     //ReActivation Account
     @RequestMapping(value = "/reactive-account", method = RequestMethod.POST)
     public MessageDTO resetUserPassword(@RequestBody @Valid ReActiveEmailDTO reActiveEmailDTO) {
-        return  employeeService.resendConfirmationToken(reActiveEmailDTO);
+        return employeeService.resendConfirmationToken(reActiveEmailDTO);
     }
 }
 

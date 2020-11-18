@@ -79,12 +79,12 @@ public class EmployeeServiceImp implements EmployeeService {
                     employeeDTO.setEmployeeUrl(getEmployeeUrl(id));
                     return employeeDTO;
                 })
-                .orElseThrow(()-> new EmployeeNotFoundException("Employee is not found"));
+                .orElseThrow(() -> new EmployeeNotFoundException("Employee is not found"));
     }
 
 
     @Override
-    public MessageDTO createNewEmployee(SignUpDTO signUpDTO) throws RoleNotFoundException, Exception {
+    public MessageDTO createNewEmployee(SignUpDTO signUpDTO) throws Exception {
 
         //Validate domain
         String email = signUpDTO.getEmail();
@@ -113,7 +113,7 @@ public class EmployeeServiceImp implements EmployeeService {
                 for (String role : strRoles) {
                     if ("admin".equals(role)) {
                         Role adminRole = roleRepository.findByName(RoleEnum.ROLE_ADMIN)
-                                .orElseThrow( ()-> new RoleNotFoundException("Error: Role is not found."));
+                                .orElseThrow(() -> new RoleNotFoundException("Error: Role is not found."));
                         roles.add(adminRole);
                     }
                 }
@@ -179,7 +179,7 @@ public class EmployeeServiceImp implements EmployeeService {
 
         Employee employee = employeeRepository.findByEmailIgnoreCase(email);
 
-        if(employee == null) throw new EmployeeNotFoundException("Incorrect email or password");
+        if (employee == null) throw new EmployeeNotFoundException("Incorrect email or password");
 
         if (employee.isEnabled()) {
 

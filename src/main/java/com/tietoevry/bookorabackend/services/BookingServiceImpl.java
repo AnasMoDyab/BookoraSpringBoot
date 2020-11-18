@@ -37,9 +37,9 @@ public class BookingServiceImpl implements BookingService {
     public BookingIdDTO bookOneZoneOfOneDay(BookingDTO bookingDTO) throws Exception {
 
         Employee employee = employeeRepository.findById(bookingDTO.getEmployeeId())
-                .orElseThrow(()-> new EmployeeNotFoundException("Employee is not found"));
+                .orElseThrow(() -> new EmployeeNotFoundException("Employee is not found"));
         Zone zone = zoneRepository.findById(bookingDTO.getZoneId())
-                .orElseThrow(()-> new ZoneNotFoundException("Zone is not found"));
+                .orElseThrow(() -> new ZoneNotFoundException("Zone is not found"));
         LocalDate date = bookingDTO.getDate();
 
         //check if the zone is full on that date
@@ -74,7 +74,7 @@ public class BookingServiceImpl implements BookingService {
 
 
         Employee employee = employeeRepository.findByEmail(employeeEmailDTO.getEmail())
-                .orElseThrow(()-> new EmployeeNotFoundException("Employee is not found"));
+                .orElseThrow(() -> new EmployeeNotFoundException("Employee is not found"));
 
         List<BookingDTO> bookingDTOList = new ArrayList<>();
 
@@ -90,7 +90,7 @@ public class BookingServiceImpl implements BookingService {
     public BookingListDTO getAllValidBookingOfEmployee(EmployeeEmailDTO employeeEmailDTO) throws Exception {
 
         Employee employee = employeeRepository.findByEmail(employeeEmailDTO.getEmail())
-                .orElseThrow(()-> new EmployeeNotFoundException("Employee is not found"));
+                .orElseThrow(() -> new EmployeeNotFoundException("Employee is not found"));
 
         List<BookingDTO> bookingDTOList = new ArrayList<>();
 
@@ -106,7 +106,7 @@ public class BookingServiceImpl implements BookingService {
     @Override
     public BookingListDTO getAllPastBookingOfEmployee(EmployeeEmailDTO employeeEmailDTO) throws EmployeeNotFoundException {
         Employee employee = employeeRepository.findByEmail(employeeEmailDTO.getEmail())
-                .orElseThrow(()-> new EmployeeNotFoundException("Employee is not found"));
+                .orElseThrow(() -> new EmployeeNotFoundException("Employee is not found"));
 
         List<BookingDTO> bookingDTOList = new ArrayList<>();
 
@@ -122,25 +122,25 @@ public class BookingServiceImpl implements BookingService {
     public BookingListDTOAdmin getAllBookingInAPeriodAdmin(AdminBookingForAllDTO adminBookingForAllDTO) {
         List<Booking> bookings = bookingRepository.
                 findAllByDateLessThanEqualAndDateGreaterThanEqual(adminBookingForAllDTO.getTo()
-                ,adminBookingForAllDTO.getFrom());
+                        , adminBookingForAllDTO.getFrom());
 
 
         List<BookingofEmployeeDTO> bookingOfEmployeeDTOs = new ArrayList<>();
 
-        for(Booking booking : bookings){
+        for (Booking booking : bookings) {
             BookingofEmployeeDTO bookingofEmployeeDTO = bookingMapper.bookingToBookingofEmployeeDTO(booking);
 
-            bookingOfEmployeeDTOs.add( bookingofEmployeeDTO);
+            bookingOfEmployeeDTOs.add(bookingofEmployeeDTO);
         }
 
 
-        return new BookingListDTOAdmin( bookingOfEmployeeDTOs);
+        return new BookingListDTOAdmin(bookingOfEmployeeDTOs);
     }
 
     @Override
     public BookingToshowDtoList getAllBookingOfEmployeeInAPeriod(EmployeeBookingInAPeriodDTO employeeBookingInAPeriodDTO) throws EmployeeNotFoundException {
         Employee employee = employeeRepository.findByEmail(employeeBookingInAPeriodDTO.getEmail())
-                .orElseThrow(()-> new EmployeeNotFoundException("Employee is not found"));
+                .orElseThrow(() -> new EmployeeNotFoundException("Employee is not found"));
         List<BookingToshowDTO> bookingDTOList = new ArrayList<>();
 
         for (Booking booking : bookingRepository.findAllByEmployeeAndDateGreaterThanEqualAndDateLessThanEqual(employee, employeeBookingInAPeriodDTO.getFrom(), employeeBookingInAPeriodDTO.getTo())) {

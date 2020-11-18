@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class ZoneDTO {
 
-    private Long id ;
+    private Long id;
     private Integer floor;
     private Character zone;
     private boolean activated;

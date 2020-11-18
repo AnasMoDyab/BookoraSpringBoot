@@ -1,29 +1,28 @@
 .text {
-    font-family: "Montserrat", sans-serif!important;
-    font-size: 20px!important;
-    align-items: center!important;
-    text-align: center!important;
-    color: #0B5C2B!important;
+    font-family: "Montserrat", sans-serif !important;
+    font-size: 20px !important;
+    align-items: center !important;
+    text-align: center !important;
+    color: #0B5C2B !important;
 
 }
 
 
-
-
-.center{
+.center {
 
     display: flex;
     align-items: center;
     justify-content: center;
 }
-.btn-color{
+
+.btn-color {
     color: #454141 !important;
     background-color: #c4daee !important;
     border: 0;
-  /* -webkit-box-shadow: none;*/ 
+    /* -webkit-box-shadow: none;*/
 
 
-    font-weight: bold!important;
+    font-weight: bold !important;
 
 }
 
@@ -36,7 +35,8 @@
     border: 2px solid #ffffff;
     border-radius: 25px;
 }
-body{
+
+body {
     background-image: url("./backe2.png");
     background-repeat: no-repeat;
     background-size: cover;
@@ -44,18 +44,20 @@ body{
 
 
 }
-.logo img{
+
+.logo img {
     height: 80px;
     width: 80px;
 }
-.background .center >img{
+
+.background .center > img {
     position: relative;
     float: left;
-    width:  80px;
+    width: 80px;
     height: 80px;
     background-position: 50% 50%;
-    background-repeat:   no-repeat;
-    background-size:     cover;
+    background-repeat: no-repeat;
+    background-size: cover;
 }
 
 

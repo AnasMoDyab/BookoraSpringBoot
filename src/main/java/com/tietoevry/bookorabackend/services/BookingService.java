@@ -9,15 +9,15 @@ public interface BookingService {
 
     MessageDTO deleteOneBookingForEmployee(Long bookingId);
 
-    BookingListDTO getAllBookingOfEmployee(EmployeeEmailDTO employeeEmailDTO) throws EmployeeNotFoundException, Exception;
+    BookingListDTO getAllBookingOfEmployee(EmployeeEmailDTO employeeEmailDTO) throws Exception;
 
-    BookingListDTO getAllValidBookingOfEmployee(EmployeeEmailDTO employeeEmailDTO) throws EmployeeNotFoundException, Exception;
+    BookingListDTO getAllValidBookingOfEmployee(EmployeeEmailDTO employeeEmailDTO) throws Exception;
 
     BookingListDTO getAllPastBookingOfEmployee(EmployeeEmailDTO employeeEmailDTO) throws EmployeeNotFoundException;
 
-    BookingListDTOAdmin  getAllBookingInAPeriodAdmin(AdminBookingForAllDTO adminBookingForAllDTO);
+    BookingListDTOAdmin getAllBookingInAPeriodAdmin(AdminBookingForAllDTO adminBookingForAllDTO);
 
 
-    BookingToshowDtoList  getAllBookingOfEmployeeInAPeriod(EmployeeBookingInAPeriodDTO employeeBookingInAPeriodDTO) throws EmployeeNotFoundException;
+    BookingToshowDtoList getAllBookingOfEmployeeInAPeriod(EmployeeBookingInAPeriodDTO employeeBookingInAPeriodDTO) throws EmployeeNotFoundException;
 
 }
