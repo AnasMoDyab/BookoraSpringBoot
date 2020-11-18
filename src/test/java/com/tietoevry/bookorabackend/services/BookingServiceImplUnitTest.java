@@ -108,7 +108,7 @@ class BookingServiceImplUnitTest {
         assertThat(bookingListDTO.getBookingDTOList().size()).isEqualTo(1);
         assertThatThrownBy(() -> {
             bookingService.getAllBookingOfEmployee(employeeEmailDTO2);
-        }).isInstanceOf(RuntimeException.class);
+        }).isInstanceOf(EmployeeNotFoundException.class);
         then(employeeRepository).should(times(2)).findByEmail(anyString());
         then(bookingRepository).should(times(1)).findAllByEmployee(any(Employee.class));
     }
@@ -133,7 +133,7 @@ class BookingServiceImplUnitTest {
         assertThat(bookingListDTO.getBookingDTOList().size()).isEqualTo(1);
         assertThatThrownBy(() -> {
             bookingService.getAllValidBookingOfEmployee(employeeEmailDTO2);
-        }).isInstanceOf(RuntimeException.class);
+        }).isInstanceOf(EmployeeNotFoundException.class);
         then(employeeRepository).should(times(2)).findByEmail(anyString());
         then(bookingRepository).should(times(1)).findAllByEmployeeAndDateGreaterThanEqual(any(Employee.class), any(LocalDate.class));
     }
@@ -157,7 +157,7 @@ class BookingServiceImplUnitTest {
         assertThat(bookingListDTO.getBookingDTOList().size()).isEqualTo(1);
         assertThatThrownBy(() -> {
             bookingService.getAllPastBookingOfEmployee(employeeEmailDTO2);
-        }).isInstanceOf(RuntimeException.class);
+        }).isInstanceOf(EmployeeNotFoundException.class);
         then(employeeRepository).should(times(2)).findByEmail(anyString());
         then(bookingRepository).should(times(1)).findAllByEmployeeAndDateBefore(any(Employee.class), any(LocalDate.class));
     }
@@ -200,7 +200,7 @@ class BookingServiceImplUnitTest {
         assertThat(bookingToshowDtoList.getBookingToshowDtoLists().size()).isEqualTo(1);
         assertThatThrownBy(() -> {
             bookingService.getAllBookingOfEmployeeInAPeriod(employeeBookingInAPeriodDTO2);
-        }).isInstanceOf(RuntimeException.class);
+        }).isInstanceOf(EmployeeNotFoundException.class);
         then(employeeRepository).should(times(2)).findByEmail(anyString());
         then(bookingRepository).should(times(1)).findAllByEmployeeAndDateGreaterThanEqualAndDateLessThanEqual(any(Employee.class), any(LocalDate.class), any(LocalDate.class));
     }
