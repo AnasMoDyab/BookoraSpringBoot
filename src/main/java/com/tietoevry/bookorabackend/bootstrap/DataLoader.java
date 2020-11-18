@@ -71,9 +71,13 @@ public class DataLoader implements CommandLineRunner{
         allRoles.add(user);
         allRoles.add(admin);
 
+        HashSet<Role> onlyUser = new HashSet<>();
+        onlyUser.add(user);
+        onlyUser.add(user);
+
         Employee employee1 = new Employee("root", "root", "root@tietoevry.com","123456aB@");
         Employee employee2 = new Employee("John", "Johnson", "john@tietoevry.com","123456aB@");
-        Employee employee3 = new Employee("Kari", "Hansen", "kari@gmail.com","123456aB@");
+        Employee employee3 = new Employee("Kari", "Hansen", "kari@tietoevry.com","123456aB@");
         employee1.setEnabled(true);
         employee2.setEnabled(true);
         employee3.setEnabled(true);
@@ -91,7 +95,7 @@ public class DataLoader implements CommandLineRunner{
             Employee employee = new Employee("employee"+i, "employee"+i, "employee"+i+"@tietoevry.com","123456aB@");
             employee.setEnabled(true);
             employee.setPassword(encoder.encode(employee.getPassword()));
-            employee.setRoles(allRoles);
+            employee.setRoles(onlyUser);
             employeeRepository.save(employee);
         }
     }
