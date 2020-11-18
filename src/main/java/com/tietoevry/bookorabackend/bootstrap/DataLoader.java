@@ -85,8 +85,8 @@ public class DataLoader implements CommandLineRunner{
         employee2.setPassword(encoder.encode(employee2.getPassword()));
         employee3.setPassword(encoder.encode(employee3.getPassword()));
         employee1.setRoles(allRoles);
-        employee2.setRoles(allRoles);
-        employee3.setRoles(allRoles);
+        employee2.setRoles(onlyUser);
+        employee3.setRoles(onlyUser);
         employeeRepository.save(employee1);
         employeeRepository.save(employee2);
         employeeRepository.save(employee3);
