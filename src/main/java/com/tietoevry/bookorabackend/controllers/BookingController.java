@@ -1,6 +1,7 @@
 package com.tietoevry.bookorabackend.controllers;
 
 import com.tietoevry.bookorabackend.api.v1.model.*;
+import com.tietoevry.bookorabackend.exception.EmployeeNotFoundException;
 import com.tietoevry.bookorabackend.services.BookingService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.HttpStatus;
@@ -34,28 +35,28 @@ public class BookingController {
     @PostMapping("/getAllBookingOfEmployee")
     @PreAuthorize("hasAnyAuthority('ROLE_ADMIN', 'ROLE_USER')")
     @ResponseStatus(HttpStatus.OK)
-    public BookingListDTO getAllBookingOfEmployee(@RequestBody @Valid EmployeeEmailDTO employeeEmailDTO) {
+    public BookingListDTO getAllBookingOfEmployee(@RequestBody @Valid EmployeeEmailDTO employeeEmailDTO) throws Exception {
         return bookingService.getAllBookingOfEmployee(employeeEmailDTO);
     }
 
     @PostMapping("/getAllValidBookingOfEmployee")
     @PreAuthorize("hasAnyAuthority('ROLE_ADMIN', 'ROLE_USER')")
     @ResponseStatus(HttpStatus.OK)
-    public BookingListDTO getAllValidBookingOfEmployee(@RequestBody @Valid EmployeeEmailDTO employeeEmailDTO) {
+    public BookingListDTO getAllValidBookingOfEmployee(@RequestBody @Valid EmployeeEmailDTO employeeEmailDTO) throws Exception {
         return bookingService.getAllValidBookingOfEmployee(employeeEmailDTO);
     }
 
     @PostMapping("/getAllPastBookingOfEmployee")
     @PreAuthorize("hasAnyAuthority('ROLE_ADMIN', 'ROLE_USER')")
     @ResponseStatus(HttpStatus.OK)
-    public BookingListDTO getAllPastBookingOfEmployee(@RequestBody @Valid EmployeeEmailDTO employeeEmailDTO) {
+    public BookingListDTO getAllPastBookingOfEmployee(@RequestBody @Valid EmployeeEmailDTO employeeEmailDTO) throws EmployeeNotFoundException {
         return bookingService.getAllPastBookingOfEmployee(employeeEmailDTO);
     }
 
     @PostMapping("/getAllBookingOfEmployeeInAPeriod")
     @PreAuthorize("hasAnyAuthority('ROLE_ADMIN', 'ROLE_USER')")
     @ResponseStatus(HttpStatus.OK)
-    public BookingToshowDtoList getAllBookingOfEmployeeInAPeriod(@RequestBody @Valid EmployeeBookingInAPeriodDTO employeeBookingInAPeriodDTO) {
+    public BookingToshowDtoList getAllBookingOfEmployeeInAPeriod(@RequestBody @Valid EmployeeBookingInAPeriodDTO employeeBookingInAPeriodDTO) throws EmployeeNotFoundException {
         return bookingService.getAllBookingOfEmployeeInAPeriod(employeeBookingInAPeriodDTO);
     }
 

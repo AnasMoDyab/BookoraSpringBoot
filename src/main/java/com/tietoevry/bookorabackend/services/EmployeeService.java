@@ -6,7 +6,7 @@ import com.tietoevry.bookorabackend.exception.EmployeeNotFoundException;
 public interface EmployeeService {
     EmployeeListDTO getAllEmployees();
 
-    EmployeeDTO getEmployeeById(Long id);
+    EmployeeDTO getEmployeeById(Long id) throws EmployeeNotFoundException;
 
     MessageDTO createNewEmployee(SignUpDTO signUpDTO) throws Exception;
 

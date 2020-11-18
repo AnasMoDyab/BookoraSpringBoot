@@ -2,6 +2,7 @@ package com.tietoevry.bookorabackend.services;
 
 import com.tietoevry.bookorabackend.api.v1.mapper.BookingMapper;
 import com.tietoevry.bookorabackend.api.v1.model.*;
+import com.tietoevry.bookorabackend.exception.EmployeeNotFoundException;
 import com.tietoevry.bookorabackend.model.Booking;
 import com.tietoevry.bookorabackend.model.Employee;
 import com.tietoevry.bookorabackend.model.Zone;
@@ -90,7 +91,7 @@ class BookingServiceImplUnitTest {
 
     @DisplayName("Get all booking of employee")
     @Test
-    void getAllBookingOfEmployee() {
+    void getAllBookingOfEmployee() throws Exception {
         //Given
         Employee employee = new Employee();
         EmployeeEmailDTO employeeEmailDTO = new EmployeeEmailDTO("root@tietoevry.com");
@@ -115,7 +116,7 @@ class BookingServiceImplUnitTest {
     @DisplayName("Get all valid booking of employee")
     @Tag("UnitTest")
     @Test
-    void getAllValidBookingOfEmployee() {
+    void getAllValidBookingOfEmployee() throws Exception {
         //Given
         Employee employee = new Employee();
         EmployeeEmailDTO employeeEmailDTO = new EmployeeEmailDTO("root@tietoevry.com");
@@ -139,7 +140,7 @@ class BookingServiceImplUnitTest {
 
     @DisplayName("Get all past booking of employee")
     @Test
-    void getAllPastBookingOfEmployee() {
+    void getAllPastBookingOfEmployee() throws EmployeeNotFoundException {
         //Given
         Employee employee = new Employee();
         EmployeeEmailDTO employeeEmailDTO = new EmployeeEmailDTO("root@tietoevry.com");
@@ -182,7 +183,7 @@ class BookingServiceImplUnitTest {
 
     @DisplayName("Get all booking of employee in a period")
     @Test
-    void getAllBookingOfEmployeeInAPeriod() {
+    void getAllBookingOfEmployeeInAPeriod() throws EmployeeNotFoundException {
         //Given
         Employee employee = new Employee();
         EmployeeBookingInAPeriodDTO employeeBookingInAPeriodDTO = new EmployeeBookingInAPeriodDTO("root@tietoevry.com", LocalDate.now(), LocalDate.now());

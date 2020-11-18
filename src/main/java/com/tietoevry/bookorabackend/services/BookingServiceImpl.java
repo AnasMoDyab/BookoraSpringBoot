@@ -2,6 +2,8 @@ package com.tietoevry.bookorabackend.services;
 
 import com.tietoevry.bookorabackend.api.v1.mapper.BookingMapper;
 import com.tietoevry.bookorabackend.api.v1.model.*;
+import com.tietoevry.bookorabackend.exception.EmployeeNotFoundException;
+import com.tietoevry.bookorabackend.exception.ZoneNotFoundException;
 import com.tietoevry.bookorabackend.model.Booking;
 import com.tietoevry.bookorabackend.model.Employee;
 import com.tietoevry.bookorabackend.model.Zone;
@@ -34,8 +36,10 @@ public class BookingServiceImpl implements BookingService {
     @Override
     public BookingIdDTO bookOneZoneOfOneDay(BookingDTO bookingDTO) throws Exception {
 
-        Employee employee = employeeRepository.findById(bookingDTO.getEmployeeId()).orElseThrow(RuntimeException::new);
-        Zone zone = zoneRepository.findById(bookingDTO.getZoneId()).orElseThrow(RuntimeException::new);
+        Employee employee = employeeRepository.findById(bookingDTO.getEmployeeId())
+                .orElseThrow(()-> new EmployeeNotFoundException("Employee is not found"));
+        Zone zone = zoneRepository.findById(bookingDTO.getZoneId())
+                .orElseThrow(()-> new ZoneNotFoundException("Zone is not found"));
         LocalDate date = bookingDTO.getDate();
 
         //check if the zone is full on that date
@@ -66,10 +70,11 @@ public class BookingServiceImpl implements BookingService {
 
 
     @Override
-    public BookingListDTO getAllBookingOfEmployee(EmployeeEmailDTO employeeEmailDTO) {
+    public BookingListDTO getAllBookingOfEmployee(EmployeeEmailDTO employeeEmailDTO) throws Exception {
 
 
-        Employee employee = employeeRepository.findByEmail(employeeEmailDTO.getEmail()).orElseThrow(RuntimeException::new);
+        Employee employee = employeeRepository.findByEmail(employeeEmailDTO.getEmail())
+                .orElseThrow(()-> new EmployeeNotFoundException("Employee is not found"));
 
         List<BookingDTO> bookingDTOList = new ArrayList<>();
 
@@ -82,9 +87,10 @@ public class BookingServiceImpl implements BookingService {
     }
 
     @Override
-    public BookingListDTO getAllValidBookingOfEmployee(EmployeeEmailDTO employeeEmailDTO) {
+    public BookingListDTO getAllValidBookingOfEmployee(EmployeeEmailDTO employeeEmailDTO) throws Exception {
 
-        Employee employee = employeeRepository.findByEmail(employeeEmailDTO.getEmail()).orElseThrow(RuntimeException::new);
+        Employee employee = employeeRepository.findByEmail(employeeEmailDTO.getEmail())
+                .orElseThrow(()-> new EmployeeNotFoundException("Employee is not found"));
 
         List<BookingDTO> bookingDTOList = new ArrayList<>();
 
@@ -98,8 +104,9 @@ public class BookingServiceImpl implements BookingService {
     }
 
     @Override
-    public BookingListDTO getAllPastBookingOfEmployee(EmployeeEmailDTO employeeEmailDTO) {
-        Employee employee = employeeRepository.findByEmail(employeeEmailDTO.getEmail()).orElseThrow(RuntimeException::new);
+    public BookingListDTO getAllPastBookingOfEmployee(EmployeeEmailDTO employeeEmailDTO) throws EmployeeNotFoundException {
+        Employee employee = employeeRepository.findByEmail(employeeEmailDTO.getEmail())
+                .orElseThrow(()-> new EmployeeNotFoundException("Employee is not found"));
 
         List<BookingDTO> bookingDTOList = new ArrayList<>();
 
@@ -131,8 +138,9 @@ public class BookingServiceImpl implements BookingService {
     }
 
     @Override
-    public BookingToshowDtoList getAllBookingOfEmployeeInAPeriod(EmployeeBookingInAPeriodDTO employeeBookingInAPeriodDTO) {
-        Employee employee = employeeRepository.findByEmail(employeeBookingInAPeriodDTO.getEmail()).orElseThrow(RuntimeException::new);
+    public BookingToshowDtoList getAllBookingOfEmployeeInAPeriod(EmployeeBookingInAPeriodDTO employeeBookingInAPeriodDTO) throws EmployeeNotFoundException {
+        Employee employee = employeeRepository.findByEmail(employeeBookingInAPeriodDTO.getEmail())
+                .orElseThrow(()-> new EmployeeNotFoundException("Employee is not found"));
         List<BookingToshowDTO> bookingDTOList = new ArrayList<>();
 
         for (Booking booking : bookingRepository.findAllByEmployeeAndDateGreaterThanEqualAndDateLessThanEqual(employee, employeeBookingInAPeriodDTO.getFrom(), employeeBookingInAPeriodDTO.getTo())) {

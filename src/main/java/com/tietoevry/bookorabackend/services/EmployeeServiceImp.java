@@ -74,7 +74,7 @@ public class EmployeeServiceImp implements EmployeeService {
     }
 
     @Override
-    public EmployeeDTO getEmployeeById(Long id) {
+    public EmployeeDTO getEmployeeById(Long id) throws EmployeeNotFoundException {
         return employeeRepository
                 .findById(id)
                 .map(employeeMapper::employeeToEmployeeDTO)
@@ -82,7 +82,7 @@ public class EmployeeServiceImp implements EmployeeService {
                     employeeDTO.setEmployeeUrl(getEmployeeUrl(id));
                     return employeeDTO;
                 })
-                .orElseThrow(RuntimeException::new);
+                .orElseThrow(()-> new EmployeeNotFoundException("Employee is not found"));
     }
 
 
