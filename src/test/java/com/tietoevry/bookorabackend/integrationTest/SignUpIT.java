@@ -20,7 +20,7 @@ import static org.springframework.http.HttpStatus.*;
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @Tag("Development")
 @Tag("IntegrationTest")
-class signUpIT {
+class SignUpIT {
 
     @LocalServerPort
     private int port;
