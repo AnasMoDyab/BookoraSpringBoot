@@ -105,7 +105,7 @@ class EmployeeServiceImpTest {
     }
 
     @Test
-    void getEmployeeById() {
+    void getEmployeeById() throws EmployeeNotFoundException {
         //given
         Employee employee = new Employee();
         employee.setId(1L);
