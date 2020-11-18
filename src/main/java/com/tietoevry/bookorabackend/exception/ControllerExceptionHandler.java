@@ -1,5 +1,6 @@
 package com.tietoevry.bookorabackend.exception;
 
+import com.tietoevry.bookorabackend.api.v1.model.JwtDTO;
 import com.tietoevry.bookorabackend.api.v1.model.MessageDTO;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -44,6 +45,14 @@ public class ControllerExceptionHandler {
         MessageDTO messageDTO = new MessageDTO("Invalid input");
 
         return new ResponseEntity<>(messageDTO, HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler({EmployeeNotActivatedException.class})
+    public ResponseEntity<JwtDTO> handleEmployeeNotActivatedException(Exception exception) {
+
+        JwtDTO jwtDTO = new JwtDTO(exception.getMessage());
+
+        return new ResponseEntity<>(jwtDTO, HttpStatus.BAD_REQUEST);
     }
 
     @ExceptionHandler(BadCredentialsException.class)

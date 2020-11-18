@@ -59,7 +59,7 @@ public class EmployeeController {
 
     @PostMapping("/signin")
     @ResponseStatus(HttpStatus.OK) //todo Block user after attemping 3 times to login with wrong password(Brute-force attacks)
-    public JwtDTO authenticateUser(@Valid @RequestBody LogInDTO logInDTO) throws EmployeeNotFoundException {
+    public JwtDTO authenticateUser(@Valid @RequestBody LogInDTO logInDTO) throws Exception {
         return employeeService.logIn(logInDTO);
     }
 

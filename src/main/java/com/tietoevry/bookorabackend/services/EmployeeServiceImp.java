@@ -4,10 +4,7 @@ import com.tietoevry.bookorabackend.api.v1.mapper.EmployeeMapper;
 import com.tietoevry.bookorabackend.api.v1.mapper.SignUpMapper;
 import com.tietoevry.bookorabackend.api.v1.model.*;
 import com.tietoevry.bookorabackend.controllers.EmployeeController;
-import com.tietoevry.bookorabackend.exception.EmployeeNotFoundException;
-import com.tietoevry.bookorabackend.exception.InvalidDomainException;
-import com.tietoevry.bookorabackend.exception.RoleNotFoundException;
-import com.tietoevry.bookorabackend.exception.UserExistedException;
+import com.tietoevry.bookorabackend.exception.*;
 import com.tietoevry.bookorabackend.model.*;
 import com.tietoevry.bookorabackend.repositories.ConfirmationTokenRepository;
 import com.tietoevry.bookorabackend.repositories.EmployeeRepository;
@@ -177,7 +174,7 @@ public class EmployeeServiceImp implements EmployeeService {
     }
 
     @Override
-    public JwtDTO logIn(LogInDTO logInDTO) throws EmployeeNotFoundException {
+    public JwtDTO logIn(LogInDTO logInDTO) throws Exception {
         String email = logInDTO.getEmail();
 
         Employee employee = employeeRepository.findByEmailIgnoreCase(email);
@@ -210,7 +207,7 @@ public class EmployeeServiceImp implements EmployeeService {
                     roles);
         }
 
-        return new JwtDTO("Email is not activated");
+        throw new EmployeeNotActivatedException("Email is not activated");
     }
 
     @Override
