@@ -3,6 +3,7 @@ package com.tietoevry.bookorabackend.services;
 import com.tietoevry.bookorabackend.api.v1.mapper.EmployeeMapper;
 import com.tietoevry.bookorabackend.api.v1.mapper.SignUpMapper;
 import com.tietoevry.bookorabackend.api.v1.model.*;
+import com.tietoevry.bookorabackend.exception.EmployeeNotActivatedException;
 import com.tietoevry.bookorabackend.exception.EmployeeNotFoundException;
 import com.tietoevry.bookorabackend.exception.InvalidDomainException;
 import com.tietoevry.bookorabackend.exception.UserExistedException;
@@ -305,13 +306,12 @@ class EmployeeServiceImpTest {
         given(employeeRepository.findByEmailIgnoreCase(any())).willReturn(employee);
 
         //when
-        JwtDTO jwtDTO = employeeServiceImp.logIn(logInDTO);
-
-        //then
-        assertThat(jwtDTO.getToken()).isEqualTo("Email is not activated");
-        then(employeeRepository).should(times(1)).findByEmailIgnoreCase(any());
-        then(authenticationManager).should(times(0)).authenticate(any());
-        then(jwtUtils).should(times(0)).generateJwtToken(any());
+        assertThatThrownBy(() -> {
+            employeeServiceImp.logIn(logInDTO);
+        })
+                //then
+                .isInstanceOf(EmployeeNotActivatedException.class)
+                .hasMessage("Email is not activated");
     }
 
     @DisplayName("Request reset password code with valid email")
