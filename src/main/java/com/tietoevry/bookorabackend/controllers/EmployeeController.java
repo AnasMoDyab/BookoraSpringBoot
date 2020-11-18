@@ -1,6 +1,7 @@
 package com.tietoevry.bookorabackend.controllers;
 
 import com.tietoevry.bookorabackend.api.v1.model.*;
+import com.tietoevry.bookorabackend.exception.EmployeeNotFoundException;
 import com.tietoevry.bookorabackend.repositories.EmployeeRepository;
 import com.tietoevry.bookorabackend.services.ConfirmationTokenService;
 import com.tietoevry.bookorabackend.services.EmployeeService;
@@ -58,7 +59,7 @@ public class EmployeeController {
 
     @PostMapping("/signin")
     @ResponseStatus(HttpStatus.OK) //todo Block user after attemping 3 times to login with wrong password(Brute-force attacks)
-    public JwtDTO authenticateUser(@Valid @RequestBody LogInDTO logInDTO) {
+    public JwtDTO authenticateUser(@Valid @RequestBody LogInDTO logInDTO) throws EmployeeNotFoundException {
         return employeeService.logIn(logInDTO);
     }
 

@@ -14,46 +14,45 @@ import org.thymeleaf.exceptions.TemplateInputException;
 public class ControllerExceptionHandler {
 
     @ExceptionHandler(TemplateInputException.class)
-    public ResponseEntity<MessageDTO> handleErrorInTemplate(Exception exception){
+    public ResponseEntity<MessageDTO> handleErrorInTemplate(Exception exception) {
 
         MessageDTO messageDTO = new MessageDTO(exception.getMessage());
 
-        return  new ResponseEntity<>(messageDTO,HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>(messageDTO, HttpStatus.BAD_REQUEST);
     }
 
     @ExceptionHandler(UserExistedException.class)
-    public ResponseEntity<MessageDTO> handleUserExistedException(Exception exception){
+    public ResponseEntity<MessageDTO> handleUserExistedException(Exception exception) {
 
         MessageDTO messageDTO = new MessageDTO(exception.getMessage());
 
-        return new ResponseEntity<>(messageDTO,HttpStatus.CONFLICT);
+        return new ResponseEntity<>(messageDTO, HttpStatus.CONFLICT);
     }
 
-    @ExceptionHandler({InvalidDomainException.class,RoleNotFoundException.class,ZoneNotFoundException.class})
-    public ResponseEntity<MessageDTO> handleNotFound(Exception exception){
+    @ExceptionHandler({InvalidDomainException.class, RoleNotFoundException.class, ZoneNotFoundException.class,
+            EmployeeNotFoundException.class})
+    public ResponseEntity<MessageDTO> handleNotFound(Exception exception) {
 
         MessageDTO messageDTO = new MessageDTO(exception.getMessage());
 
-        return new ResponseEntity<>(messageDTO,HttpStatus.NOT_FOUND);
+        return new ResponseEntity<>(messageDTO, HttpStatus.NOT_FOUND);
     }
 
     @ExceptionHandler({ResourceAccessException.class, MethodArgumentNotValidException.class})
-    public ResponseEntity<MessageDTO> handleInvalidInput(Exception exception){
+    public ResponseEntity<MessageDTO> handleInvalidInput(Exception exception) {
 
         MessageDTO messageDTO = new MessageDTO("Invalid input");
 
-        return new ResponseEntity<>(messageDTO,HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>(messageDTO, HttpStatus.BAD_REQUEST);
     }
 
     @ExceptionHandler(BadCredentialsException.class)
-    public ResponseEntity<MessageDTO> handleBadCredentialsException(Exception exception){
+    public ResponseEntity<MessageDTO> handleBadCredentialsException(Exception exception) {
 
         MessageDTO messageDTO = new MessageDTO("Incorrect email or password");
 
-        return new ResponseEntity<>(messageDTO,HttpStatus.UNAUTHORIZED);
+        return new ResponseEntity<>(messageDTO, HttpStatus.UNAUTHORIZED);
     }
-
-
 
 
 }

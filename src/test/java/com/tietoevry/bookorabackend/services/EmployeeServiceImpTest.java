@@ -3,6 +3,7 @@ package com.tietoevry.bookorabackend.services;
 import com.tietoevry.bookorabackend.api.v1.mapper.EmployeeMapper;
 import com.tietoevry.bookorabackend.api.v1.mapper.SignUpMapper;
 import com.tietoevry.bookorabackend.api.v1.model.*;
+import com.tietoevry.bookorabackend.exception.EmployeeNotFoundException;
 import com.tietoevry.bookorabackend.exception.InvalidDomainException;
 import com.tietoevry.bookorabackend.exception.UserExistedException;
 import com.tietoevry.bookorabackend.model.Employee;
@@ -261,7 +262,7 @@ class EmployeeServiceImpTest {
 
     @DisplayName("Log in with an activated account")
     @Test
-    void logIn() {
+    void logIn() throws EmployeeNotFoundException {
         //given
         LogInDTO logInDTO = new LogInDTO("email", "password");
         Employee employee = new Employee();
@@ -295,7 +296,7 @@ class EmployeeServiceImpTest {
 
     @DisplayName("Log in with an non-activated account")
     @Test
-    void logInWithNonActivatedAccount() {
+    void logInWithNonActivatedAccount() throws EmployeeNotFoundException {
         //given
         LogInDTO logInDTO = new LogInDTO("email", "password");
         Employee employee = new Employee();
