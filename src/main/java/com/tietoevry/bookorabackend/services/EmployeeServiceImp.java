@@ -279,11 +279,11 @@ public class EmployeeServiceImp implements EmployeeService {
     }
 
     @Override
-    public EmployeeDTO getEmployeeByEmail(String email) {
+    public EmployeeDTO getEmployeeByEmail(String email) throws Exception {
         String domain = email.substring(email.indexOf("@") + 1);
 
         if (!domain.equals(validDomain)) {
-            return null;
+            throw new InvalidDomainException(null);
         }
 
         Employee employee = employeeRepository.findByEmailIgnoreCase(email);
@@ -301,7 +301,7 @@ public class EmployeeServiceImp implements EmployeeService {
 
         }
 
-        return null;
+        throw new EmployeeNotFoundException(null);
     }
 
     @Override

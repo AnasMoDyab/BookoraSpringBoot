@@ -392,7 +392,7 @@ class EmployeeServiceImpTest {
 
     @DisplayName("Get an employee by invalid domain")
     @Test
-    void getEmployeeValidDomain() {
+    void getEmployeeValidDomain() throws Exception {
         //given
         String email = "abc@tietoevry.com";
         Set<Role> roles = new HashSet<>();
@@ -417,21 +417,21 @@ class EmployeeServiceImpTest {
 
     @DisplayName("Get an employee by invalid domain")
     @Test
-    void getEmployeeByInvalidDomain() {
+    void getEmployeeByInvalidDomain() throws Exception {
         //given
         String email = "abc@tietoevry.com";
 
-
         //when
-        EmployeeDTO employeeDTO = employeeServiceImp.getEmployeeByEmail(email);
-
-        //then
-        assertThat(employeeDTO).isNull();
+        assertThatThrownBy(() -> {
+            employeeServiceImp.getEmployeeByEmail(email);
+        })
+                //then
+                .isInstanceOf(InvalidDomainException.class);
     }
 
     @DisplayName("Get an employee by non-existing domain")
     @Test
-    void getNonExistingEmployeeByEmail() {
+    void getNonExistingEmployeeByEmail() throws Exception {
         //given
         String email = "abc@tietoevry.com";
 
@@ -441,12 +441,11 @@ class EmployeeServiceImpTest {
         given(employeeRepository.findByEmailIgnoreCase(any())).willReturn(null);
 
         //when
-        EmployeeDTO employeeDTO = employeeServiceImp.getEmployeeByEmail(email);
-
-        //then
-        assertThat(employeeDTO).isNull();
-        then(employeeRepository).should(times(1)).findByEmailIgnoreCase(any());
-        then(employeeMapper).should(times(0)).employeeToEmployeeDTO(any());
+        assertThatThrownBy(() -> {
+            employeeServiceImp.getEmployeeByEmail(email);
+        })
+                //then
+                .isInstanceOf(EmployeeNotFoundException.class);
     }
 
     @Test
