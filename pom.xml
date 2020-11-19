@@ -208,15 +208,15 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-failsafe-plugin</artifactId>
-                <configuration>
-                    <groups>IntegrationTest</groups>
-                </configuration>
                 <executions>
                     <execution>
                         <goals>
                             <goal>integration-test</goal>
                             <goal>verify</goal>
                         </goals>
+                        <configuration>
+                            <groups>IntegrationTest</groups>
+                        </configuration>
                     </execution>
                 </executions>
             </plugin>
