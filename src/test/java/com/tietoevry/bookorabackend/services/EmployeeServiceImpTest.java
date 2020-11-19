@@ -425,7 +425,7 @@ class EmployeeServiceImpTest {
     @Test
     void getEmployeeByInvalidDomain() throws Exception {
         //given
-        String email = "abc@tietoevry.com";
+        String email = "abc@tietoevrya.com";
 
         //setting the @Value in the class without bringing in the application properties
         ReflectionTestUtils.setField(employeeServiceImp, "validDomains", "tietoevry.com,evry.com");
@@ -435,7 +435,7 @@ class EmployeeServiceImpTest {
             employeeServiceImp.getEmployeeByEmail(email);
         })
                 //then
-                .isInstanceOf(EmployeeNotFoundException.class);
+                .isInstanceOf(InvalidDomainException.class);
     }
 
     @DisplayName("Get an employee by non-existing domain")
