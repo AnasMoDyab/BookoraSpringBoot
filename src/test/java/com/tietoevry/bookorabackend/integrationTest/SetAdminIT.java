@@ -108,7 +108,6 @@ public class SetAdminIT {
                 .postForEntity("http://localhost:" + port + EmployeeController.BASE_URL + "/updateEmployee"
                         , request, MessageDTO.class);
 
-        System.out.println(response);
         //then
         assertThat(response.getStatusCode()).isEqualTo(FORBIDDEN);
     }

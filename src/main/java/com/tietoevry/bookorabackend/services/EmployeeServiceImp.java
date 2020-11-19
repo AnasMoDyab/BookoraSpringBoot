@@ -327,7 +327,6 @@ public class EmployeeServiceImp implements EmployeeService {
     private boolean checkValidDomain(String domain) {
         String[] validDomainList = validDomains.split(",");
         for (String validDomain : validDomainList) {
-            System.out.println(validDomain);
             if (validDomain.equals(domain)) {
                 return true;
             }
