@@ -12,7 +12,7 @@ import java.util.Set;
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString(exclude = {"roles", "confirmationToken"})
-@EqualsAndHashCode(exclude = {"roles", "confirmationToken"})
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @Entity
 public class Employee {
 
@@ -26,6 +26,7 @@ public class Employee {
     @NotNull(message = "You must fill in last name.")
     private String lastName;
 
+    @EqualsAndHashCode.Include
     @NotNull(message = "You must fill in e-mail.")
     @Email
     private String email;
