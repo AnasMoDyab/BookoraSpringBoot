@@ -130,6 +130,9 @@ class EmployeeServiceImpTest {
         SignUpDTO signUpDTO = new SignUpDTO();
         signUpDTO.setEmail("abc@invalid.com");
 
+        //setting the @Value in the class without bringing in the application properties
+        ReflectionTestUtils.setField(employeeServiceImp, "validDomains", "tietoevry.com,evry.com");
+
         //when
         assertThatThrownBy(() -> {
             employeeServiceImp.createNewEmployee(signUpDTO);
@@ -148,7 +151,7 @@ class EmployeeServiceImpTest {
         signUpDTO.setEmail("abc@tietoevry.com");
 
         //setting the @Value in the class without bringing in the application properties
-        ReflectionTestUtils.setField(employeeServiceImp, "validDomain", "tietoevry.com");
+        ReflectionTestUtils.setField(employeeServiceImp, "validDomains", "tietoevry.com,evry.com");
 
         given(employeeRepository.findByEmailIgnoreCase(any())).willReturn(new Employee());
 
@@ -172,7 +175,7 @@ class EmployeeServiceImpTest {
         Employee employee = new Employee();
 
         //setting the @Value in the class without bringing in the application properties
-        ReflectionTestUtils.setField(employeeServiceImp, "validDomain", "tietoevry.com");
+        ReflectionTestUtils.setField(employeeServiceImp, "validDomains", "tietoevry.com,evry.com");
 
         given(employeeRepository.findByEmailIgnoreCase(any())).willReturn(null);
         given(signUpMapper.signUpDTOtoEmployee(any())).willReturn(new Employee());
@@ -204,7 +207,7 @@ class EmployeeServiceImpTest {
         Employee employee = new Employee();
 
         //setting the @Value in the class without bringing in the application properties
-        ReflectionTestUtils.setField(employeeServiceImp, "validDomain", "tietoevry.com");
+        ReflectionTestUtils.setField(employeeServiceImp, "validDomains", "tietoevry.com,evry.com");
 
         given(employeeRepository.findByEmailIgnoreCase(any())).willReturn(null);
         given(signUpMapper.signUpDTOtoEmployee(any())).willReturn(new Employee());
@@ -231,6 +234,9 @@ class EmployeeServiceImpTest {
         ReActiveEmailDTO reActiveEmailDTO = new ReActiveEmailDTO();
         reActiveEmailDTO.setEmail("abc@invalid.com");
 
+        //setting the @Value in the class without bringing in the application properties
+        ReflectionTestUtils.setField(employeeServiceImp, "validDomains", "tietoevry.com,evry.com");
+
         //when
         assertThatThrownBy(() -> {
             employeeServiceImp.resendConfirmationToken(reActiveEmailDTO);
@@ -248,7 +254,7 @@ class EmployeeServiceImpTest {
         reActiveEmailDTO.setEmail("abc@tietoevry.com");
 
         //setting the @Value in the class without bringing in the application properties
-        ReflectionTestUtils.setField(employeeServiceImp, "validDomain", "tietoevry.com");
+        ReflectionTestUtils.setField(employeeServiceImp, "validDomains", "tietoevry.com,evry.com");
 
         given(employeeRepository.findByEmailIgnoreCase(any())).willReturn(new Employee());
 
@@ -401,7 +407,7 @@ class EmployeeServiceImpTest {
         employee.setRoles(roles);
 
         //setting the @Value in the class without bringing in the application properties
-        ReflectionTestUtils.setField(employeeServiceImp, "validDomain", "tietoevry.com");
+        ReflectionTestUtils.setField(employeeServiceImp, "validDomains", "tietoevry.com,evry.com");
 
         given(employeeRepository.findByEmailIgnoreCase(any())).willReturn(employee);
         given(employeeMapper.employeeToEmployeeDTO(any())).willReturn(new EmployeeDTO());
@@ -421,12 +427,15 @@ class EmployeeServiceImpTest {
         //given
         String email = "abc@tietoevry.com";
 
+        //setting the @Value in the class without bringing in the application properties
+        ReflectionTestUtils.setField(employeeServiceImp, "validDomains", "tietoevry.com,evry.com");
+
         //when
         assertThatThrownBy(() -> {
             employeeServiceImp.getEmployeeByEmail(email);
         })
                 //then
-                .isInstanceOf(InvalidDomainException.class);
+                .isInstanceOf(EmployeeNotFoundException.class);
     }
 
     @DisplayName("Get an employee by non-existing domain")
@@ -436,7 +445,7 @@ class EmployeeServiceImpTest {
         String email = "abc@tietoevry.com";
 
         //setting the @Value in the class without bringing in the application properties
-        ReflectionTestUtils.setField(employeeServiceImp, "validDomain", "tietoevry.com");
+        ReflectionTestUtils.setField(employeeServiceImp, "validDomains", "tietoevry.com,evry.com");
 
         given(employeeRepository.findByEmailIgnoreCase(any())).willReturn(null);
 
