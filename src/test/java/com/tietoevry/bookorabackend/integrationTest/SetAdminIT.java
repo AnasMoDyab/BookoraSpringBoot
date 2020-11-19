@@ -16,15 +16,12 @@ import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.client.ResourceAccessException;
 
 import java.util.Arrays;
 import java.util.HashSet;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.assertThatThrownBy;
-import static org.springframework.http.HttpStatus.NOT_FOUND;
-import static org.springframework.http.HttpStatus.OK;
+import static org.springframework.http.HttpStatus.*;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @Tag("Development")
@@ -33,13 +30,11 @@ public class SetAdminIT {
 
     TestRestTemplate restTemplate = new TestRestTemplate();
     HttpHeaders headers = new HttpHeaders();
-
-    @LocalServerPort
-    private int port;
-
     String validAdminJwt;
     String validUserJwt;
     String inValidJwt;
+    @LocalServerPort
+    private int port;
 
     @BeforeEach
     void setUp() {
@@ -51,11 +46,11 @@ public class SetAdminIT {
         validAdminJwt = jwtResponse.getBody().getToken();
 
         //get valid user jwt
-        LogInDTO logInUserDTO = new LogInDTO("employee1@tietoevry.com", "123456aB@");
+        LogInDTO logInUserDTO = new LogInDTO("employee3@tietoevry.com", "123456aB@");
         ResponseEntity<JwtDTO> jwtUserResponse = restTemplate
                 .postForEntity("http://localhost:" + port + EmployeeController.BASE_URL + "/signin"
                         , logInUserDTO, JwtDTO.class);
-        validAdminJwt = jwtUserResponse.getBody().getToken();
+        validUserJwt = jwtUserResponse.getBody().getToken();
 
         // set Invalid JWT
         inValidJwt = "test";
@@ -66,7 +61,7 @@ public class SetAdminIT {
 
     @DisplayName("Set a user to admin with valid JWT")
     @Test
-    void setAUserToAdminWithValidJWT(){
+    void setAUserToAdminWithValidJWT() {
         EmailDTO emailDTO = new EmailDTO("employee1@tietoevry.com", new HashSet<String>(Arrays.asList("user", "admin")));
         headers.set("Authorization", "Bearer " + validAdminJwt);
 
@@ -84,7 +79,7 @@ public class SetAdminIT {
 
     @DisplayName("Set a non-existing user to admin with valid JWT")
     @Test
-    void setANonExistingUserToAdminWithValidJWT(){
+    void setANonExistingUserToAdminWithValidJWT() {
         EmailDTO emailDTO = new EmailDTO("abc@tietoevry.com", new HashSet<String>(Arrays.asList("user", "admin")));
         headers.set("Authorization", "Bearer " + validAdminJwt);
 
@@ -102,19 +97,19 @@ public class SetAdminIT {
 
     @DisplayName("Set a user to admin with user account")
     @Test
-    void setAUserToAdminWithUserAccount(){
+    void setAUserToAdminWithUserAccount() {
         EmailDTO emailDTO = new EmailDTO("employee2@tietoevry.com", new HashSet<String>(Arrays.asList("user", "admin")));
         headers.set("Authorization", "Bearer " + validUserJwt);
 
         HttpEntity<EmailDTO> request = new HttpEntity<>(emailDTO, headers);
 
         //when
-        assertThatThrownBy(() -> {
-            restTemplate
-                    .postForEntity("http://localhost:" + port + EmployeeController.BASE_URL + "/updateEmployee"
-                            , request, MessageDTO.class);
-        })
-                //then
-                .isInstanceOf(ResourceAccessException.class);
+        ResponseEntity<MessageDTO> response = restTemplate
+                .postForEntity("http://localhost:" + port + EmployeeController.BASE_URL + "/updateEmployee"
+                        , request, MessageDTO.class);
+
+        System.out.println(response);
+        //then
+        assertThat(response.getStatusCode()).isEqualTo(FORBIDDEN);
     }
 }
