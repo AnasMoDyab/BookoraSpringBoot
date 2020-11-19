@@ -168,10 +168,9 @@ public class BookingIT {
                         , request2, BookingIdDTO.class);
 
         //then
-        System.out.println(response);
-        /*assertThat(response.getStatusCode()).isEqualTo(CREATED);
-        assertThat(response.getBody().getMessage()).isEqualTo("Booking success");
-        assertThat(response.getBody().getBookingId()).isNotNull();*/
+        assertThat(response.getStatusCode()).isEqualTo(BAD_REQUEST);
+        assertThat(response.getBody().getMessage()).isEqualTo("You already have booking on that day");
+        assertThat(response.getBody().getBookingId()).isNull();
     }
 
 
