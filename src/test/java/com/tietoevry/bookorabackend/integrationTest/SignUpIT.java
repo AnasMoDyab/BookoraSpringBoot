@@ -31,7 +31,7 @@ class SignUpIT {
     @Test
     void signUpWithValidInfo() {
         //given
-        SignUpDTO signUpDTO = new SignUpDTO("testFirst", "testLast","test@tietoevry.com", "123456aB@",null);
+        SignUpDTO signUpDTO = new SignUpDTO("testFirst", "testLast","signUp@tietoevry.com", "123456aB@",null);
 
         //when
         ResponseEntity<MessageDTO> response = restTemplate
