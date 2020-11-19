@@ -16,7 +16,7 @@ import java.util.concurrent.ThreadLocalRandom;
 
 
 @Component
-public class DataLoader implements CommandLineRunner{
+public class DataLoader implements CommandLineRunner {
 
     private final EmployeeRepository employeeRepository;
     private final RoleRepository roleRepository;
@@ -36,8 +36,8 @@ public class DataLoader implements CommandLineRunner{
 
     }
 
-    int numberOfBookings = 300;
-    int numberOfEmployees = 50;
+    int numberOfBookings = 30;
+    int numberOfEmployees = 5;
 
     @Override
     public void run(String... args) throws Exception {
@@ -46,8 +46,8 @@ public class DataLoader implements CommandLineRunner{
         LoadEmployees();
         loadZones();
 
-        for(int i = 0; i<numberOfBookings; i++)
-        bookingRepository.save(new Booking(getOneRandomDayInComingWeek(), getOneRandomEmployee(), getOneRandomActivatedZone()));
+        for (int i = 0; i < numberOfBookings; i++)
+            bookingRepository.save(new Booking(getOneRandomDayInComingWeek(), getOneRandomEmployee(), getOneRandomActivatedZone()));
 
     }
 
@@ -65,7 +65,7 @@ public class DataLoader implements CommandLineRunner{
     private void LoadEmployees() {
 
         Role user = new Role(1L, RoleEnum.ROLE_USER);
-        Role admin = new Role(2L,RoleEnum.ROLE_ADMIN);
+        Role admin = new Role(2L, RoleEnum.ROLE_ADMIN);
 
         HashSet<Role> allRoles = new HashSet<>();
         allRoles.add(user);
@@ -75,9 +75,9 @@ public class DataLoader implements CommandLineRunner{
         onlyUser.add(user);
         onlyUser.add(user);
 
-        Employee employee1 = new Employee("root", "root", "root@tietoevry.com","123456aB@");
-        Employee employee2 = new Employee("John", "Johnson", "john@tietoevry.com","123456aB@");
-        Employee employee3 = new Employee("Kari", "Hansen", "kari@tietoevry.com","123456aB@");
+        Employee employee1 = new Employee("root", "root", "root@tietoevry.com", "123456aB@");
+        Employee employee2 = new Employee("John", "Johnson", "john@tietoevry.com", "123456aB@");
+        Employee employee3 = new Employee("Kari", "Hansen", "kari@tietoevry.com", "123456aB@");
         employee1.setEnabled(true);
         employee2.setEnabled(true);
         employee3.setEnabled(true);
@@ -91,8 +91,8 @@ public class DataLoader implements CommandLineRunner{
         employeeRepository.save(employee2);
         employeeRepository.save(employee3);
 
-        for(int i = 0; i<numberOfEmployees; i++){
-            Employee employee = new Employee("employee"+i, "employee"+i, "employee"+i+"@tietoevry.com","123456aB@");
+        for (int i = 0; i < numberOfEmployees; i++) {
+            Employee employee = new Employee("employee" + i, "employee" + i, "employee" + i + "@tietoevry.com", "123456aB@");
             employee.setEnabled(true);
             employee.setPassword(encoder.encode(employee.getPassword()));
             employee.setRoles(onlyUser);
@@ -101,7 +101,7 @@ public class DataLoader implements CommandLineRunner{
     }
 
     private void loadZones() {
-        Zone a1= zoneRepository.save(new Zone(1, 'A', Boolean.TRUE, 10));
+        Zone a1 = zoneRepository.save(new Zone(1, 'A', Boolean.TRUE, 10));
         zoneRepository.save(new Zone(1, 'B', Boolean.FALSE, 10));
         zoneRepository.save(new Zone(1, 'C', Boolean.FALSE, 10));
         zoneRepository.save(new Zone(1, 'D', Boolean.FALSE, 10));
@@ -152,18 +152,18 @@ public class DataLoader implements CommandLineRunner{
         zoneRepository.save(new Zone(7, 'G', Boolean.FALSE, 10));
     }
 
-    private LocalDate getOneRandomDayInComingWeek(){
-        int randomExtraDays = ThreadLocalRandom.current().nextInt(0,6);
+    private LocalDate getOneRandomDayInComingWeek() {
+        int randomExtraDays = ThreadLocalRandom.current().nextInt(0, 6);
         return LocalDate.now().plusDays(randomExtraDays);
     }
 
-    private Employee getOneRandomEmployee(){
+    private Employee getOneRandomEmployee() {
         int max = (int) employeeRepository.count();
-        Long randomId = (long) ThreadLocalRandom.current().nextInt(2, max+1);
+        Long randomId = (long) ThreadLocalRandom.current().nextInt(2, max + 1);
         return employeeRepository.getOne(randomId);
     }
 
-    private Zone getOneRandomActivatedZone(){
+    private Zone getOneRandomActivatedZone() {
         List<Zone> zoneList = zoneRepository.findByActivated(true);
 
         int max = zoneList.size();
