@@ -153,7 +153,6 @@ class EmployeeServiceImpTest {
         given(employeeRepository.findByEmailIgnoreCase(any())).willReturn(new Employee());
 
         //when
-        //when
         assertThatThrownBy(() -> {
             employeeServiceImp.createNewEmployee(signUpDTO);
         })
@@ -227,21 +226,23 @@ class EmployeeServiceImpTest {
 
     @DisplayName("Request resend of confirmation token by invalid email domain")
     @Test
-    void resendConfirmationTokenWithInvalidDomain() {
+    void resendConfirmationTokenWithInvalidDomain() throws EmployeeNotFoundException {
         //given
         ReActiveEmailDTO reActiveEmailDTO = new ReActiveEmailDTO();
         reActiveEmailDTO.setEmail("abc@invalid.com");
 
         //when
-        MessageDTO message = employeeServiceImp.resendConfirmationToken(reActiveEmailDTO);
-
-        //then
-        assertThat(message.getMessage()).isEqualTo("Error: Email domain is not valid!");
+        assertThatThrownBy(() -> {
+            employeeServiceImp.resendConfirmationToken(reActiveEmailDTO);
+        })
+                //then
+                .isInstanceOf(EmployeeNotFoundException.class)
+                .hasMessage("Error: Email domain is not valid!");
     }
 
     @DisplayName("Request resend of confirmation token by valid email domain")
     @Test
-    void resendConfirmationToken() {
+    void resendConfirmationToken() throws EmployeeNotFoundException {
         //given
         ReActiveEmailDTO reActiveEmailDTO = new ReActiveEmailDTO();
         reActiveEmailDTO.setEmail("abc@tietoevry.com");
@@ -316,7 +317,7 @@ class EmployeeServiceImpTest {
 
     @DisplayName("Request reset password code with valid email")
     @Test
-    void sendForgetPasswordCode() {
+    void sendForgetPasswordCode() throws EmployeeNotFoundException {
         //given
         ForgetPasswordDTO forgetPasswordDTO = new ForgetPasswordDTO("email");
         Employee employee = new Employee();
@@ -336,20 +337,19 @@ class EmployeeServiceImpTest {
 
     @DisplayName("Request reset password code with invalid email")
     @Test
-    void sendForgetPasswordCodeWithInvalidEmail() {
+    void sendForgetPasswordCodeWithInvalidEmail() throws EmployeeNotFoundException {
         //given
         ForgetPasswordDTO forgetPasswordDTO = new ForgetPasswordDTO("email");
 
         given(employeeRepository.findByEmailIgnoreCase(any())).willReturn(null);
 
         //when
-        MessageDTO messageDTO = employeeServiceImp.sendForgetPasswordCode(forgetPasswordDTO);
-
-        //then
-        assertThat(messageDTO.getMessage()).isEqualTo("This email address does not exist!");
-        then(employeeRepository).should(times(1)).findByEmailIgnoreCase(any());
-        then(restPasswordCodeRepository).should(times(0)).save(any());
-        then(emailSenderService).should(times(0)).sendEmail(any());
+        assertThatThrownBy(() -> {
+            employeeServiceImp.sendForgetPasswordCode(forgetPasswordDTO);
+        })
+                //then
+                .isInstanceOf(EmployeeNotFoundException.class)
+                .hasMessage("This email address does not exist!");
     }
 
     @DisplayName("Update an employee")

@@ -14,7 +14,7 @@ public interface EmployeeService {
 
     JwtDTO logIn(LogInDTO logInDTO) throws Exception;
 
-    MessageDTO sendForgetPasswordCode(ForgetPasswordDTO forgetPasswordDTO);
+    MessageDTO sendForgetPasswordCode(ForgetPasswordDTO forgetPasswordDTO) throws EmployeeNotFoundException;
 
     MessageDTO updateEmployee(EmailDTO emailDTO);
 

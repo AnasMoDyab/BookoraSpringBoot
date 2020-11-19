@@ -80,7 +80,7 @@ public class EmployeeController {
 
     // Receive the address and send an email
     @PostMapping({"/forgot-password"})
-    public MessageDTO forgotUserPassword(@Valid @RequestBody ForgetPasswordDTO forgetPasswordDTO) {
+    public MessageDTO forgotUserPassword(@Valid @RequestBody ForgetPasswordDTO forgetPasswordDTO) throws EmployeeNotFoundException {
         return employeeService.sendForgetPasswordCode(forgetPasswordDTO);
     }
 

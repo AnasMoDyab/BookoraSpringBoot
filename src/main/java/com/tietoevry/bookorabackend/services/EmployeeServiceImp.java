@@ -211,7 +211,7 @@ public class EmployeeServiceImp implements EmployeeService {
     }
 
     @Override
-    public MessageDTO sendForgetPasswordCode(ForgetPasswordDTO forgetPasswordDTO) {
+    public MessageDTO sendForgetPasswordCode(ForgetPasswordDTO forgetPasswordDTO) throws EmployeeNotFoundException {
         Employee existingEmployee = employeeRepository.findByEmailIgnoreCase(forgetPasswordDTO.getEmail());
 
         if (existingEmployee != null) {
@@ -238,7 +238,7 @@ public class EmployeeServiceImp implements EmployeeService {
 
         } else {
 
-            return new MessageDTO("This email address does not exist!");
+            throw new EmployeeNotFoundException("This email address does not exist!");
         }
 
 
