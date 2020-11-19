@@ -2,6 +2,7 @@ package com.tietoevry.bookorabackend.services;
 
 import com.tietoevry.bookorabackend.api.v1.mapper.BookingMapper;
 import com.tietoevry.bookorabackend.api.v1.model.*;
+import com.tietoevry.bookorabackend.exception.BookingFailException;
 import com.tietoevry.bookorabackend.exception.EmployeeNotFoundException;
 import com.tietoevry.bookorabackend.exception.InvalidActionException;
 import com.tietoevry.bookorabackend.exception.ZoneNotFoundException;
@@ -45,11 +46,11 @@ public class BookingServiceImpl implements BookingService {
 
         //check if the zone is full on that date
         if (zoneService.isFullOnADay(zone.getId(), date)) {
-            return new BookingIdDTO("The zone is full", null);
+            throw new BookingFailException("The zone is full");
         }
         //check if employee already have booking on that day
         else if (bookingRepository.findAllByDateAndEmployee(date, employee).size() != 0) {
-            return new BookingIdDTO("You already have booking on that day", null);
+            throw new BookingFailException("You already have booking on that day");
         } else {
             Booking booking = new Booking(date, employee, zone);
             Booking savedBooking = bookingRepository.save(booking);

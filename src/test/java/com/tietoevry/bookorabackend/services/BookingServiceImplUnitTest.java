@@ -2,6 +2,7 @@ package com.tietoevry.bookorabackend.services;
 
 import com.tietoevry.bookorabackend.api.v1.mapper.BookingMapper;
 import com.tietoevry.bookorabackend.api.v1.model.*;
+import com.tietoevry.bookorabackend.exception.BookingFailException;
 import com.tietoevry.bookorabackend.exception.EmployeeNotFoundException;
 import com.tietoevry.bookorabackend.exception.InvalidActionException;
 import com.tietoevry.bookorabackend.model.Booking;
@@ -239,11 +240,14 @@ class BookingServiceImplUnitTest {
             given(zoneService.isFullOnADay(1L, date)).willReturn(true);
 
             //when
-            BookingIdDTO returnedBookingIdDTO = bookingService.bookOneZoneOfOneDay(bookingDTO);
+            assertThatThrownBy(() -> {
+                bookingService.bookOneZoneOfOneDay(bookingDTO);
+            })
+                    //then
+                    .isInstanceOf(BookingFailException.class)
+                    .hasMessage("The zone is full");
 
             //then
-            assertThat(returnedBookingIdDTO.getMessage()).isEqualTo("The zone is full");
-            assertThat(returnedBookingIdDTO.getBookingId()).isNull();
             then(employeeRepository).should(times(1)).findById(anyLong());
             then(zoneRepository).should(times(1)).findById(anyLong());
             then(zoneService).should(times(1)).isFullOnADay(anyLong(), any(LocalDate.class));
@@ -257,12 +261,14 @@ class BookingServiceImplUnitTest {
             given(zoneService.isFullOnADay(1L, date)).willReturn(false);
             given(bookingRepository.findAllByDateAndEmployee(any(LocalDate.class), any(Employee.class))).willReturn(bookings);
 
-            //when
-            BookingIdDTO returnedBookingIdDTO = bookingService.bookOneZoneOfOneDay(bookingDTO);
 
-            //then
-            assertThat(returnedBookingIdDTO.getMessage()).isEqualTo("You already have booking on that day");
-            assertThat(returnedBookingIdDTO.getBookingId()).isNull();
+            //when
+            assertThatThrownBy(() -> {
+                bookingService.bookOneZoneOfOneDay(bookingDTO);
+            })
+                    //then
+                    .isInstanceOf(BookingFailException.class)
+                    .hasMessage("You already have booking on that day");
             then(employeeRepository).should(times(1)).findById(anyLong());
             then(zoneRepository).should(times(1)).findById(anyLong());
             then(zoneService).should(times(1)).isFullOnADay(anyLong(), any(LocalDate.class));

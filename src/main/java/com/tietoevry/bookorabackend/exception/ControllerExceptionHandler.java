@@ -1,5 +1,6 @@
 package com.tietoevry.bookorabackend.exception;
 
+import com.tietoevry.bookorabackend.api.v1.model.BookingIdDTO;
 import com.tietoevry.bookorabackend.api.v1.model.JwtDTO;
 import com.tietoevry.bookorabackend.api.v1.model.MessageDTO;
 import org.springframework.http.HttpStatus;
@@ -54,6 +55,15 @@ public class ControllerExceptionHandler {
 
         return new ResponseEntity<>(jwtDTO, HttpStatus.BAD_REQUEST);
     }
+
+    @ExceptionHandler(BookingFailException.class)
+    public ResponseEntity<BookingIdDTO> handleBookingFailException(Exception exception) {
+
+        BookingIdDTO bookingIdDTO = new BookingIdDTO(exception.getMessage(), null);
+
+        return new ResponseEntity<>(bookingIdDTO, HttpStatus.BAD_REQUEST);
+    }
+
 
     @ExceptionHandler(BadCredentialsException.class)
     public ResponseEntity<MessageDTO> handleBadCredentialsException(Exception exception) {

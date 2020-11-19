@@ -65,8 +65,6 @@ public class BookingController {
     @ResponseStatus(HttpStatus.OK)
     public BookingListDTOAdmin getAllBookingInAPeriodAdmin(@RequestBody @Valid AdminBookingForAllDTO adminBookingForAllDTO) {
         return bookingService.getAllBookingInAPeriodAdmin(adminBookingForAllDTO);
-
-
     }
 
 
@@ -76,7 +74,6 @@ public class BookingController {
     @ResponseStatus(HttpStatus.OK)
     public MessageDTO deleteBooking(@RequestBody @Valid DeleteBookingByIdDTO deleteBookingByIdDTO) throws Exception {
         return bookingService.deleteOneBookingForEmployee(deleteBookingByIdDTO.getBookingId());
-
     }
 
 }
