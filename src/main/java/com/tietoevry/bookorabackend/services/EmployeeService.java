@@ -10,7 +10,7 @@ public interface EmployeeService {
 
     MessageDTO createNewEmployee(SignUpDTO signUpDTO) throws Exception;
 
-    MessageDTO resendConfirmationToken(ReActiveEmailDTO reActiveEmailDTO);
+    MessageDTO resendConfirmationToken(ReActiveEmailDTO reActiveEmailDTO) throws EmployeeNotFoundException;
 
     JwtDTO logIn(LogInDTO logInDTO) throws Exception;
 

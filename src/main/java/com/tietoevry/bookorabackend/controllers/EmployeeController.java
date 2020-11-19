@@ -86,7 +86,7 @@ public class EmployeeController {
 
     //ReActivation Account
     @RequestMapping(value = "/reactive-account", method = RequestMethod.POST)
-    public MessageDTO resetUserPassword(@RequestBody @Valid ReActiveEmailDTO reActiveEmailDTO) {
+    public MessageDTO resetUserPassword(@RequestBody @Valid ReActiveEmailDTO reActiveEmailDTO) throws EmployeeNotFoundException {
         return employeeService.resendConfirmationToken(reActiveEmailDTO);
     }
 }

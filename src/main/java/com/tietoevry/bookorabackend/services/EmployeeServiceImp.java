@@ -146,12 +146,12 @@ public class EmployeeServiceImp implements EmployeeService {
     }
 
     @Override
-    public MessageDTO resendConfirmationToken(ReActiveEmailDTO reActiveEmailDTO) {
+    public MessageDTO resendConfirmationToken(ReActiveEmailDTO reActiveEmailDTO) throws EmployeeNotFoundException {
         String email = reActiveEmailDTO.getEmail();
         String domain = email.substring(email.indexOf("@") + 1);
 
         if (!domain.equals(validDomain))
-            return new MessageDTO("Error: Email domain is not valid!");
+            throw new EmployeeNotFoundException("Error: Email domain is not valid!");
 
 
         Employee employee = employeeRepository.findByEmailIgnoreCase(reActiveEmailDTO.getEmail());
