@@ -36,8 +36,8 @@ public class DataLoader implements CommandLineRunner {
 
     }
 
-    int numberOfBookings = 30;
-    int numberOfEmployees = 5;
+    int numberOfBookings = 300;
+    int numberOfEmployees = 50;
 
     @Override
     public void run(String... args) throws Exception {
