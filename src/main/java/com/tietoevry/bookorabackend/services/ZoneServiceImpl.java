@@ -2,6 +2,7 @@ package com.tietoevry.bookorabackend.services;
 
 import com.tietoevry.bookorabackend.api.v1.mapper.ZoneMapper;
 import com.tietoevry.bookorabackend.api.v1.model.*;
+import com.tietoevry.bookorabackend.exception.InvalidActionException;
 import com.tietoevry.bookorabackend.exception.ZoneNotFoundException;
 import com.tietoevry.bookorabackend.model.Booking;
 import com.tietoevry.bookorabackend.model.Zone;
@@ -27,7 +28,7 @@ public class ZoneServiceImpl implements ZoneService {
     }
 
     @Override
-    public MessageDTO zoneSettings(ZoneSettingDTO zoneSettingDTO) {
+    public MessageDTO zoneSettings(ZoneSettingDTO zoneSettingDTO) throws Exception {
         Zone zoneToChange = zoneRepository.findZoneById(zoneSettingDTO.getZoneId());
         if (zoneToChange != null) {
 
@@ -37,7 +38,7 @@ public class ZoneServiceImpl implements ZoneService {
             zoneRepository.save(zoneToChange);
             return new MessageDTO("Modified successfully");
         }
-        return new MessageDTO("The operation failed");
+        throw new InvalidActionException("The operation failed");
     }
 
     @Override

@@ -2,6 +2,7 @@ package com.tietoevry.bookorabackend.services;
 
 import com.tietoevry.bookorabackend.api.v1.mapper.ZoneMapper;
 import com.tietoevry.bookorabackend.api.v1.model.*;
+import com.tietoevry.bookorabackend.exception.InvalidActionException;
 import com.tietoevry.bookorabackend.model.Booking;
 import com.tietoevry.bookorabackend.model.Zone;
 import com.tietoevry.bookorabackend.repositories.BookingRepository;
@@ -22,6 +23,7 @@ import java.util.List;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.BDDMockito.given;
@@ -54,7 +56,7 @@ class ZoneServiceImplTest {
 
     @DisplayName("Change a zone with valid zone ID")
     @Test
-    void zoneSettingsWithValidZoneId() {
+    void zoneSettingsWithValidZoneId() throws Exception {
         //given
         Zone zoneToChange = new Zone(1L, 1, 'A', false, 10, new HashSet<Booking>());
         ZoneSettingDTO zoneSettingDTO = new ZoneSettingDTO(2, 1L, 20, true);
@@ -74,16 +76,19 @@ class ZoneServiceImplTest {
 
     @DisplayName("Change a zone with invalid zone ID")
     @Test
-    void zoneSettingsWithInvalidZoneId() {
+    void zoneSettingsWithInvalidZoneId() throws Exception {
         //given
         ZoneSettingDTO zoneSettingDTO = new ZoneSettingDTO(2, 1L, 20, true);
         given(zoneRepository.findZoneById(any())).willReturn(null);
 
         //when
-        MessageDTO messageDTO = zoneService.zoneSettings(zoneSettingDTO);
+        assertThatThrownBy(() -> {
+            zoneService.zoneSettings(zoneSettingDTO);
+        })
+                //then
+                .isInstanceOf(InvalidActionException.class)
+                .hasMessage("The operation failed");
 
-        //then
-        assertThat(messageDTO.getMessage()).isEqualTo("The operation failed");
         then(zoneRepository).should(times(1)).findZoneById(anyLong());
         then(zoneRepository).should(times(0)).save(any());
     }

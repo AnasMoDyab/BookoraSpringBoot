@@ -75,7 +75,7 @@ public class ZoneController {
     @PostMapping("/ZoneSettings")
     @PreAuthorize("hasAnyAuthority('ROLE_ADMIN')")
     @ResponseStatus(HttpStatus.OK)
-    public MessageDTO ZoneSettings(@RequestBody @Valid ZoneSettingDTO zoneSettingDTO) {
+    public MessageDTO ZoneSettings(@RequestBody @Valid ZoneSettingDTO zoneSettingDTO) throws Exception {
         return zoneService.zoneSettings(zoneSettingDTO);
     }
 
