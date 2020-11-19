@@ -148,5 +148,31 @@ public class BookingIT {
         assertThat(response.getBody().getMessage()).isEqualTo("success deleted");
     }
 
+    @DisplayName("Book on a day that employee already have booking")
+    @Test
+    void bookOnADayThatEmployeeAlreadyHavingBooking() {
+        //given
+        BookingDTO bookingDTO1 = new BookingDTO(LocalDate.of(20022,11,11), 3L, 1L);
+        BookingDTO bookingDTO2 = new BookingDTO(LocalDate.of(20022,11,11), 3L, 2L);
+        headers.set("Authorization", "Bearer " + validJwt);
+
+        HttpEntity<BookingDTO> request1 = new HttpEntity<>(bookingDTO1, headers);
+        HttpEntity<BookingDTO> request2 = new HttpEntity<>(bookingDTO2, headers);
+        restTemplate
+                .postForEntity("http://localhost:" + port + BookingController.BASE_URL + "/book"
+                        , request1, BookingIdDTO.class);
+
+        //when
+        ResponseEntity<BookingIdDTO> response = restTemplate
+                .postForEntity("http://localhost:" + port + BookingController.BASE_URL + "/book"
+                        , request2, BookingIdDTO.class);
+
+        //then
+        System.out.println(response);
+        /*assertThat(response.getStatusCode()).isEqualTo(CREATED);
+        assertThat(response.getBody().getMessage()).isEqualTo("Booking success");
+        assertThat(response.getBody().getBookingId()).isNotNull();*/
+    }
+
 
 }
