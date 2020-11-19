@@ -67,7 +67,7 @@ public class EmployeeController {
     @PostMapping("/updateEmployee")
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     @ResponseStatus(HttpStatus.OK)
-    public MessageDTO UpdateEmployee(@RequestBody EmailDTO emailDTO) {
+    public MessageDTO UpdateEmployee(@RequestBody EmailDTO emailDTO) throws Exception {
         return employeeService.updateEmployee(emailDTO);
     }
 

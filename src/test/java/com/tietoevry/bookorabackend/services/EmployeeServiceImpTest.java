@@ -354,7 +354,7 @@ class EmployeeServiceImpTest {
 
     @DisplayName("Update an employee")
     @Test
-    void updateEmployee() {
+    void updateEmployee() throws Exception {
         //given
         Set<String> roles = new HashSet<>();
         roles.add("admin");
@@ -374,19 +374,20 @@ class EmployeeServiceImpTest {
 
     @DisplayName("Update an employee that does not exist")
     @Test
-    void updateAnNonExistingEmployee() {
+    void updateAnNonExistingEmployee() throws Exception {
         //given
         EmailDTO emailDTO = new EmailDTO();
 
         given(employeeRepository.findByEmailIgnoreCase(any())).willReturn(null);
 
-        //when
-        MessageDTO messageDTO = employeeServiceImp.updateEmployee(emailDTO);
 
-        //then
-        assertThat(messageDTO.getMessage()).isEqualTo("Updated failed");
-        then(employeeRepository).should(times(1)).findByEmailIgnoreCase(any());
-        then(employeeRepository).should(times(0)).save(any());
+        //when
+        assertThatThrownBy(() -> {
+            employeeServiceImp.updateEmployee(emailDTO);
+        })
+                //then
+                .isInstanceOf(EmployeeNotFoundException.class)
+                .hasMessage("Updated failed");
     }
 
     @DisplayName("Get an employee by invalid domain")

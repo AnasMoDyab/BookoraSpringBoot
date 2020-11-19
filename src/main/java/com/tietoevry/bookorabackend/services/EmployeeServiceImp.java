@@ -245,7 +245,7 @@ public class EmployeeServiceImp implements EmployeeService {
     }
 
     @Override
-    public MessageDTO updateEmployee(EmailDTO emailDTO) {
+    public MessageDTO updateEmployee(EmailDTO emailDTO) throws Exception {
 
         Employee employee = employeeRepository.findByEmailIgnoreCase(emailDTO.getEmail());
 
@@ -275,7 +275,7 @@ public class EmployeeServiceImp implements EmployeeService {
 
             return new MessageDTO("Updated success");
         }
-        return new MessageDTO("Updated failed");
+        throw new EmployeeNotFoundException("Updated failed");
     }
 
     @Override
