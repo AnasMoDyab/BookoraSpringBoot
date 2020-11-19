@@ -41,7 +41,7 @@ public class EmployeeServiceImp implements EmployeeService {
     private final ConfirmationTokenRepository confirmationTokenRepository;
     private final RestPasswordCodeRepository restPasswordCodeRepository;
     @Value("${validDomain}")
-    private String validDomain;
+    private List<String> validDomain;
     @Value("${confirmationTokenValidMinute}")
     private int validMinute;
     @Value("${restPasswordCodeValidMinute}")
@@ -85,11 +85,11 @@ public class EmployeeServiceImp implements EmployeeService {
 
     @Override
     public MessageDTO createNewEmployee(SignUpDTO signUpDTO) throws Exception {
-
+        System.out.println(validDomain);
         //Validate domain
         String email = signUpDTO.getEmail();
         String domain = email.substring(email.indexOf("@") + 1);
-        if (!domain.equals(validDomain))
+        if (!domain.equals(validDomain.get(0)) && !domain.equals(validDomain.get(1)))
             //return new MessageDTO("Error: Email domain is not valid!");
             throw new InvalidDomainException("Error: Email domain is not valid!");
 
@@ -150,7 +150,7 @@ public class EmployeeServiceImp implements EmployeeService {
         String email = reActiveEmailDTO.getEmail();
         String domain = email.substring(email.indexOf("@") + 1);
 
-        if (!domain.equals(validDomain))
+        if (!domain.equals(validDomain.get(0)) && !domain.equals(validDomain.get(1)))
             throw new EmployeeNotFoundException("Error: Email domain is not valid!");
 
 
@@ -282,7 +282,7 @@ public class EmployeeServiceImp implements EmployeeService {
     public EmployeeDTO getEmployeeByEmail(String email) throws Exception {
         String domain = email.substring(email.indexOf("@") + 1);
 
-        if (!domain.equals(validDomain)) {
+        if (!domain.equals(validDomain.get(0)) && !domain.equals(validDomain.get(1))) {
             throw new InvalidDomainException(null);
         }
 
