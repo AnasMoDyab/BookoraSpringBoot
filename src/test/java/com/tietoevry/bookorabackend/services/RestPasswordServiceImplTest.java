@@ -2,6 +2,9 @@ package com.tietoevry.bookorabackend.services;
 
 import com.tietoevry.bookorabackend.api.v1.model.MessageDTO;
 import com.tietoevry.bookorabackend.api.v1.model.UpdatePasswordDTO;
+import com.tietoevry.bookorabackend.exception.EmployeeNotFoundException;
+import com.tietoevry.bookorabackend.exception.InvalidActionException;
+import com.tietoevry.bookorabackend.exception.InvalidInputException;
 import com.tietoevry.bookorabackend.model.Employee;
 import com.tietoevry.bookorabackend.model.RestPasswordCode;
 import com.tietoevry.bookorabackend.repositories.EmployeeRepository;
@@ -20,6 +23,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import java.sql.Timestamp;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.BDDMockito.then;
@@ -55,7 +59,7 @@ class RestPasswordServiceImplTest {
 
     @DisplayName("Update password with the previous password")
     @Test
-    void updatePasswordWithPreviousPassword() {
+    void updatePasswordWithPreviousPassword() throws Exception {
         //given
         Employee employee = new Employee();
         employee.setPassword("password");
@@ -65,18 +69,21 @@ class RestPasswordServiceImplTest {
         given(employeeRepository.findByEmailIgnoreCase(any())).willReturn(employee);
         given(encoder.matches(any(),any())).willReturn(true);
 
-        //when
-        MessageDTO messageDTO = restPasswordService.updatePassword(updatePasswordDTO);
 
-        //then
-        assertThat(messageDTO.getMessage()).isEqualTo("you have used the old password");
+        //when
+        assertThatThrownBy(() -> {
+            restPasswordService.updatePassword(updatePasswordDTO);
+        })
+                //then
+                .isInstanceOf(InvalidInputException.class)
+                .hasMessage("you have used the old password");
         then(employeeRepository).should(times(1)).findByEmailIgnoreCase(any());
         then(encoder).should(times(1)).matches(any(),any());
     }
 
     @DisplayName("Update password with the previous password")
     @Test
-    void updatePassword() {
+    void updatePassword() throws Exception {
         //given
         Employee employee = new Employee();
         employee.setPassword("password");
@@ -101,7 +108,7 @@ class RestPasswordServiceImplTest {
 
     @DisplayName("Update password without permission")
     @Test
-    void updatePasswordWithOutPermission() {
+    void updatePasswordWithOutPermission() throws Exception {
         //given
         Employee employee = new Employee();
         employee.setPassword("password");
@@ -111,26 +118,30 @@ class RestPasswordServiceImplTest {
         given(employeeRepository.findByEmailIgnoreCase(any())).willReturn(employee);
 
         //when
-        MessageDTO messageDTO = restPasswordService.updatePassword(updatePasswordDTO);
-
-        //then
-        assertThat(messageDTO.getMessage()).isEqualTo("You can't change the password");
+        assertThatThrownBy(() -> {
+            restPasswordService.updatePassword(updatePasswordDTO);
+        })
+                //then
+                .isInstanceOf(InvalidActionException.class)
+                .hasMessage("You can't change the password");
         then(employeeRepository).should(times(1)).findByEmailIgnoreCase(any());
     }
 
     @DisplayName("Update password with non-existing employee")
     @Test
-    void updatePasswordWithNonExistingEmployee() {
+    void updatePasswordWithNonExistingEmployee() throws Exception {
         //given
         UpdatePasswordDTO updatePasswordDTO = new UpdatePasswordDTO("email","password");
 
         given(employeeRepository.findByEmailIgnoreCase(any())).willReturn(null);
 
         //when
-        MessageDTO messageDTO = restPasswordService.updatePassword(updatePasswordDTO);
-
-        //then
-        assertThat(messageDTO.getMessage()).isEqualTo("Error: Email is invalid");
+        assertThatThrownBy(() -> {
+            restPasswordService.updatePassword(updatePasswordDTO);
+        })
+                //then
+                .isInstanceOf(EmployeeNotFoundException.class)
+                .hasMessage("Error: Email is invalid");
         then(employeeRepository).should(times(1)).findByEmailIgnoreCase(any());
     }
 

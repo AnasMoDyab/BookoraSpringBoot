@@ -2,6 +2,9 @@ package com.tietoevry.bookorabackend.services;
 
 import com.tietoevry.bookorabackend.api.v1.model.MessageDTO;
 import com.tietoevry.bookorabackend.api.v1.model.UpdatePasswordDTO;
+import com.tietoevry.bookorabackend.exception.EmployeeNotFoundException;
+import com.tietoevry.bookorabackend.exception.InvalidActionException;
+import com.tietoevry.bookorabackend.exception.InvalidInputException;
 import com.tietoevry.bookorabackend.model.Employee;
 import com.tietoevry.bookorabackend.model.RestPasswordCode;
 import com.tietoevry.bookorabackend.repositories.EmployeeRepository;
@@ -27,11 +30,11 @@ public class RestPasswordServiceImpl implements RestPasswordService {
     }
 
     @Override
-    public MessageDTO updatePassword(UpdatePasswordDTO updatePasswordDTO) {
+    public MessageDTO updatePassword(UpdatePasswordDTO updatePasswordDTO) throws Exception {
         Employee employee = employeeRepository.findByEmailIgnoreCase(updatePasswordDTO.getEmail());
 
         if (employee == null) {
-            return new MessageDTO("Error: Email is invalid");
+            throw new EmployeeNotFoundException("Error: Email is invalid");
 
         } else {
 
@@ -39,7 +42,7 @@ public class RestPasswordServiceImpl implements RestPasswordService {
                 String oldPassword = employee.getPassword();
 
                 if (encoder.matches(updatePasswordDTO.getPassword(), oldPassword)) {
-                    return new MessageDTO("you have used the old password");
+                    throw new InvalidInputException("you have used the old password");
                 }
 
                 employee.setPassword(encoder.encode(updatePasswordDTO.getPassword()));
@@ -49,7 +52,7 @@ public class RestPasswordServiceImpl implements RestPasswordService {
                 return new MessageDTO("Password successfully reset. You can now log in with the new credentials.");
 
             } else {
-                return new MessageDTO("You can't change the password");
+                throw new InvalidActionException("You can't change the password");
             }
         }
 

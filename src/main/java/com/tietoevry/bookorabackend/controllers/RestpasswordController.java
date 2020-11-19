@@ -30,7 +30,7 @@ public class RestpasswordController {
 
     //Use to update password
     @RequestMapping(value = "/reset-password", method = RequestMethod.POST)
-    public MessageDTO resetUserPassword(@RequestBody @Valid UpdatePasswordDTO updatePasswordDTO) {
+    public MessageDTO resetUserPassword(@RequestBody @Valid UpdatePasswordDTO updatePasswordDTO) throws Exception {
         return restPasswordService.updatePassword(updatePasswordDTO);
     }
 }

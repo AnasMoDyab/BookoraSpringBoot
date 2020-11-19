@@ -47,7 +47,7 @@ public class ControllerExceptionHandler {
         return new ResponseEntity<>(messageDTO, HttpStatus.BAD_REQUEST);
     }
 
-    @ExceptionHandler({EmployeeNotActivatedException.class})
+    @ExceptionHandler({EmployeeNotActivatedException.class, InvalidInputException.class, InvalidActionException.class})
     public ResponseEntity<JwtDTO> handleEmployeeNotActivatedException(Exception exception) {
 
         JwtDTO jwtDTO = new JwtDTO(exception.getMessage());
