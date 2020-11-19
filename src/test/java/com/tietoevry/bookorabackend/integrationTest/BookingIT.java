@@ -54,7 +54,7 @@ public class BookingIT {
 
     @DisplayName("Booking with valid JWT")
     @Test
-    void bookingWithValidJWT() {
+    void bookingWithValidJWTIT() {
         //given
         BookingDTO bookingDTO = new BookingDTO(LocalDate.of(20022,11,11), 1L, 1L);
         headers.set("Authorization", "Bearer " + validJwt);
