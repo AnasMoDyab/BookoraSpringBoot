@@ -3,6 +3,7 @@ package com.tietoevry.bookorabackend.services;
 import com.tietoevry.bookorabackend.api.v1.mapper.BookingMapper;
 import com.tietoevry.bookorabackend.api.v1.model.*;
 import com.tietoevry.bookorabackend.exception.EmployeeNotFoundException;
+import com.tietoevry.bookorabackend.exception.InvalidActionException;
 import com.tietoevry.bookorabackend.model.Booking;
 import com.tietoevry.bookorabackend.model.Employee;
 import com.tietoevry.bookorabackend.model.Zone;
@@ -63,7 +64,7 @@ class BookingServiceImplUnitTest {
 
     @DisplayName("Delete booking with correct Id")
     @Test
-    void deleteOneBookingForEmployeeWithCorrectIdTest() {
+    void deleteOneBookingForEmployeeWithCorrectIdTest() throws Exception {
         //Given with correct id
         given(bookingRepository.deleteBookingById(1L)).willReturn(1);
 
@@ -77,15 +78,17 @@ class BookingServiceImplUnitTest {
 
     @DisplayName("Delete booking with wrong Id")
     @Test
-    void deleteOneBookingForEmployeeWithWrongIdTest() {
+    void deleteOneBookingForEmployeeWithWrongIdTest() throws Exception {
         //Given with wrong id
         given(bookingRepository.deleteBookingById(2L)).willReturn(0);
 
         //when
-        MessageDTO messageDTO = bookingService.deleteOneBookingForEmployee(2L);
-
-        //then
-        assertThat(messageDTO.getMessage()).isEqualTo("failed deleted");
+        assertThatThrownBy(() -> {
+            bookingService.deleteOneBookingForEmployee(2L);
+        })
+                //then
+                .isInstanceOf(InvalidActionException.class)
+                .hasMessage("failed deleted");
         then(bookingRepository).should(times(1)).deleteBookingById(anyLong());
     }
 

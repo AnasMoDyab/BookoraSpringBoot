@@ -3,6 +3,7 @@ package com.tietoevry.bookorabackend.services;
 import com.tietoevry.bookorabackend.api.v1.mapper.BookingMapper;
 import com.tietoevry.bookorabackend.api.v1.model.*;
 import com.tietoevry.bookorabackend.exception.EmployeeNotFoundException;
+import com.tietoevry.bookorabackend.exception.InvalidActionException;
 import com.tietoevry.bookorabackend.exception.ZoneNotFoundException;
 import com.tietoevry.bookorabackend.model.Booking;
 import com.tietoevry.bookorabackend.model.Employee;
@@ -58,12 +59,12 @@ public class BookingServiceImpl implements BookingService {
     }
 
     @Override
-    public MessageDTO deleteOneBookingForEmployee(Long bookingId) {
+    public MessageDTO deleteOneBookingForEmployee(Long bookingId) throws Exception {
         Integer bookingIdToDelete = bookingRepository.deleteBookingById(bookingId);
         if (bookingIdToDelete != 0) {
             return new MessageDTO("success deleted");
         } else {
-            return new MessageDTO("failed deleted");
+            throw new InvalidActionException("failed deleted");
         }
 
     }
