@@ -24,13 +24,13 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @Tag("development")
 @Tag("UnitTest")
 @ExtendWith(MockitoExtension.class)
-class RestpasswordControllerTest {
+class RestPasswordControllerTest {
 
     @Mock
     RestPasswordService restPasswordService;
 
     @InjectMocks
-    RestpasswordController restpasswordController;
+    RestPasswordController restpasswordController;
 
     MockMvc mockMvc;
 

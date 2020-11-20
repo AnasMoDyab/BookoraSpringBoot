@@ -11,10 +11,10 @@ import javax.validation.Valid;
 
 @RestController
 @CrossOrigin(origins = "*", maxAge = 3600)
-public class RestpasswordController {
+public class RestPasswordController {
     private final RestPasswordService restPasswordService;
 
-    public RestpasswordController(RestPasswordService restPasswordService) {
+    public RestPasswordController(RestPasswordService restPasswordService) {
         this.restPasswordService = restPasswordService;
     }
 
