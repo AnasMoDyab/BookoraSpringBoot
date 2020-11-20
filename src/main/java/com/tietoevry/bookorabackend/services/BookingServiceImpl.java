@@ -146,7 +146,10 @@ public class BookingServiceImpl implements BookingService {
 
     @Override
     public BookingToshowDtoList getAllBookingOfEmployeeInAPeriod(EmployeeBookingInAPeriodDTO employeeBookingInAPeriodDTO) throws EmployeeNotFoundException {
-        Employee employee = employeeRepository.findByEmail(employeeBookingInAPeriodDTO.getEmail())
+        UserDetails userDetails =
+                (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+        Employee employee = employeeRepository.findByEmail(userDetails.getUsername())
                 .orElseThrow(() -> new EmployeeNotFoundException("Employee is not found"));
         List<BookingToshowDTO> bookingDTOList = new ArrayList<>();
 

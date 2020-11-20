@@ -192,12 +192,16 @@ class BookingServiceImplUnitTest {
     @Test
     void getAllBookingOfEmployeeInAPeriod() throws EmployeeNotFoundException {
         //Given
+        UserDetails userDetails = new UserDetailsImpl(null, null, null, null);
+        SecurityContextHolder.getContext().setAuthentication(
+                new UsernamePasswordAuthenticationToken(userDetails, null));
+
         Employee employee = new Employee();
         EmployeeBookingInAPeriodDTO employeeBookingInAPeriodDTO = new EmployeeBookingInAPeriodDTO("root@tietoevry.com", LocalDate.now(), LocalDate.now());
-        EmployeeBookingInAPeriodDTO employeeBookingInAPeriodDTO2 = new EmployeeBookingInAPeriodDTO("root2@tietoevry.com", LocalDate.now(), LocalDate.now());
         List<Booking> bookings = new ArrayList<>();
         bookings.add(new Booking());
-        given(employeeRepository.findByEmail("root@tietoevry.com")).willReturn(Optional.of(employee));
+
+        given(employeeRepository.findByEmail(any())).willReturn(Optional.of(employee));
         given(bookingRepository.findAllByEmployeeAndDateGreaterThanEqualAndDateLessThanEqual(employee, LocalDate.now(), LocalDate.now())).willReturn(bookings);
 
         //when
@@ -205,10 +209,7 @@ class BookingServiceImplUnitTest {
 
         //then
         assertThat(bookingToshowDtoList.getBookingToshowDtoLists().size()).isEqualTo(1);
-        assertThatThrownBy(() -> {
-            bookingService.getAllBookingOfEmployeeInAPeriod(employeeBookingInAPeriodDTO2);
-        }).isInstanceOf(EmployeeNotFoundException.class);
-        then(employeeRepository).should(times(2)).findByEmail(anyString());
+        then(employeeRepository).should(times(1)).findByEmail(any());
         then(bookingRepository).should(times(1)).findAllByEmployeeAndDateGreaterThanEqualAndDateLessThanEqual(any(Employee.class), any(LocalDate.class), any(LocalDate.class));
     }
 
