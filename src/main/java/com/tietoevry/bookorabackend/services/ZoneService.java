@@ -22,7 +22,7 @@ public interface ZoneService {
 
     List<StatusOfAZoneOnADayDTO> checkStatusOfAllZoneInAFloor(FloorDateDTO floorDateDTO) throws Exception;
 
-    List<FloorStatusPeriodDTO> checkStatusOfAllFloorPeriod(PeriodeDTO periodeDTO);
+    List<FloorStatusPeriodDTO> checkStatusOfAllFloorPeriod(PeriodDTO periodDTO);
 
-    TotalBookingInBuildingDTO CheckStatusOfTheBuildingOnPeriod(PeriodeDTO floorsPeriodDTO);
+    TotalBookingInBuildingDTO CheckStatusOfTheBuildingOnPeriod(PeriodDTO floorsPeriodDTO);
 }

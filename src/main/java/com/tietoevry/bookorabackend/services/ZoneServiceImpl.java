@@ -102,10 +102,10 @@ public class ZoneServiceImpl implements ZoneService {
     }
 
     @Override
-    public List<FloorStatusPeriodDTO> checkStatusOfAllFloorPeriod(PeriodeDTO periodeDTO) {
+    public List<FloorStatusPeriodDTO> checkStatusOfAllFloorPeriod(PeriodDTO periodDTO) {
 
-        LocalDate from = periodeDTO.getFrom();
-        LocalDate to = periodeDTO.getTo();
+        LocalDate from = periodDTO.getFrom();
+        LocalDate to = periodDTO.getTo();
 
         List<Booking> bookingBookingList = bookingRepository.findAllByDateLessThanEqualAndDateGreaterThanEqual(to, from);
         int floor1total = 0, floor2total = 0, floor3total = 0, floor4total = 0, floor5total = 0, floor6total = 0, floor7total = 0;
@@ -159,7 +159,7 @@ public class ZoneServiceImpl implements ZoneService {
     }
 
     @Override
-    public TotalBookingInBuildingDTO CheckStatusOfTheBuildingOnPeriod(PeriodeDTO buildingPeriodDTO) {
+    public TotalBookingInBuildingDTO CheckStatusOfTheBuildingOnPeriod(PeriodDTO buildingPeriodDTO) {
         LocalDate from = buildingPeriodDTO.getFrom();
         LocalDate to = buildingPeriodDTO.getTo();
         List<Booking> bookingBookingList = bookingRepository.findAllByDateLessThanEqualAndDateGreaterThanEqual(to, from);

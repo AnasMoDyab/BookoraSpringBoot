@@ -265,7 +265,7 @@ class ZoneServiceImplTest {
     @Test
     void checkStatusOfAllFloorPeriod() {
         //given
-        PeriodeDTO periodeDTO = new PeriodeDTO(LocalDate.of(2020, 11, 11), LocalDate.of(2020, 11, 12));
+        PeriodDTO periodDTO = new PeriodDTO(LocalDate.of(2020, 11, 11), LocalDate.of(2020, 11, 12));
 
         List<Booking> bookingList = new ArrayList<>();
         for (int i = 1; i <= 7; i++) {
@@ -278,7 +278,7 @@ class ZoneServiceImplTest {
         given(bookingRepository.findAllByDateLessThanEqualAndDateGreaterThanEqual(any(), any())).willReturn(bookingList);
 
         //when
-        List<FloorStatusPeriodDTO> floorStatusPeriodDTOList = zoneService.checkStatusOfAllFloorPeriod(periodeDTO);
+        List<FloorStatusPeriodDTO> floorStatusPeriodDTOList = zoneService.checkStatusOfAllFloorPeriod(periodDTO);
 
         //then
         assertThat(floorStatusPeriodDTOList.get(0).getTotalBooking()).isEqualTo(1);
@@ -295,7 +295,7 @@ class ZoneServiceImplTest {
     @Test
     void checkStatusOfTheBuildingOnPeriod() {
         //given
-        PeriodeDTO periodeDTO = new PeriodeDTO(LocalDate.of(2020, 11, 11), LocalDate.of(2020, 11, 12));
+        PeriodDTO periodDTO = new PeriodDTO(LocalDate.of(2020, 11, 11), LocalDate.of(2020, 11, 12));
 
         List<Booking> bookingList = new ArrayList<>();
         for (int i = 1; i <= 7; i++) {
@@ -309,7 +309,7 @@ class ZoneServiceImplTest {
         given(zoneRepository.selectTotalsCapacities()).willReturn(10);
 
         //when
-        TotalBookingInBuildingDTO totalBookingInBuildingDTO = zoneService.CheckStatusOfTheBuildingOnPeriod(periodeDTO);
+        TotalBookingInBuildingDTO totalBookingInBuildingDTO = zoneService.CheckStatusOfTheBuildingOnPeriod(periodDTO);
 
         //then
         assertThat(totalBookingInBuildingDTO.getTotalForAllFloor()).isEqualTo(70);
