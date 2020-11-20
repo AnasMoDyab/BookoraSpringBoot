@@ -33,21 +33,21 @@ public class BookingController {
     }
 
     @PostMapping("/getAllBookingOfEmployee")
-    @PreAuthorize("hasAnyAuthority('ROLE_ADMIN', 'ROLE_USER')")
+    @PreAuthorize("hasAnyAuthority('ROLE_ADMIN')")
     @ResponseStatus(HttpStatus.OK)
     public BookingListDTO getAllBookingOfEmployee(@RequestBody @Valid EmployeeEmailDTO employeeEmailDTO) throws Exception {
         return bookingService.getAllBookingOfEmployee(employeeEmailDTO);
     }
 
     @PostMapping("/getAllValidBookingOfEmployee")
-    @PreAuthorize("hasAnyAuthority('ROLE_ADMIN', 'ROLE_USER')")
+    @PreAuthorize("hasAnyAuthority('ROLE_ADMIN')")
     @ResponseStatus(HttpStatus.OK)
     public BookingListDTO getAllValidBookingOfEmployee(@RequestBody @Valid EmployeeEmailDTO employeeEmailDTO) throws Exception {
         return bookingService.getAllValidBookingOfEmployee(employeeEmailDTO);
     }
 
     @PostMapping("/getAllPastBookingOfEmployee")
-    @PreAuthorize("hasAnyAuthority('ROLE_ADMIN', 'ROLE_USER')")
+    @PreAuthorize("hasAnyAuthority('ROLE_ADMIN')")
     @ResponseStatus(HttpStatus.OK)
     public BookingListDTO getAllPastBookingOfEmployee(@RequestBody @Valid EmployeeEmailDTO employeeEmailDTO) throws EmployeeNotFoundException {
         return bookingService.getAllPastBookingOfEmployee(employeeEmailDTO);

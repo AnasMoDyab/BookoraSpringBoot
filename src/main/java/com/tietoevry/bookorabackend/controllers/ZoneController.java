@@ -49,14 +49,14 @@ public class ZoneController {
     }
 
     @GetMapping({"/zone/{id}"})
-    @PreAuthorize("hasAnyAuthority('ROLE_ADMIN', 'ROLE_USER')")
+    @PreAuthorize("hasAnyAuthority('ROLE_ADMIN')")
     @ResponseStatus(HttpStatus.OK)
     public ZoneDTO getZoneById(@PathVariable Long id) throws Exception {
         return zoneService.getZoneById(id);
     }
 
     @PostMapping("/checkStatusOfAZoneOnADay")
-    @PreAuthorize("hasAnyAuthority('ROLE_ADMIN', 'ROLE_USER')")
+    @PreAuthorize("hasAnyAuthority('ROLE_ADMIN')")
     @ResponseStatus(HttpStatus.OK)
     public StatusOfAZoneOnADayDTO checkStatusOfAZoneOnADay
             (@RequestBody @Valid ZoneDateDTO zoneDateDTO) throws Exception {
