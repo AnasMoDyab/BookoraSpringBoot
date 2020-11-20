@@ -65,12 +65,12 @@ public class AuthTokenFilter extends OncePerRequestFilter {
                 SecurityContextHolder.getContext().setAuthentication(authentication);
 
                 //After setting in the authentication, you can get UserDetail by calling SecurityContextHolder
-				/*UserDetails userDetails =
+/*				userDetails =
 						(UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
-				userDetails.getUsername()
-				userDetails.getPassword()
-				userDetails.getAuthorities() */
+				userDetails.getUsername();
+				userDetails.getPassword();
+				userDetails.getAuthorities(); */
             }
         } catch (Exception e) {
             logger.error("Cannot set user authentication: {}", e);

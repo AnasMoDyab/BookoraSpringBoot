@@ -16,6 +16,9 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -237,6 +240,10 @@ class BookingServiceImplUnitTest {
         @Test
         void bookOneZoneOfOneDayWhichIsFullTest() throws Exception {
             //Given
+            UserDetails userDetails = new UserDetailsImpl(null, null, null, null);
+            SecurityContextHolder.getContext().setAuthentication(
+                    new UsernamePasswordAuthenticationToken(userDetails, null));
+            given(employeeRepository.findByEmail(any())).willReturn(Optional.of(new Employee()));
             given(zoneService.isFullOnADay(1L, date)).willReturn(true);
 
             //when
@@ -248,7 +255,7 @@ class BookingServiceImplUnitTest {
                     .hasMessage("The zone is full");
 
             //then
-            then(employeeRepository).should(times(1)).findById(anyLong());
+            then(employeeRepository).should(times(1)).findByEmail(any());
             then(zoneRepository).should(times(1)).findById(anyLong());
             then(zoneService).should(times(1)).isFullOnADay(anyLong(), any(LocalDate.class));
         }
@@ -257,10 +264,13 @@ class BookingServiceImplUnitTest {
         @Test
         void bookOneZoneOfOneDayWhichAlreadyHaveBookingTest() throws Exception {
             //Given
+            UserDetails userDetails = new UserDetailsImpl(null, null, null, null);
+            SecurityContextHolder.getContext().setAuthentication(
+                    new UsernamePasswordAuthenticationToken(userDetails, null));
             bookings.add(booking);
+            given(employeeRepository.findByEmail(any())).willReturn(Optional.of(new Employee()));
             given(zoneService.isFullOnADay(1L, date)).willReturn(false);
             given(bookingRepository.findAllByDateAndEmployee(any(LocalDate.class), any(Employee.class))).willReturn(bookings);
-
 
             //when
             assertThatThrownBy(() -> {
@@ -269,7 +279,7 @@ class BookingServiceImplUnitTest {
                     //then
                     .isInstanceOf(BookingFailException.class)
                     .hasMessage("You already have booking on that day");
-            then(employeeRepository).should(times(1)).findById(anyLong());
+            then(employeeRepository).should(times(1)).findByEmail(any());
             then(zoneRepository).should(times(1)).findById(anyLong());
             then(zoneService).should(times(1)).isFullOnADay(anyLong(), any(LocalDate.class));
             then(bookingRepository).should(times(1)).findAllByDateAndEmployee(any(LocalDate.class), any(Employee.class));
@@ -279,10 +289,15 @@ class BookingServiceImplUnitTest {
         @DisplayName("Book a zone in a day successfully")
         @Test
         void bookOneZoneOfOneDaySuccessfullyTest() throws Exception {
+            UserDetails userDetails = new UserDetailsImpl(null, null, null, null);
+            SecurityContextHolder.getContext().setAuthentication(
+                    new UsernamePasswordAuthenticationToken(userDetails, null));
+
             //Given
             booking.setDate(date);
             Booking savedBooking = new Booking();
             savedBooking.setId(1L);
+            given(employeeRepository.findByEmail(any())).willReturn(Optional.of(new Employee()));
             given(zoneService.isFullOnADay(1L, date)).willReturn(false);
             given(bookingRepository.findAllByDateAndEmployee(any(LocalDate.class), any(Employee.class))).willReturn(bookings);
             given(bookingRepository.save(booking)).willReturn(savedBooking);
@@ -293,7 +308,7 @@ class BookingServiceImplUnitTest {
             //then
             assertThat(returnedBookingIdDTO.getMessage()).isEqualTo("Booking success");
             assertThat(returnedBookingIdDTO.getBookingId()).isEqualTo(1L);
-            then(employeeRepository).should(times(1)).findById(anyLong());
+            then(employeeRepository).should(times(1)).findByEmail(any());
             then(zoneRepository).should(times(1)).findById(anyLong());
             then(zoneService).should(times(1)).isFullOnADay(anyLong(), any(LocalDate.class));
             then(bookingRepository).should(times(1)).findAllByDateAndEmployee(any(LocalDate.class), any(Employee.class));

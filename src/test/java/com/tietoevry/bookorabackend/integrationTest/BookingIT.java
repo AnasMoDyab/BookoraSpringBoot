@@ -29,12 +29,10 @@ public class BookingIT {
 
     TestRestTemplate restTemplate = new TestRestTemplate();
     HttpHeaders headers = new HttpHeaders();
-
-    @LocalServerPort
-    private int port;
-
     String validJwt;
     String inValidJwt;
+    @LocalServerPort
+    private int port;
 
     @BeforeEach
     void setUp() {
@@ -56,7 +54,7 @@ public class BookingIT {
     @Test
     void bookingWithValidJWTIT() {
         //given
-        BookingDTO bookingDTO = new BookingDTO(LocalDate.of(20022,11,11), 1L, 1L);
+        BookingDTO bookingDTO = new BookingDTO(LocalDate.of(20022, 11, 11), 1L, 1L);
         headers.set("Authorization", "Bearer " + validJwt);
 
         HttpEntity<BookingDTO> request = new HttpEntity<>(bookingDTO, headers);
@@ -70,25 +68,6 @@ public class BookingIT {
         assertThat(response.getStatusCode()).isEqualTo(CREATED);
         assertThat(response.getBody().getMessage()).isEqualTo("Booking success");
         assertThat(response.getBody().getBookingId()).isNotNull();
-    }
-
-    @DisplayName("Booking with invalid employee ID")
-    @Test
-    void bookingWithInvalidEmployeeID() {
-        //given
-        BookingDTO bookingDTO = new BookingDTO(LocalDate.now(), 1000L, 1L);
-        headers.set("Authorization", "Bearer " + validJwt);
-
-        HttpEntity<BookingDTO> request = new HttpEntity<>(bookingDTO, headers);
-
-        //when
-        ResponseEntity<BookingIdDTO> response = restTemplate
-                .postForEntity("http://localhost:" + port + BookingController.BASE_URL + "/book"
-                        , request, BookingIdDTO.class);
-
-        //then
-        assertThat(response.getStatusCode()).isEqualTo(NOT_FOUND);
-        assertThat(response.getBody().getMessage()).isEqualTo("Employee is not found");
     }
 
     @DisplayName("Booking with invalid zone ID")
@@ -152,8 +131,8 @@ public class BookingIT {
     @Test
     void bookOnADayThatEmployeeAlreadyHavingBooking() {
         //given
-        BookingDTO bookingDTO1 = new BookingDTO(LocalDate.of(20022,11,11), 3L, 1L);
-        BookingDTO bookingDTO2 = new BookingDTO(LocalDate.of(20022,11,11), 3L, 2L);
+        BookingDTO bookingDTO1 = new BookingDTO(LocalDate.of(20022, 11, 11), 3L, 1L);
+        BookingDTO bookingDTO2 = new BookingDTO(LocalDate.of(20022, 11, 11), 3L, 2L);
         headers.set("Authorization", "Bearer " + validJwt);
 
         HttpEntity<BookingDTO> request1 = new HttpEntity<>(bookingDTO1, headers);

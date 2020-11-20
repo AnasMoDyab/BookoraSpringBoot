@@ -12,6 +12,8 @@ import com.tietoevry.bookorabackend.model.Zone;
 import com.tietoevry.bookorabackend.repositories.BookingRepository;
 import com.tietoevry.bookorabackend.repositories.EmployeeRepository;
 import com.tietoevry.bookorabackend.repositories.ZoneRepository;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -38,7 +40,10 @@ public class BookingServiceImpl implements BookingService {
     @Override
     public BookingIdDTO bookOneZoneOfOneDay(BookingDTO bookingDTO) throws Exception {
 
-        Employee employee = employeeRepository.findById(bookingDTO.getEmployeeId())
+        UserDetails userDetails =
+                (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+        Employee employee = employeeRepository.findByEmail(userDetails.getUsername())
                 .orElseThrow(() -> new EmployeeNotFoundException("Employee is not found"));
         Zone zone = zoneRepository.findById(bookingDTO.getZoneId())
                 .orElseThrow(() -> new ZoneNotFoundException("Zone is not found"));
