@@ -205,10 +205,10 @@ class BookingServiceImplUnitTest {
         given(bookingRepository.findAllByEmployeeAndDateGreaterThanEqualAndDateLessThanEqual(employee, LocalDate.now(), LocalDate.now())).willReturn(bookings);
 
         //when
-        BookingToshowDtoList bookingToshowDtoList = bookingService.getAllBookingOfEmployeeInAPeriod(employeeBookingInAPeriodDTO);
+        BookingToShowDtoList bookingToshowDtoList = bookingService.getAllBookingOfEmployeeInAPeriod(employeeBookingInAPeriodDTO);
 
         //then
-        assertThat(bookingToshowDtoList.getBookingToshowDtoLists().size()).isEqualTo(1);
+        assertThat(bookingToshowDtoList.getBookingToShowDtoLists().size()).isEqualTo(1);
         then(employeeRepository).should(times(1)).findByEmail(any());
         then(bookingRepository).should(times(1)).findAllByEmployeeAndDateGreaterThanEqualAndDateLessThanEqual(any(Employee.class), any(LocalDate.class), any(LocalDate.class));
     }

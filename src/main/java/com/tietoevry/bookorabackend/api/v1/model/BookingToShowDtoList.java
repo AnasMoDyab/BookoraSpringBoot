@@ -9,6 +9,6 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class BookingToshowDtoList {
-    List<BookingToshowDTO> bookingToshowDtoLists;
+public class BookingToShowDtoList {
+    List<BookingToShowDTO> bookingToShowDtoLists;
 }

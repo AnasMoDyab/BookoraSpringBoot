@@ -145,20 +145,20 @@ public class BookingServiceImpl implements BookingService {
     }
 
     @Override
-    public BookingToshowDtoList getAllBookingOfEmployeeInAPeriod(EmployeeBookingInAPeriodDTO employeeBookingInAPeriodDTO) throws EmployeeNotFoundException {
+    public BookingToShowDtoList getAllBookingOfEmployeeInAPeriod(EmployeeBookingInAPeriodDTO employeeBookingInAPeriodDTO) throws EmployeeNotFoundException {
         UserDetails userDetails =
                 (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
         Employee employee = employeeRepository.findByEmail(userDetails.getUsername())
                 .orElseThrow(() -> new EmployeeNotFoundException("Employee is not found"));
-        List<BookingToshowDTO> bookingDTOList = new ArrayList<>();
+        List<BookingToShowDTO> bookingDTOList = new ArrayList<>();
 
         for (Booking booking : bookingRepository.findAllByEmployeeAndDateGreaterThanEqualAndDateLessThanEqual(employee, employeeBookingInAPeriodDTO.getFrom(), employeeBookingInAPeriodDTO.getTo())) {
-            BookingToshowDTO bookingToshowDTO = bookingMapper.bookingToBookingToshowDto(booking);
+            BookingToShowDTO bookingToshowDTO = bookingMapper.bookingToBookingToshowDto(booking);
             bookingDTOList.add(bookingToshowDTO);
         }
 
-        return new BookingToshowDtoList(bookingDTOList);
+        return new BookingToShowDtoList(bookingDTOList);
     }
 
 }

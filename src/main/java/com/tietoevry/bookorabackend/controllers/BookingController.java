@@ -56,7 +56,7 @@ public class BookingController {
     @PostMapping("/getAllBookingOfEmployeeInAPeriod")
     @PreAuthorize("hasAnyAuthority('ROLE_ADMIN', 'ROLE_USER')")
     @ResponseStatus(HttpStatus.OK)
-    public BookingToshowDtoList getAllBookingOfEmployeeInAPeriod(@RequestBody @Valid EmployeeBookingInAPeriodDTO employeeBookingInAPeriodDTO) throws EmployeeNotFoundException {
+    public BookingToShowDtoList getAllBookingOfEmployeeInAPeriod(@RequestBody @Valid EmployeeBookingInAPeriodDTO employeeBookingInAPeriodDTO) throws EmployeeNotFoundException {
         return bookingService.getAllBookingOfEmployeeInAPeriod(employeeBookingInAPeriodDTO);
     }
 

@@ -9,7 +9,7 @@ import java.time.LocalDate;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class BookingToshowDTO {
+public class BookingToShowDTO {
     private Long bookingId;
     private LocalDate date;
     private Character zoneName;

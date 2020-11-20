@@ -137,10 +137,10 @@ class BookingControllerTest {
     @Test
     void getAllBookingOfEmployeeInAPeriod() throws Exception {
         //given
-        BookingToshowDtoList list = new BookingToshowDtoList(new ArrayList<>());
+        BookingToShowDtoList list = new BookingToShowDtoList(new ArrayList<>());
         LocalDate date = LocalDate.of(2020, 11, 11);
-        BookingToshowDTO bookingToshowDTO = new BookingToshowDTO(1L, date, 'A', 1);
-        list.getBookingToshowDtoLists().add(bookingToshowDTO);
+        BookingToShowDTO bookingToshowDTO = new BookingToShowDTO(1L, date, 'A', 1);
+        list.getBookingToShowDtoLists().add(bookingToshowDTO);
         given(bookingService.getAllBookingOfEmployeeInAPeriod(any())).willReturn(list);
 
         //when
@@ -149,12 +149,12 @@ class BookingControllerTest {
                 .content("{\"email\":\"test\",\"from\":\"2020-11-11\",\"to\":\"2020-11-12\"}"))
                 //then
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.bookingToshowDtoLists[0].bookingId", is(1)))
-                .andExpect(jsonPath("$.bookingToshowDtoLists[0].date[0]", is(2020)))
-                .andExpect(jsonPath("$.bookingToshowDtoLists[0].date[1]", is(11)))
-                .andExpect(jsonPath("$.bookingToshowDtoLists[0].date[2]", is(11)))
-                .andExpect(jsonPath("$.bookingToshowDtoLists[0].zoneName", is("A")))
-                .andExpect(jsonPath("$.bookingToshowDtoLists[0].floor", is(1)));
+                .andExpect(jsonPath("$.bookingToShowDtoLists[0].bookingId", is(1)))
+                .andExpect(jsonPath("$.bookingToShowDtoLists[0].date[0]", is(2020)))
+                .andExpect(jsonPath("$.bookingToShowDtoLists[0].date[1]", is(11)))
+                .andExpect(jsonPath("$.bookingToShowDtoLists[0].date[2]", is(11)))
+                .andExpect(jsonPath("$.bookingToShowDtoLists[0].zoneName", is("A")))
+                .andExpect(jsonPath("$.bookingToShowDtoLists[0].floor", is(1)));
         then(bookingService).should(times(1)).getAllBookingOfEmployeeInAPeriod(any());
     }
 
