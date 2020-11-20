@@ -11,5 +11,5 @@ import java.util.List;
 @AllArgsConstructor
 
 public class BookingListDTOAdmin {
-    List<BookingofEmployeeDTO> bookingofEmployeeDTOList;
+    List<BookingOfEmployeeDTO> bookingOfEmployeeDTOList;
 }

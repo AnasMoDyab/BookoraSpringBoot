@@ -78,7 +78,7 @@ public class ArchiveIT {
 
         //then
         assertThat(response.getStatusCode()).isEqualTo(OK);
-        assertThat(response.getBody().getBookingofEmployeeDTOList()).isNotNull();
+        assertThat(response.getBody().getBookingOfEmployeeDTOList()).isNotNull();
     }
 
     @DisplayName("Get all bookings in a period by User")

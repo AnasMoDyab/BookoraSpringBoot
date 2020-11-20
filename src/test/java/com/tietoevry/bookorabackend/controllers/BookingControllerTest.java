@@ -163,8 +163,8 @@ class BookingControllerTest {
         //given
         BookingListDTOAdmin list = new BookingListDTOAdmin(new ArrayList<>());
         LocalDate date = LocalDate.of(2020, 11, 11);
-        BookingofEmployeeDTO bookingofEmployeeDTO = new BookingofEmployeeDTO(1L, date, 'A', 1, "test");
-        list.getBookingofEmployeeDTOList().add(bookingofEmployeeDTO);
+        BookingOfEmployeeDTO bookingofEmployeeDTO = new BookingOfEmployeeDTO(1L, date, 'A', 1, "test");
+        list.getBookingOfEmployeeDTOList().add(bookingofEmployeeDTO);
         given(bookingService.getAllBookingInAPeriodAdmin(any())).willReturn(list);
 
         //when
@@ -173,13 +173,13 @@ class BookingControllerTest {
                 .content("{\"from\":\"2020-11-11\",\"to\":\"2020-11-12\"}"))
                 //then
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.bookingofEmployeeDTOList[0].bookingId", is(1)))
-                .andExpect(jsonPath("$.bookingofEmployeeDTOList[0].date[0]", is(2020)))
-                .andExpect(jsonPath("$.bookingofEmployeeDTOList[0].date[1]", is(11)))
-                .andExpect(jsonPath("$.bookingofEmployeeDTOList[0].date[2]", is(11)))
-                .andExpect(jsonPath("$.bookingofEmployeeDTOList[0].zoneName", is("A")))
-                .andExpect(jsonPath("$.bookingofEmployeeDTOList[0].floor", is(1)))
-                .andExpect(jsonPath("$.bookingofEmployeeDTOList[0].email", is("test")));
+                .andExpect(jsonPath("$.bookingOfEmployeeDTOList[0].bookingId", is(1)))
+                .andExpect(jsonPath("$.bookingOfEmployeeDTOList[0].date[0]", is(2020)))
+                .andExpect(jsonPath("$.bookingOfEmployeeDTOList[0].date[1]", is(11)))
+                .andExpect(jsonPath("$.bookingOfEmployeeDTOList[0].date[2]", is(11)))
+                .andExpect(jsonPath("$.bookingOfEmployeeDTOList[0].zoneName", is("A")))
+                .andExpect(jsonPath("$.bookingOfEmployeeDTOList[0].floor", is(1)))
+                .andExpect(jsonPath("$.bookingOfEmployeeDTOList[0].email", is("test")));
         then(bookingService).should(times(1)).getAllBookingInAPeriodAdmin(any());
     }
 

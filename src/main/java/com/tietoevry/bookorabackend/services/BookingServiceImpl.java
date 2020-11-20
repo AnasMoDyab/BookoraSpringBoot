@@ -132,16 +132,16 @@ public class BookingServiceImpl implements BookingService {
                         , adminBookingForAllDTO.getFrom());
 
 
-        List<BookingofEmployeeDTO> bookingOfEmployeeDTOs = new ArrayList<>();
+        List<BookingOfEmployeeDTO> bookingOfEmployeeDTOS = new ArrayList<>();
 
         for (Booking booking : bookings) {
-            BookingofEmployeeDTO bookingofEmployeeDTO = bookingMapper.bookingToBookingofEmployeeDTO(booking);
+            BookingOfEmployeeDTO bookingofEmployeeDTO = bookingMapper.bookingToBookingofEmployeeDTO(booking);
 
-            bookingOfEmployeeDTOs.add(bookingofEmployeeDTO);
+            bookingOfEmployeeDTOS.add(bookingofEmployeeDTO);
         }
 
 
-        return new BookingListDTOAdmin(bookingOfEmployeeDTOs);
+        return new BookingListDTOAdmin(bookingOfEmployeeDTOS);
     }
 
     @Override

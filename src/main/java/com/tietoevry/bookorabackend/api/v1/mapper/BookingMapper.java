@@ -1,8 +1,8 @@
 package com.tietoevry.bookorabackend.api.v1.mapper;
 
 import com.tietoevry.bookorabackend.api.v1.model.BookingDTO;
+import com.tietoevry.bookorabackend.api.v1.model.BookingOfEmployeeDTO;
 import com.tietoevry.bookorabackend.api.v1.model.BookingToShowDTO;
-import com.tietoevry.bookorabackend.api.v1.model.BookingofEmployeeDTO;
 import com.tietoevry.bookorabackend.model.Booking;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
@@ -26,7 +26,7 @@ public interface BookingMapper {
     @Mapping(target = "bookingId", source = "booking.id")
     @Mapping(target = "floor", source = "zone.floor")
     @Mapping(target = "email", source = "employee.email")
-    BookingofEmployeeDTO bookingToBookingofEmployeeDTO(Booking booking);
+    BookingOfEmployeeDTO bookingToBookingofEmployeeDTO(Booking booking);
 
     Booking bookingDTOtoBooking(BookingDTO bookingDTO);
 }

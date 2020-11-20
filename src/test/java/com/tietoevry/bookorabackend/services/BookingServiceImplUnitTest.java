@@ -183,7 +183,7 @@ class BookingServiceImplUnitTest {
         BookingListDTOAdmin bookingListDTOAdmin = bookingService.getAllBookingInAPeriodAdmin(adminBookingForAllDTO);
 
         //then
-        assertThat(bookingListDTOAdmin.getBookingofEmployeeDTOList().size()).isEqualTo(1);
+        assertThat(bookingListDTOAdmin.getBookingOfEmployeeDTOList().size()).isEqualTo(1);
         then(bookingRepository).should(times(1)).findAllByDateLessThanEqualAndDateGreaterThanEqual(any(LocalDate.class), any(LocalDate.class));
 
     }
