@@ -179,7 +179,7 @@ class ZoneControllerTest {
         given(zoneService.checkStatusOfAllFloorPeriod(any())).willReturn(list);
 
         //when
-        mockMvc.perform(post(ZoneController.BASE_URL + "/CheckStatusOfAllFloorPeriode")
+        mockMvc.perform(post(ZoneController.BASE_URL + "/CheckStatusOfAllFloorPeriod")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content("{\"from\":\"2020-11-12\",\"to\":\"2020-11-12\"}"))
                 //then
@@ -196,7 +196,7 @@ class ZoneControllerTest {
         given(zoneService.CheckStatusOfTheBuildingOnPeriod(any())).willReturn(totalBookingInBuildingDTO);
 
         //when
-        mockMvc.perform(post(ZoneController.BASE_URL + "/CheckStatusOfBuildingOnPeriode")
+        mockMvc.perform(post(ZoneController.BASE_URL + "/CheckStatusOfBuildingOnPeriod")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content("{\"from\":\"2020-11-12\",\"to\":\"2020-11-12\"}"))
                 //then
