@@ -127,7 +127,7 @@ public class StatisticsIT {
 
         //when
         ResponseEntity<TotalBookingInBuildingDTO> response = restTemplate
-                .postForEntity("http://localhost:" + port + ZoneController.BASE_URL + "/CheckStatusOfBuildingOnPeriode"
+                .postForEntity("http://localhost:" + port + ZoneController.BASE_URL + "/CheckStatusOfBuildingOnPeriod"
                         , request, TotalBookingInBuildingDTO.class);
 
         //then
@@ -144,7 +144,7 @@ public class StatisticsIT {
 
         //when
         ResponseEntity<TotalBookingInBuildingDTO> response = restTemplate
-                .postForEntity("http://localhost:" + port + ZoneController.BASE_URL + "/CheckStatusOfBuildingOnPeriode"
+                .postForEntity("http://localhost:" + port + ZoneController.BASE_URL + "/CheckStatusOfBuildingOnPeriod"
                         , request, TotalBookingInBuildingDTO.class);
 
         //then
@@ -161,7 +161,7 @@ public class StatisticsIT {
         //when
         assertThatThrownBy(() -> {
             restTemplate
-                    .postForEntity("http://localhost:" + port + ZoneController.BASE_URL + "/CheckStatusOfBuildingOnPeriode"
+                    .postForEntity("http://localhost:" + port + ZoneController.BASE_URL + "/CheckStatusOfBuildingOnPeriod"
                             , request, TotalBookingInBuildingDTO.class);
         })
                 //then
