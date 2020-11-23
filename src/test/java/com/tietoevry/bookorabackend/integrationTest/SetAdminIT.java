@@ -32,7 +32,6 @@ public class SetAdminIT {
     HttpHeaders headers = new HttpHeaders();
     String validAdminJwt;
     String validUserJwt;
-    String inValidJwt;
     @LocalServerPort
     private int port;
 
@@ -52,9 +51,6 @@ public class SetAdminIT {
                         , logInUserDTO, JwtDTO.class);
         validUserJwt = jwtUserResponse.getBody().getToken();
 
-        // set Invalid JWT
-        inValidJwt = "test";
-
         // set header to JSON
         headers.setContentType(MediaType.APPLICATION_JSON);
     }
@@ -62,7 +58,7 @@ public class SetAdminIT {
     @DisplayName("Set a user to admin with valid JWT")
     @Test
     void setAUserToAdminWithValidJWT() {
-        EmailDTO emailDTO = new EmailDTO("employee1@tietoevry.com", new HashSet<String>(Arrays.asList("user", "admin")));
+        EmailDTO emailDTO = new EmailDTO("employee1@tietoevry.com", new HashSet<>(Arrays.asList("user", "admin")));
         headers.set("Authorization", "Bearer " + validAdminJwt);
 
         HttpEntity<EmailDTO> request = new HttpEntity<>(emailDTO, headers);
@@ -80,7 +76,7 @@ public class SetAdminIT {
     @DisplayName("Set a non-existing user to admin with valid JWT")
     @Test
     void setANonExistingUserToAdminWithValidJWT() {
-        EmailDTO emailDTO = new EmailDTO("abc@tietoevry.com", new HashSet<String>(Arrays.asList("user", "admin")));
+        EmailDTO emailDTO = new EmailDTO("abc@tietoevry.com", new HashSet<>(Arrays.asList("user", "admin")));
         headers.set("Authorization", "Bearer " + validAdminJwt);
 
         HttpEntity<EmailDTO> request = new HttpEntity<>(emailDTO, headers);
@@ -98,7 +94,7 @@ public class SetAdminIT {
     @DisplayName("Set a user to admin with user account")
     @Test
     void setAUserToAdminWithUserAccount() {
-        EmailDTO emailDTO = new EmailDTO("employee2@tietoevry.com", new HashSet<String>(Arrays.asList("user", "admin")));
+        EmailDTO emailDTO = new EmailDTO("employee2@tietoevry.com", new HashSet<>(Arrays.asList("user", "admin")));
         headers.set("Authorization", "Bearer " + validUserJwt);
 
         HttpEntity<EmailDTO> request = new HttpEntity<>(emailDTO, headers);

@@ -68,7 +68,7 @@ class EmployeeControllerTest {
         //given
         EmployeeListDTO employeeListDTO = new EmployeeListDTO(new ArrayList<>());
         EmployeeDTO employeeDTO = new EmployeeDTO(1L, "root", "Hi", "root@tietoevry.com",
-                "123456aB@", new HashSet<String>(), "test");
+                "123456aB@", new HashSet<>(), "test");
         employeeListDTO.getEmployeeDTOList().add(employeeDTO);
         given(employeeService.getAllEmployees()).willReturn(employeeListDTO);
 
@@ -89,7 +89,7 @@ class EmployeeControllerTest {
     void getEmployeeById() throws Exception {
         //given
         EmployeeDTO employeeDTO = new EmployeeDTO(1L, "root", "Hi", "root@tietoevry.com",
-                "123456aB@", new HashSet<String>(), "test");
+                "123456aB@", new HashSet<>(), "test");
         given(employeeService.getEmployeeById(any())).willReturn(employeeDTO);
 
         //when
@@ -109,7 +109,7 @@ class EmployeeControllerTest {
     void getEmployeeByEmail() throws Exception {
         //given
         EmployeeDTO employeeDTO = new EmployeeDTO(1L, "root", "Hi", "root@tietoevry.com",
-                "123456aB@", new HashSet<String>(), "test");
+                "123456aB@", new HashSet<>(), "test");
         given(employeeService.getEmployeeByEmail(any())).willReturn(employeeDTO);
 
         //when

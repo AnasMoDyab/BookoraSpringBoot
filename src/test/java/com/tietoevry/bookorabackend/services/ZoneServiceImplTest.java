@@ -58,7 +58,7 @@ class ZoneServiceImplTest {
     @Test
     void zoneSettingsWithValidZoneId() throws Exception {
         //given
-        Zone zoneToChange = new Zone(1L, 1, 'A', false, 10, new HashSet<Booking>());
+        Zone zoneToChange = new Zone(1L, 1, 'A', false, 10, new HashSet<>());
         ZoneSettingDTO zoneSettingDTO = new ZoneSettingDTO(2, 1L, 20, true);
         given(zoneRepository.findZoneById(any())).willReturn(zoneToChange);
 
@@ -97,7 +97,7 @@ class ZoneServiceImplTest {
     @Test
     void getAllZones() {
         //given
-        Zone zone = new Zone(1L, 1, 'A', true, 10, new HashSet<Booking>());
+        Zone zone = new Zone(1L, 1, 'A', true, 10, new HashSet<>());
         List<Zone> list = new ArrayList<>();
         list.add(zone);
         ZoneDTO zoneDTO = new ZoneDTO(1L, 1, 'A', true, 10);
@@ -121,7 +121,7 @@ class ZoneServiceImplTest {
     @Test
     void getZonesByFloor() {
         //given
-        Zone zone = new Zone(1L, 1, 'A', true, 10, new HashSet<Booking>());
+        Zone zone = new Zone(1L, 1, 'A', true, 10, new HashSet<>());
         List<Zone> list = new ArrayList<>();
         list.add(zone);
         ZoneDTO zoneDTO = new ZoneDTO(1L, 1, 'A', true, 10);
@@ -146,7 +146,7 @@ class ZoneServiceImplTest {
     @Test
     void getZoneById() throws Exception {
         //given
-        Zone zone = new Zone(1L, 1, 'A', true, 10, new HashSet<Booking>());
+        Zone zone = new Zone(1L, 1, 'A', true, 10, new HashSet<>());
         ZoneDTO zoneDTO = new ZoneDTO(1L, 1, 'A', true, 10);
 
         given(zoneRepository.findById(any())).willReturn(Optional.of(zone));
@@ -169,7 +169,7 @@ class ZoneServiceImplTest {
     @Test
     void isFullOnADay() throws Exception {
         //given
-        Zone zone = new Zone(1L, 1, 'A', true, 1, new HashSet<Booking>());
+        Zone zone = new Zone(1L, 1, 'A', true, 1, new HashSet<>());
         List<Booking> list = new ArrayList<>();
         list.add(new Booking());
         given(zoneRepository.findById(any())).willReturn(Optional.of(zone));
@@ -188,7 +188,7 @@ class ZoneServiceImplTest {
     @Test
     void isAvailableOnADay() throws Exception {
         //given
-        Zone zone = new Zone(1L, 1, 'A', true, 2, new HashSet<Booking>());
+        Zone zone = new Zone(1L, 1, 'A', true, 2, new HashSet<>());
         List<Booking> list = new ArrayList<>();
         list.add(new Booking());
         given(zoneRepository.findById(any())).willReturn(Optional.of(zone));
@@ -207,7 +207,7 @@ class ZoneServiceImplTest {
     @Test
     void checkStatusOfAZoneOnADay() throws Exception {
         //given
-        Zone zone = new Zone(1L, 1, 'A', true, 1, new HashSet<Booking>());
+        Zone zone = new Zone(1L, 1, 'A', true, 1, new HashSet<>());
         ZoneDateDTO zoneDateDTO = new ZoneDateDTO(1L, LocalDate.of(2020, 11, 11));
         List<Booking> list = new ArrayList<>();
         list.add(new Booking());
@@ -230,7 +230,7 @@ class ZoneServiceImplTest {
     @Test
     void checkStatusOfAllZoneInAFloor() throws Exception {
         //given
-        Zone zone = new Zone(1L, 1, 'A', true, 10, new HashSet<Booking>());
+        Zone zone = new Zone(1L, 1, 'A', true, 10, new HashSet<>());
         List<Zone> list = new ArrayList<>();
         list.add(zone);
         ZoneDTO zoneDTO = new ZoneDTO(1L, 1, 'A', true, 10);
@@ -270,7 +270,7 @@ class ZoneServiceImplTest {
         List<Booking> bookingList = new ArrayList<>();
         for (int i = 1; i <= 7; i++) {
             Booking booking = new Booking();
-            Zone zone = new Zone(1L, i, 'A', true, 10, new HashSet<Booking>());
+            Zone zone = new Zone(1L, i, 'A', true, 10, new HashSet<>());
             booking.setZone(zone);
             bookingList.add(booking);
         }
@@ -300,7 +300,7 @@ class ZoneServiceImplTest {
         List<Booking> bookingList = new ArrayList<>();
         for (int i = 1; i <= 7; i++) {
             Booking booking = new Booking();
-            Zone zone = new Zone(1L, i, 'A', true, 10, new HashSet<Booking>());
+            Zone zone = new Zone(1L, i, 'A', true, 10, new HashSet<>());
             booking.setZone(zone);
             bookingList.add(booking);
         }
@@ -321,7 +321,7 @@ class ZoneServiceImplTest {
     @Test
     void getTotalBookingOfADayInAZone() throws Exception {
         //given
-        Zone zone = new Zone(1L, 1, 'A', true, 1, new HashSet<Booking>());
+        Zone zone = new Zone(1L, 1, 'A', true, 1, new HashSet<>());
         List<Booking> list = new ArrayList<>();
         list.add(new Booking());
         given(zoneRepository.findById(any())).willReturn(Optional.of(zone));

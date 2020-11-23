@@ -9,6 +9,4 @@ public interface EmployeeRepository extends JpaRepository<Employee, Long> {
     Employee findByEmailIgnoreCase(String email);
 
     Optional<Employee> findByEmail(String email);
-
-    Boolean existsByEmail(String email);
 }
