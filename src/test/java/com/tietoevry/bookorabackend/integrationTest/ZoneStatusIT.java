@@ -63,7 +63,8 @@ public class ZoneStatusIT {
         //when
         ResponseEntity<List<StatusOfAZoneOnADayDTO>> response = restTemplate
                 .exchange("http://localhost:" + port + ZoneController.BASE_URL + "/checkStatusOfAllZoneInAFloor"
-                        , HttpMethod.POST, request,  new ParameterizedTypeReference<List<StatusOfAZoneOnADayDTO>>(){});
+                        , HttpMethod.POST, request, new ParameterizedTypeReference<List<StatusOfAZoneOnADayDTO>>() {
+                        });
 
         //then
         assertThat(response.getStatusCode()).isEqualTo(OK);
@@ -85,7 +86,8 @@ public class ZoneStatusIT {
         assertThatThrownBy(() -> {
             restTemplate
                     .exchange("http://localhost:" + port + ZoneController.BASE_URL + "/checkStatusOfAllZoneInAFloor"
-                            , HttpMethod.POST, request,  new ParameterizedTypeReference<List<StatusOfAZoneOnADayDTO>>(){});
+                            , HttpMethod.POST, request, new ParameterizedTypeReference<List<StatusOfAZoneOnADayDTO>>() {
+                            });
         })
                 //then
                 .isInstanceOf(ResourceAccessException.class);

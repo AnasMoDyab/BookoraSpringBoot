@@ -11,7 +11,7 @@ import org.springframework.stereotype.Component;
 import java.util.Date;
 
 /*
-This clas has 3 functions:
+This class has 3 functions:
 	1. generate a JWT from username, date, expiration, secret
 	2. get username from JWT
 	3. validate a JWT

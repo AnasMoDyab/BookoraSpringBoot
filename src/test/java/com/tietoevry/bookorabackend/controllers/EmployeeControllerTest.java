@@ -93,7 +93,7 @@ class EmployeeControllerTest {
         given(employeeService.getEmployeeById(any())).willReturn(employeeDTO);
 
         //when
-        mockMvc.perform(get(EmployeeController.BASE_URL+"/"+employeeDTO.getId()))
+        mockMvc.perform(get(EmployeeController.BASE_URL + "/" + employeeDTO.getId()))
                 //then
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.id", is(1)))
@@ -113,7 +113,7 @@ class EmployeeControllerTest {
         given(employeeService.getEmployeeByEmail(any())).willReturn(employeeDTO);
 
         //when
-        mockMvc.perform(get(EmployeeController.BASE_URL+"/email/{email}", "test" ))
+        mockMvc.perform(get(EmployeeController.BASE_URL + "/email/{email}", "test"))
                 //then
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.id", is(1)))
@@ -147,7 +147,7 @@ class EmployeeControllerTest {
         //given
         List<String> roles = new ArrayList<>();
         roles.add("user");
-        JwtDTO jwtDTO = new JwtDTO("123",1L,"root@tietoevry.com",roles);
+        JwtDTO jwtDTO = new JwtDTO("123", 1L, "root@tietoevry.com", roles);
         given(employeeService.logIn(any())).willReturn(jwtDTO);
 
         //when
@@ -167,7 +167,7 @@ class EmployeeControllerTest {
     @Test
     void updateEmployee() throws Exception {
         //given
-       given(employeeService.updateEmployee(any())).willReturn(new MessageDTO("test"));
+        given(employeeService.updateEmployee(any())).willReturn(new MessageDTO("test"));
 
         //when
         mockMvc.perform(post(EmployeeController.BASE_URL + "/updateEmployee")

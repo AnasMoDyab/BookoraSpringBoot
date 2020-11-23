@@ -51,7 +51,7 @@ class ZoneControllerTest {
     }
 
     @DisplayName("Get zone list")
-    @WithMockUser(username="admin",roles={"USER","ADMIN"})
+    @WithMockUser(username = "admin", roles = {"USER", "ADMIN"})
     @Test
     void getZoneList() throws Exception {
         //given
@@ -62,7 +62,7 @@ class ZoneControllerTest {
 
         //when
         mockMvc.perform(get(ZoneController.BASE_URL))
-        //then
+                //then
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.zoneDTOList[0].id", is(1)))
                 .andExpect(jsonPath("$.zoneDTOList[0].floor", is(1)))
@@ -78,15 +78,15 @@ class ZoneControllerTest {
         //given
         ZoneListDTO list = new ZoneListDTO(new ArrayList<>());
         //adding two zoneDTO and add the one with larger id, so as to check if the comparator logic work
-        ZoneDTO zoneDTO = new ZoneDTO(2L,2,'B',true,20);
-        ZoneDTO zoneDTO2 = new ZoneDTO(1L,1,'A',true,10);
+        ZoneDTO zoneDTO = new ZoneDTO(2L, 2, 'B', true, 20);
+        ZoneDTO zoneDTO2 = new ZoneDTO(1L, 1, 'A', true, 10);
         list.getZoneDTOList().add(zoneDTO);
         list.getZoneDTOList().add(zoneDTO2);
         given(zoneService.getZonesByFloor(any())).willReturn(list);
 
         //when
         mockMvc.perform(get(ZoneController.BASE_URL + "/floor/1"))
-        //then
+                //then
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.zoneDTOList[1].id", is(2)))
                 .andExpect(jsonPath("$.zoneDTOList[0].id", is(1)))
@@ -106,7 +106,7 @@ class ZoneControllerTest {
 
         //when
         mockMvc.perform(get(ZoneController.BASE_URL + "/zone/{id}", zoneDTO.getId()))
-        //then
+                //then
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.id", is(1)))
                 .andExpect(jsonPath("$.floor", is(1)))
@@ -125,9 +125,9 @@ class ZoneControllerTest {
 
         //when
         mockMvc.perform(post(ZoneController.BASE_URL + "/checkStatusOfAZoneOnADay")
-                    .contentType(MediaType.APPLICATION_JSON)
-                    .content("{\"zoneId\":\"1\",\"date\":\"2020-11-12\"}"))
-        //then
+                .contentType(MediaType.APPLICATION_JSON)
+                .content("{\"zoneId\":\"1\",\"date\":\"2020-11-12\"}"))
+                //then
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.totalReservation", is(10)))
                 .andExpect(jsonPath("$.capacity", is(20)))
@@ -145,9 +145,9 @@ class ZoneControllerTest {
 
         //when
         mockMvc.perform(post(ZoneController.BASE_URL + "/checkStatusOfAllZoneInAFloor")
-                    .contentType(MediaType.APPLICATION_JSON)
-                    .content("{\"floorId\":\"1\",\"date\":\"2020-11-12\"}"))
-        //then
+                .contentType(MediaType.APPLICATION_JSON)
+                .content("{\"floorId\":\"1\",\"date\":\"2020-11-12\"}"))
+                //then
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$[0].totalReservation", is(10)))
                 .andExpect(jsonPath("$[0].capacity", is(20)))
@@ -163,9 +163,9 @@ class ZoneControllerTest {
 
         //when
         mockMvc.perform(post(ZoneController.BASE_URL + "/ZoneSettings")
-                    .contentType(MediaType.APPLICATION_JSON)
-                    .content("{\"floor\":\"1\",\"zoneId\":\"1\",\"capacity\":\"10\",\"activated\":\"true\"}"))
-        //then
+                .contentType(MediaType.APPLICATION_JSON)
+                .content("{\"floor\":\"1\",\"zoneId\":\"1\",\"capacity\":\"10\",\"activated\":\"true\"}"))
+                //then
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.message", is("test")));
         then(zoneService).should(times(1)).zoneSettings(any());
@@ -180,9 +180,9 @@ class ZoneControllerTest {
 
         //when
         mockMvc.perform(post(ZoneController.BASE_URL + "/CheckStatusOfAllFloorPeriode")
-                    .contentType(MediaType.APPLICATION_JSON)
-                    .content("{\"from\":\"2020-11-12\",\"to\":\"2020-11-12\"}"))
-        //then
+                .contentType(MediaType.APPLICATION_JSON)
+                .content("{\"from\":\"2020-11-12\",\"to\":\"2020-11-12\"}"))
+                //then
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$[0].floor", is(1)))
                 .andExpect(jsonPath("$[0].totalBooking", is(30)));
@@ -197,9 +197,9 @@ class ZoneControllerTest {
 
         //when
         mockMvc.perform(post(ZoneController.BASE_URL + "/CheckStatusOfBuildingOnPeriode")
-                    .contentType(MediaType.APPLICATION_JSON)
-                    .content("{\"from\":\"2020-11-12\",\"to\":\"2020-11-12\"}"))
-        //then
+                .contentType(MediaType.APPLICATION_JSON)
+                .content("{\"from\":\"2020-11-12\",\"to\":\"2020-11-12\"}"))
+                //then
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.totalForAllFloor", is(10)));
         then(zoneService).should(times(1)).CheckStatusOfTheBuildingOnPeriod(any());

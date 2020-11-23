@@ -38,9 +38,7 @@ import static org.mockito.BDDMockito.given;
 import static org.mockito.BDDMockito.then;
 import static org.mockito.Mockito.reset;
 import static org.mockito.Mockito.times;
-/**
 
-*/
 @DisplayName("EmployeeServiceImp unit test")
 @Tag("Development")
 @Tag("UnitTest")

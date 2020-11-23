@@ -31,7 +31,7 @@ class SignUpIT {
     @Test
     void signUpWithValidInfo() {
         //given
-        SignUpDTO signUpDTO = new SignUpDTO("testFirst", "testLast","signUp@tietoevry.com", "123456aB@",null);
+        SignUpDTO signUpDTO = new SignUpDTO("testFirst", "testLast", "signUp@tietoevry.com", "123456aB@", null);
 
         //when
         ResponseEntity<MessageDTO> response = restTemplate
@@ -47,7 +47,7 @@ class SignUpIT {
     @Test
     void signUpWithInvalidEmailDomain() {
         //given
-        SignUpDTO signUpDTO = new SignUpDTO("testFirst", "testLast","test@abc.com", "123456aB@",null);
+        SignUpDTO signUpDTO = new SignUpDTO("testFirst", "testLast", "test@abc.com", "123456aB@", null);
 
         //when
         ResponseEntity<MessageDTO> response = restTemplate
@@ -63,7 +63,7 @@ class SignUpIT {
     @Test
     void signUpWithExistingEmailDomain() {
         //given
-        SignUpDTO signUpDTO = new SignUpDTO("testFirst", "testLast","test2@tietoevry.com", "123456aB@",null);
+        SignUpDTO signUpDTO = new SignUpDTO("testFirst", "testLast", "test2@tietoevry.com", "123456aB@", null);
 
         //when
         restTemplate
@@ -77,7 +77,6 @@ class SignUpIT {
         assertThat(response.getStatusCode()).isEqualTo(CONFLICT);
         assertThat(response.getBody().getMessage()).isEqualTo("Error: Email is already in use!");
     }
-
 
 
 }

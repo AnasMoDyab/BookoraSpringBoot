@@ -62,7 +62,7 @@ public class ArchiveIT {
 
     @DisplayName("Get all bookings in a period by Admin")
     @Test
-    void getAllBookingsInAPeriodByAdmin(){
+    void getAllBookingsInAPeriodByAdmin() {
         //given
         LocalDate from = LocalDate.now();
         LocalDate to = LocalDate.now().plusDays(7);
@@ -83,7 +83,7 @@ public class ArchiveIT {
 
     @DisplayName("Get all bookings in a period by User")
     @Test
-    void getAllBookingsInAPeriodByUser(){
+    void getAllBookingsInAPeriodByUser() {
         //given
         LocalDate from = LocalDate.now();
         LocalDate to = LocalDate.now().plusDays(7);

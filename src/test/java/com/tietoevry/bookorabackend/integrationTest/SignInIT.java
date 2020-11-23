@@ -85,7 +85,7 @@ public class SignInIT {
     @Test
     void signInUnactivatedAcc() {
         //given
-        SignUpDTO signUpDTO = new SignUpDTO("testFirst", "testLast","test@tietoevry.com", "123456aB@",null);
+        SignUpDTO signUpDTO = new SignUpDTO("testFirst", "testLast", "test@tietoevry.com", "123456aB@", null);
 
         //when
         ResponseEntity<MessageDTO> signUpResponse = restTemplate

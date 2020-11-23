@@ -57,7 +57,7 @@ class UserDetailsServiceImplTest {
         assertThatThrownBy(() -> {
             userDetailsService.loadUserByUsername(testEmail);
         }).isInstanceOf(UsernameNotFoundException.class)
-        .hasMessage("User Not Found with username: " + testEmail);
+                .hasMessage("User Not Found with username: " + testEmail);
     }
 
     @DisplayName("Load a user")
@@ -70,7 +70,7 @@ class UserDetailsServiceImplTest {
         roles.add(new Role(RoleEnum.ROLE_ADMIN));
         employee.setRoles(roles);
         employee.setEmail(testEmail);
-        UserDetailsImpl userDetails = new UserDetailsImpl(null,testEmail,null,null);
+        UserDetailsImpl userDetails = new UserDetailsImpl(null, testEmail, null, null);
         given(employeeRepository.findByEmailIgnoreCase(any())).willReturn(employee);
 
         //when

@@ -2,13 +2,12 @@ package com.tietoevry.bookorabackend.services;
 
 import com.tietoevry.bookorabackend.api.v1.model.*;
 import com.tietoevry.bookorabackend.exception.EmployeeNotFoundException;
-import com.tietoevry.bookorabackend.exception.InvalidActionException;
 
 public interface BookingService {
 
     BookingIdDTO bookOneZoneOfOneDay(BookingDTO bookingDTO) throws Exception;
 
-    MessageDTO deleteOneBookingForEmployee(Long bookingId) throws InvalidActionException, Exception;
+    MessageDTO deleteOneBookingForEmployee(Long bookingId) throws Exception;
 
     BookingListDTO getAllBookingOfEmployee(EmployeeEmailDTO employeeEmailDTO) throws Exception;
 

@@ -1,13 +1,12 @@
 package com.tietoevry.bookorabackend.services;
 
 import com.tietoevry.bookorabackend.api.v1.model.*;
-import com.tietoevry.bookorabackend.exception.InvalidActionException;
 
 import java.time.LocalDate;
 import java.util.List;
 
 public interface ZoneService {
-    MessageDTO zoneSettings(ZoneSettingDTO zoneSettingDTO) throws InvalidActionException, Exception;
+    MessageDTO zoneSettings(ZoneSettingDTO zoneSettingDTO) throws Exception;
 
     ZoneListDTO getAllZones();
 

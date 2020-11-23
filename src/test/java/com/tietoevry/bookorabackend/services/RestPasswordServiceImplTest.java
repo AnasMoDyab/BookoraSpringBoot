@@ -64,11 +64,10 @@ class RestPasswordServiceImplTest {
         Employee employee = new Employee();
         employee.setPassword("password");
         employee.setAbleTochangePassword(true);
-        UpdatePasswordDTO updatePasswordDTO = new UpdatePasswordDTO("email","password");
+        UpdatePasswordDTO updatePasswordDTO = new UpdatePasswordDTO("email", "password");
 
         given(employeeRepository.findByEmailIgnoreCase(any())).willReturn(employee);
-        given(encoder.matches(any(),any())).willReturn(true);
-
+        given(encoder.matches(any(), any())).willReturn(true);
 
         //when
         assertThatThrownBy(() -> {
@@ -78,7 +77,7 @@ class RestPasswordServiceImplTest {
                 .isInstanceOf(InvalidInputException.class)
                 .hasMessage("you have used the old password");
         then(employeeRepository).should(times(1)).findByEmailIgnoreCase(any());
-        then(encoder).should(times(1)).matches(any(),any());
+        then(encoder).should(times(1)).matches(any(), any());
     }
 
     @DisplayName("Update password with the previous password")
@@ -88,10 +87,10 @@ class RestPasswordServiceImplTest {
         Employee employee = new Employee();
         employee.setPassword("password");
         employee.setAbleTochangePassword(true);
-        UpdatePasswordDTO updatePasswordDTO = new UpdatePasswordDTO("email","password");
+        UpdatePasswordDTO updatePasswordDTO = new UpdatePasswordDTO("email", "password");
 
         given(employeeRepository.findByEmailIgnoreCase(any())).willReturn(employee);
-        given(encoder.matches(any(),any())).willReturn(false);
+        given(encoder.matches(any(), any())).willReturn(false);
         given(encoder.encode(any())).willReturn("test");
 
         //when
@@ -102,7 +101,7 @@ class RestPasswordServiceImplTest {
         assertThat(employee.isAbleTochangePassword()).isEqualTo(false);
         assertThat(employee.getPassword()).isEqualTo("test");
         then(employeeRepository).should(times(1)).findByEmailIgnoreCase(any());
-        then(encoder).should(times(1)).matches(any(),any());
+        then(encoder).should(times(1)).matches(any(), any());
         then(encoder).should(times(1)).encode(any());
     }
 
@@ -113,7 +112,7 @@ class RestPasswordServiceImplTest {
         Employee employee = new Employee();
         employee.setPassword("password");
         employee.setAbleTochangePassword(false);
-        UpdatePasswordDTO updatePasswordDTO = new UpdatePasswordDTO("email","password");
+        UpdatePasswordDTO updatePasswordDTO = new UpdatePasswordDTO("email", "password");
 
         given(employeeRepository.findByEmailIgnoreCase(any())).willReturn(employee);
 
@@ -131,7 +130,7 @@ class RestPasswordServiceImplTest {
     @Test
     void updatePasswordWithNonExistingEmployee() throws Exception {
         //given
-        UpdatePasswordDTO updatePasswordDTO = new UpdatePasswordDTO("email","password");
+        UpdatePasswordDTO updatePasswordDTO = new UpdatePasswordDTO("email", "password");
 
         given(employeeRepository.findByEmailIgnoreCase(any())).willReturn(null);
 

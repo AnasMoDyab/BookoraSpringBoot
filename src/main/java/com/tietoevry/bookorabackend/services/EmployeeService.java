@@ -2,7 +2,6 @@ package com.tietoevry.bookorabackend.services;
 
 import com.tietoevry.bookorabackend.api.v1.model.*;
 import com.tietoevry.bookorabackend.exception.EmployeeNotFoundException;
-import com.tietoevry.bookorabackend.exception.InvalidDomainException;
 
 public interface EmployeeService {
     EmployeeListDTO getAllEmployees();
@@ -17,9 +16,9 @@ public interface EmployeeService {
 
     MessageDTO sendForgetPasswordCode(ForgetPasswordDTO forgetPasswordDTO) throws EmployeeNotFoundException;
 
-    MessageDTO updateEmployee(EmailDTO emailDTO) throws EmployeeNotFoundException, Exception;
+    MessageDTO updateEmployee(EmailDTO emailDTO) throws Exception;
 
-    EmployeeDTO getEmployeeByEmail(String email) throws InvalidDomainException, Exception;
+    EmployeeDTO getEmployeeByEmail(String email) throws Exception;
 
     //EmployeeDTO patchEmployee(Long id, EmployeeDTO employeeDTO);
 
