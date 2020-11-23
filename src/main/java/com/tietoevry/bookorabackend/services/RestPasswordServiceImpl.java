@@ -9,7 +9,6 @@ import com.tietoevry.bookorabackend.model.Employee;
 import com.tietoevry.bookorabackend.model.RestPasswordCode;
 import com.tietoevry.bookorabackend.repositories.EmployeeRepository;
 import com.tietoevry.bookorabackend.repositories.RestPasswordCodeRepository;
-import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -20,13 +19,11 @@ public class RestPasswordServiceImpl implements RestPasswordService {
     private final RestPasswordCodeRepository restPasswordCodeRepository;
     private final EmployeeRepository employeeRepository;
     private final PasswordEncoder encoder;
-    private final AuthenticationManager authenticationManager;
 
-    public RestPasswordServiceImpl(RestPasswordCodeRepository restPasswordCodeRepository, EmployeeRepository employeeRepository, PasswordEncoder encoder, AuthenticationManager authenticationManager) {
+    public RestPasswordServiceImpl(RestPasswordCodeRepository restPasswordCodeRepository, EmployeeRepository employeeRepository, PasswordEncoder encoder) {
         this.restPasswordCodeRepository = restPasswordCodeRepository;
         this.employeeRepository = employeeRepository;
         this.encoder = encoder;
-        this.authenticationManager = authenticationManager;
     }
 
     @Override
@@ -55,7 +52,6 @@ public class RestPasswordServiceImpl implements RestPasswordService {
                 throw new InvalidActionException("You can't change the password");
             }
         }
-
 
     }
 

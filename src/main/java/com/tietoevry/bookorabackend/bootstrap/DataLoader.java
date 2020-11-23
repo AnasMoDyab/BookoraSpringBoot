@@ -168,9 +168,8 @@ public class DataLoader implements CommandLineRunner {
 
         int max = zoneList.size();
         int randomId = ThreadLocalRandom.current().nextInt(0, max);
-        Zone zone = zoneList.get(randomId);
 
-        return zone;
+        return zoneList.get(randomId);
     }
 
 }

@@ -220,7 +220,6 @@ class BookingServiceImplUnitTest {
         LocalDate date;
         BookingDTO bookingDTO;
         Employee employee;
-        Zone zone;
         List<Booking> bookings;
         Booking booking;
 

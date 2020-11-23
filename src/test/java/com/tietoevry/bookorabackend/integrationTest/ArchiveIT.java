@@ -33,7 +33,6 @@ public class ArchiveIT {
     HttpHeaders headers = new HttpHeaders();
     String validAdminJwt;
     String validUserJwt;
-    String inValidJwt;
     @LocalServerPort
     private int port;
 
@@ -52,9 +51,6 @@ public class ArchiveIT {
                 .postForEntity("http://localhost:" + port + EmployeeController.BASE_URL + "/signin"
                         , logInUserDTO, JwtDTO.class);
         validUserJwt = jwtUserResponse.getBody().getToken();
-
-        // set Invalid JWT
-        inValidJwt = "test";
 
         // set header to JSON
         headers.setContentType(MediaType.APPLICATION_JSON);

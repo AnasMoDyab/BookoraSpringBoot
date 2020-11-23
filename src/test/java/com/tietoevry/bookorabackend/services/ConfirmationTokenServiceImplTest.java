@@ -4,7 +4,10 @@ import com.tietoevry.bookorabackend.model.ConfirmationToken;
 import com.tietoevry.bookorabackend.model.Employee;
 import com.tietoevry.bookorabackend.repositories.ConfirmationTokenRepository;
 import com.tietoevry.bookorabackend.repositories.EmployeeRepository;
-import org.junit.jupiter.api.*;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
@@ -34,12 +37,6 @@ class ConfirmationTokenServiceImplTest {
     ConfirmationTokenServiceImpl confirmationTokenService;
 
     ConfirmationToken confirmationToken;
-
-    @BeforeEach
-    void setUp() {
-
-
-    }
 
     @AfterEach
     void tearDown() {

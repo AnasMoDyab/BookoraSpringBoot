@@ -2,8 +2,6 @@ package com.tietoevry.bookorabackend.controllers;
 
 import com.tietoevry.bookorabackend.api.v1.model.*;
 import com.tietoevry.bookorabackend.exception.EmployeeNotFoundException;
-import com.tietoevry.bookorabackend.repositories.EmployeeRepository;
-import com.tietoevry.bookorabackend.services.ConfirmationTokenService;
 import com.tietoevry.bookorabackend.services.EmployeeService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.HttpStatus;
@@ -20,14 +18,10 @@ public class EmployeeController {
 
     public static final String BASE_URL = "/api/v1/employees";
     private final EmployeeService employeeService;
-    private final ConfirmationTokenService confirmationTokenService;
-    private final EmployeeRepository employeeRepository;
 
-    public EmployeeController(EmployeeService employeeService, ConfirmationTokenService confirmationTokenService, EmployeeRepository employeeRepository
+    public EmployeeController(EmployeeService employeeService
     ) {
         this.employeeService = employeeService;
-        this.confirmationTokenService = confirmationTokenService;
-        this.employeeRepository = employeeRepository;
     }
 
     @GetMapping
