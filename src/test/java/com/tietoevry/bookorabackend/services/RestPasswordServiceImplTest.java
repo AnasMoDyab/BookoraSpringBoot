@@ -63,7 +63,7 @@ class RestPasswordServiceImplTest {
         //given
         Employee employee = new Employee();
         employee.setPassword("password");
-        employee.setAbleTochangePassword(true);
+        employee.setAbleToChangePassword(true);
         UpdatePasswordDTO updatePasswordDTO = new UpdatePasswordDTO("email", "password");
 
         given(employeeRepository.findByEmailIgnoreCase(any())).willReturn(employee);
@@ -86,7 +86,7 @@ class RestPasswordServiceImplTest {
         //given
         Employee employee = new Employee();
         employee.setPassword("password");
-        employee.setAbleTochangePassword(true);
+        employee.setAbleToChangePassword(true);
         UpdatePasswordDTO updatePasswordDTO = new UpdatePasswordDTO("email", "password");
 
         given(employeeRepository.findByEmailIgnoreCase(any())).willReturn(employee);
@@ -98,7 +98,7 @@ class RestPasswordServiceImplTest {
 
         //then
         assertThat(messageDTO.getMessage()).isEqualTo("Password successfully reset. You can now log in with the new credentials.");
-        assertThat(employee.isAbleTochangePassword()).isEqualTo(false);
+        assertThat(employee.isAbleToChangePassword()).isEqualTo(false);
         assertThat(employee.getPassword()).isEqualTo("test");
         then(employeeRepository).should(times(1)).findByEmailIgnoreCase(any());
         then(encoder).should(times(1)).matches(any(), any());
@@ -111,7 +111,7 @@ class RestPasswordServiceImplTest {
         //given
         Employee employee = new Employee();
         employee.setPassword("password");
-        employee.setAbleTochangePassword(false);
+        employee.setAbleToChangePassword(false);
         UpdatePasswordDTO updatePasswordDTO = new UpdatePasswordDTO("email", "password");
 
         given(employeeRepository.findByEmailIgnoreCase(any())).willReturn(employee);

@@ -38,7 +38,7 @@ public class RestPasswordServiceImpl implements RestPasswordService {
 
         } else {
 
-            if (employee.isAbleTochangePassword()) {
+            if (employee.isAbleToChangePassword()) {
                 String oldPassword = employee.getPassword();
 
                 if (encoder.matches(updatePasswordDTO.getPassword(), oldPassword)) {
@@ -46,7 +46,7 @@ public class RestPasswordServiceImpl implements RestPasswordService {
                 }
 
                 employee.setPassword(encoder.encode(updatePasswordDTO.getPassword()));
-                employee.setAbleTochangePassword(false);
+                employee.setAbleToChangePassword(false);
                 employeeRepository.save(employee);
 
                 return new MessageDTO("Password successfully reset. You can now log in with the new credentials.");
