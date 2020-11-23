@@ -135,7 +135,7 @@ public class BookingServiceImpl implements BookingService {
         List<BookingOfEmployeeDTO> bookingOfEmployeeDTOS = new ArrayList<>();
 
         for (Booking booking : bookings) {
-            BookingOfEmployeeDTO bookingofEmployeeDTO = bookingMapper.bookingToBookingofEmployeeDTO(booking);
+            BookingOfEmployeeDTO bookingofEmployeeDTO = bookingMapper.bookingToBookingOfEmployeeDTO(booking);
 
             bookingOfEmployeeDTOS.add(bookingofEmployeeDTO);
         }
@@ -154,7 +154,7 @@ public class BookingServiceImpl implements BookingService {
         List<BookingToShowDTO> bookingDTOList = new ArrayList<>();
 
         for (Booking booking : bookingRepository.findAllByEmployeeAndDateGreaterThanEqualAndDateLessThanEqual(employee, employeeBookingInAPeriodDTO.getFrom(), employeeBookingInAPeriodDTO.getTo())) {
-            BookingToShowDTO bookingToshowDTO = bookingMapper.bookingToBookingToshowDto(booking);
+            BookingToShowDTO bookingToshowDTO = bookingMapper.bookingToBookingToShowDto(booking);
             bookingDTOList.add(bookingToshowDTO);
         }
 

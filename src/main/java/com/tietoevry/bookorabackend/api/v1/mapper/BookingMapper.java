@@ -20,13 +20,13 @@ public interface BookingMapper {
     @Mapping(target = "zoneName", source = "zone.zone")
     @Mapping(target = "bookingId", source = "booking.id")
     @Mapping(target = "floor", source = "zone.floor")
-    BookingToShowDTO bookingToBookingToshowDto(Booking booking);
+    BookingToShowDTO bookingToBookingToShowDto(Booking booking);
 
     @Mapping(target = "zoneName", source = "zone.zone")
     @Mapping(target = "bookingId", source = "booking.id")
     @Mapping(target = "floor", source = "zone.floor")
     @Mapping(target = "email", source = "employee.email")
-    BookingOfEmployeeDTO bookingToBookingofEmployeeDTO(Booking booking);
+    BookingOfEmployeeDTO bookingToBookingOfEmployeeDTO(Booking booking);
 
     Booking bookingDTOtoBooking(BookingDTO bookingDTO);
 }

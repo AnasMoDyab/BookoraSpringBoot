@@ -20,7 +20,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@DisplayName("RestpasswordController unit test")
+@DisplayName("RestPasswordController unit test")
 @Tag("development")
 @Tag("UnitTest")
 @ExtendWith(MockitoExtension.class)
