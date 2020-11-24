@@ -8,11 +8,19 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class StatusOfAZoneOnADayDTO {
+    Long id;
     int totalReservation;
     int capacity;
     int bookedPercentage;
 
     public StatusOfAZoneOnADayDTO(int totalReservation, int capacity) {
+        this.totalReservation = totalReservation;
+        this.capacity = capacity;
+        this.bookedPercentage = (totalReservation * 100) / capacity;
+    }
+
+    public StatusOfAZoneOnADayDTO( int totalReservation, int capacity,Long id) {
+        this.id = id;
         this.totalReservation = totalReservation;
         this.capacity = capacity;
         this.bookedPercentage = (totalReservation * 100) / capacity;

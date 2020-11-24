@@ -90,7 +90,19 @@ public class ZoneController {
     @ResponseStatus(HttpStatus.OK)
     public List<StatusOfAZoneOnADayDTO> checkStatusOfAllZoneInAFloor
     (@RequestBody @Valid FloorDateDTO floorDateDTO) throws Exception {
-        return zoneService.checkStatusOfAllZoneInAFloor(floorDateDTO);
+
+
+                List<StatusOfAZoneOnADayDTO>statusOfAZoneOnADayDTOList=
+                        zoneService.checkStatusOfAllZoneInAFloor(floorDateDTO);
+
+        Comparator<StatusOfAZoneOnADayDTO> compareById = (StatusOfAZoneOnADayDTO zone1, StatusOfAZoneOnADayDTO zone2) ->
+                zone1.getId().compareTo(zone2.getId());
+
+        Collections.sort(statusOfAZoneOnADayDTOList, compareById);
+
+
+
+                return statusOfAZoneOnADayDTOList;
     }
 
     /**
