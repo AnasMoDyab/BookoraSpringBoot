@@ -12,6 +12,8 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 @Service
@@ -58,6 +60,11 @@ public class ZoneServiceImpl implements ZoneService {
             ZoneDTO zoneDTO = zoneMapper.zoneToZoneDTO(zone);
             zoneListDTO.add(zoneDTO);
         }
+
+        Comparator<ZoneDTO> compareById = (ZoneDTO zone1, ZoneDTO zone2) ->
+                zone1.getId().compareTo(zone2.getId());
+
+        Collections.sort(zoneListDTO, compareById);
         return new ZoneListDTO(zoneListDTO);
     }
 
@@ -98,6 +105,12 @@ public class ZoneServiceImpl implements ZoneService {
             Long zoneId = zoneDTO.getId();
             statusOfAZoneOnADayDTOList.add(new StatusOfAZoneOnADayDTO(total, capacity,zoneId));
         }
+
+
+        Comparator<StatusOfAZoneOnADayDTO> compareById = (StatusOfAZoneOnADayDTO zone1, StatusOfAZoneOnADayDTO zone2) ->
+                zone1.getId().compareTo(zone2.getId());
+
+        Collections.sort(statusOfAZoneOnADayDTOList, compareById);
 
         return statusOfAZoneOnADayDTOList;
     }
