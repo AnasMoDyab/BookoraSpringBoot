@@ -8,7 +8,6 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.http.MediaType;
-import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
@@ -50,7 +49,7 @@ class ZoneControllerTest {
         reset(zoneService);
     }
 
-    @Disabled
+/*    @Disabled
     @DisplayName("Get zone list")
     @WithMockUser(username = "admin", roles = {"USER", "ADMIN"})
     @Test
@@ -71,7 +70,7 @@ class ZoneControllerTest {
                 .andExpect(jsonPath("$.zoneDTOList[0].activated", is(true)))
                 .andExpect(jsonPath("$.zoneDTOList[0].capacity", is(10)));
         then(zoneService).should(times(1)).getAllZones();
-    }
+    }*/
 
     @Test
     void getZoneListByFloor() throws Exception {
@@ -98,7 +97,7 @@ class ZoneControllerTest {
         then(zoneService).should(times(1)).getZonesByFloor(any());
     }
 
-    @Disabled
+/*    @Disabled
     @DisplayName("Get zone by id")
     @Test
     void getZoneById() throws Exception {
@@ -136,7 +135,7 @@ class ZoneControllerTest {
                 .andExpect(jsonPath("$.capacity", is(20)))
                 .andExpect(jsonPath("$.bookedPercentage", is(50)));
         then(zoneService).should(times(1)).checkStatusOfAZoneOnADay(any());
-    }
+    }*/
 
 
     @Test
@@ -192,7 +191,7 @@ class ZoneControllerTest {
         then(zoneService).should(times(1)).checkStatusOfAllFloorPeriod(any());
     }
 
-    @Disabled
+/*    @Disabled
     @Test
     void checkStatusOfBuildingOnPeriod() throws Exception {
         //given
@@ -207,5 +206,5 @@ class ZoneControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.totalForAllFloor", is(10)));
         then(zoneService).should(times(1)).CheckStatusOfTheBuildingOnPeriod(any());
-    }
+    }*/
 }

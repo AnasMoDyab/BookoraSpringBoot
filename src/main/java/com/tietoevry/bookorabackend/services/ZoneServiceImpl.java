@@ -41,7 +41,7 @@ public class ZoneServiceImpl implements ZoneService {
         throw new InvalidActionException("The operation failed");
     }
 
-    @Override
+/*    @Override
     public ZoneListDTO getAllZones() {
         List<ZoneDTO> zoneListDTO = new ArrayList<>();
         for (Zone zone : zoneRepository.findAll()) {
@@ -49,7 +49,7 @@ public class ZoneServiceImpl implements ZoneService {
             zoneListDTO.add(zoneDTO);
         }
         return new ZoneListDTO(zoneListDTO);
-    }
+    }*/
 
     @Override
     public ZoneListDTO getZonesByFloor(Integer floor) {
@@ -61,11 +61,11 @@ public class ZoneServiceImpl implements ZoneService {
         return new ZoneListDTO(zoneListDTO);
     }
 
-    @Override
+/*    @Override
     public ZoneDTO getZoneById(Long id) throws Exception {
         Zone zone = zoneRepository.findById(id).orElseThrow(() -> new ZoneNotFoundException("zone id is not found"));
         return zoneMapper.zoneToZoneDTO(zone);
-    }
+    }*/
 
     @Override
     public boolean isFullOnADay(Long id, LocalDate date) throws Exception {
@@ -158,6 +158,7 @@ public class ZoneServiceImpl implements ZoneService {
         return floorStatusPeriodDTOS;
     }
 
+/*
     @Override
     public TotalBookingInBuildingDTO CheckStatusOfTheBuildingOnPeriod(PeriodDTO buildingPeriodDTO) {
         LocalDate from = buildingPeriodDTO.getFrom();
@@ -168,6 +169,7 @@ public class ZoneServiceImpl implements ZoneService {
         Integer percentUsed = (totalBooking * 100) / totalCapacity;
         return new TotalBookingInBuildingDTO(percentUsed);
     }
+*/
 
     public int getTotalBookingOfADayInAZone(Long id, LocalDate date) throws Exception {
         Zone zone = zoneRepository.findById(id).orElseThrow(() -> new ZoneNotFoundException("zone id is not found"));

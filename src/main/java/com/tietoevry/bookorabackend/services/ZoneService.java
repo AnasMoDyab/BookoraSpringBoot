@@ -8,20 +8,19 @@ import java.util.List;
 public interface ZoneService {
     MessageDTO zoneSettings(ZoneSettingDTO zoneSettingDTO) throws Exception;
 
-    ZoneListDTO getAllZones();
+    //ZoneListDTO getAllZones();
 
     ZoneListDTO getZonesByFloor(Integer floor);
 
-    ZoneDTO getZoneById(Long id) throws Exception;
+    //ZoneDTO getZoneById(Long id) throws Exception;
 
     boolean isFullOnADay(Long id, LocalDate date) throws Exception;
 
-    StatusOfAZoneOnADayDTO checkStatusOfAZoneOnADay(ZoneDateDTO zoneDateDTO) throws Exception;
-
+    //StatusOfAZoneOnADayDTO checkStatusOfAZoneOnADay(ZoneDateDTO zoneDateDTO) throws Exception;
 
     List<StatusOfAZoneOnADayDTO> checkStatusOfAllZoneInAFloor(FloorDateDTO floorDateDTO) throws Exception;
 
     List<FloorStatusPeriodDTO> checkStatusOfAllFloorPeriod(PeriodDTO periodDTO);
 
-    TotalBookingInBuildingDTO CheckStatusOfTheBuildingOnPeriod(PeriodDTO floorsPeriodDTO);
+    //TotalBookingInBuildingDTO CheckStatusOfTheBuildingOnPeriod(PeriodDTO floorsPeriodDTO);
 }
