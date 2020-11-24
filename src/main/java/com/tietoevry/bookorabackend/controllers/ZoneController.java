@@ -49,13 +49,7 @@ public class ZoneController {
     @PreAuthorize("hasAnyAuthority('ROLE_ADMIN', 'ROLE_USER')")
     @ResponseStatus(HttpStatus.OK)
     public ZoneListDTO getZoneListByFloor(@PathVariable Integer floor) {
-        ZoneListDTO zoneListDTO = zoneService.getZonesByFloor(floor);
-        Comparator<ZoneDTO> compareById = (ZoneDTO zone1, ZoneDTO zone2) ->
-                zone1.getId().compareTo(zone2.getId());
-
-        Collections.sort(zoneListDTO.getZoneDTOList(), compareById);
-
-        return zoneListDTO;
+        return   zoneService.getZonesByFloor(floor);
     }
 
 /*    @GetMapping({"/zone/{id}"})
@@ -90,19 +84,7 @@ public class ZoneController {
     @ResponseStatus(HttpStatus.OK)
     public List<StatusOfAZoneOnADayDTO> checkStatusOfAllZoneInAFloor
     (@RequestBody @Valid FloorDateDTO floorDateDTO) throws Exception {
-
-
-                List<StatusOfAZoneOnADayDTO>statusOfAZoneOnADayDTOList=
-                        zoneService.checkStatusOfAllZoneInAFloor(floorDateDTO);
-
-        Comparator<StatusOfAZoneOnADayDTO> compareById = (StatusOfAZoneOnADayDTO zone1, StatusOfAZoneOnADayDTO zone2) ->
-                zone1.getId().compareTo(zone2.getId());
-
-        Collections.sort(statusOfAZoneOnADayDTOList, compareById);
-
-
-
-                return statusOfAZoneOnADayDTOList;
+                return    zoneService.checkStatusOfAllZoneInAFloor(floorDateDTO);
     }
 
     /**
