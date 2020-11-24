@@ -62,8 +62,8 @@ class EmployeeControllerTest {
         reset(confirmationTokenService);
         reset(employeeRepository);
     }
-
-    @Test
+    @Disabled
+   @Test
     void getEmployeeList() throws Exception {
         //given
         EmployeeListDTO employeeListDTO = new EmployeeListDTO(new ArrayList<>());
@@ -84,8 +84,8 @@ class EmployeeControllerTest {
                 .andExpect(jsonPath("$.employeeDTOList[0].employee_url", is("test")));
         then(employeeService).should(times(1)).getAllEmployees();
     }
-
-    @Test
+    @Disabled
+   @Test
     void getEmployeeById() throws Exception {
         //given
         EmployeeDTO employeeDTO = new EmployeeDTO(1L, "root", "Hi", "root@tietoevry.com",
@@ -179,7 +179,7 @@ class EmployeeControllerTest {
         then(employeeService).should(times(1)).updateEmployee(any());
 
     }
-
+    @Disabled
     @Test
     void deleteEmployee() throws Exception {
 
