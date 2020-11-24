@@ -23,13 +23,13 @@ public class EmployeeController {
     ) {
         this.employeeService = employeeService;
     }
-
+/*
     @GetMapping
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     @ResponseStatus(HttpStatus.OK)
     public EmployeeListDTO getEmployeeList() {
         return employeeService.getAllEmployees();
-    }
+    }*/
 
     @GetMapping({"/{id}"})
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")

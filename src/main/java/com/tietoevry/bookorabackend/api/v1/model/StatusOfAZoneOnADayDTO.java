@@ -19,7 +19,7 @@ public class StatusOfAZoneOnADayDTO {
         this.bookedPercentage = (totalReservation * 100) / capacity;
     }
 
-    public StatusOfAZoneOnADayDTO( int totalReservation, int capacity,Long id) {
+    public StatusOfAZoneOnADayDTO(int totalReservation, int capacity, Long id) {
         this.id = id;
         this.totalReservation = totalReservation;
         this.capacity = capacity;

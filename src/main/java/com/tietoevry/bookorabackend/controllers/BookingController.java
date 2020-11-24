@@ -32,7 +32,7 @@ public class BookingController {
         return bookingService.bookOneZoneOfOneDay(bookingDTO);
     }
 
-    @PostMapping("/getAllBookingOfEmployee")
+/*    @PostMapping("/getAllBookingOfEmployee")
     @PreAuthorize("hasAnyAuthority('ROLE_ADMIN')")
     @ResponseStatus(HttpStatus.OK)
     public BookingListDTO getAllBookingOfEmployee(@RequestBody @Valid EmployeeEmailDTO employeeEmailDTO) throws Exception {
@@ -51,7 +51,7 @@ public class BookingController {
     @ResponseStatus(HttpStatus.OK)
     public BookingListDTO getAllPastBookingOfEmployee(@RequestBody @Valid EmployeeEmailDTO employeeEmailDTO) throws EmployeeNotFoundException {
         return bookingService.getAllPastBookingOfEmployee(employeeEmailDTO);
-    }
+    }*/
 
     @PostMapping("/getAllBookingOfEmployeeInAPeriod")
     @PreAuthorize("hasAnyAuthority('ROLE_ADMIN', 'ROLE_USER')")
