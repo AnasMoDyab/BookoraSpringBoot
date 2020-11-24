@@ -31,12 +31,12 @@ public class EmployeeController {
         return employeeService.getAllEmployees();
     }*/
 
-    @GetMapping({"/{id}"})
+/*    @GetMapping({"/{id}"})
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     @ResponseStatus(HttpStatus.OK)
     public EmployeeDTO getEmployeeById(@PathVariable Long id) throws EmployeeNotFoundException {
         return employeeService.getEmployeeById(id);
-    }
+    }*/
 
     @GetMapping("/email/{email}")
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
@@ -65,12 +65,12 @@ public class EmployeeController {
         return employeeService.updateEmployee(emailDTO);
     }
 
-    @DeleteMapping({"/{id}"})
+   /* @DeleteMapping({"/{id}"})
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     @ResponseStatus(HttpStatus.OK)
     public void deleteEmployee(@PathVariable Long id) {
         employeeService.deleteEmployeeDTO(id);
-    }
+    }*/
 
     // Receive the address and send an email
     @PostMapping({"/forgot-password"})
