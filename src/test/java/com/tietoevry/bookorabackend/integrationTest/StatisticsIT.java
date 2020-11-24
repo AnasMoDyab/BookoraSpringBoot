@@ -3,10 +3,7 @@ package com.tietoevry.bookorabackend.integrationTest;
 import com.tietoevry.bookorabackend.api.v1.model.*;
 import com.tietoevry.bookorabackend.controllers.EmployeeController;
 import com.tietoevry.bookorabackend.controllers.ZoneController;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Tag;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.boot.web.server.LocalServerPort;
@@ -118,6 +115,7 @@ public class StatisticsIT {
                 .isInstanceOf(ResourceAccessException.class);
     }
 
+    @Disabled
     @DisplayName("Check status of all zones in a floor in a period by admin")
     @Test
     void checkStatusOfAllZonesInAFloorInAPeriodByAdmin() {
@@ -135,6 +133,7 @@ public class StatisticsIT {
         assertThat(response.getBody().getTotalForAllFloor()).isNotNull();
     }
 
+    @Disabled
     @DisplayName("Check status of all zones in a floor in a period by user")
     @Test
     void checkStatusOfAllZonesInAFloorInAPeriodByUser() {
@@ -151,6 +150,7 @@ public class StatisticsIT {
         assertThat(response.getStatusCode()).isEqualTo(FORBIDDEN);
     }
 
+    @Disabled
     @DisplayName("Check status of all zones in a floor in a period with invalid JWT")
     @Test
     void checkStatusOfAllZonesInAFloorInAPeriodWithInvalidJWT() {

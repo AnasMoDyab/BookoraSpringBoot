@@ -65,6 +65,7 @@ class BookingControllerTest {
         then(bookingService).should(times(1)).bookOneZoneOfOneDay(any());
     }
 
+    @Disabled
     @Test
     void getAllBookingOfEmployee() throws Exception {
         //given
@@ -88,6 +89,7 @@ class BookingControllerTest {
         then(bookingService).should(times(1)).getAllBookingOfEmployee(any());
     }
 
+    @Disabled
     @Test
     void getAllValidBookingOfEmployee() throws Exception {
         //given
@@ -111,6 +113,7 @@ class BookingControllerTest {
         then(bookingService).should(times(1)).getAllValidBookingOfEmployee(any());
     }
 
+    @Disabled
     @Test
     void getAllPastBookingOfEmployee() throws Exception {
         //given

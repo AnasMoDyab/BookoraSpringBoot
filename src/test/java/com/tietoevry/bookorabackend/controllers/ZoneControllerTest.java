@@ -50,6 +50,7 @@ class ZoneControllerTest {
         reset(zoneService);
     }
 
+    @Disabled
     @DisplayName("Get zone list")
     @WithMockUser(username = "admin", roles = {"USER", "ADMIN"})
     @Test
@@ -97,6 +98,7 @@ class ZoneControllerTest {
         then(zoneService).should(times(1)).getZonesByFloor(any());
     }
 
+    @Disabled
     @DisplayName("Get zone by id")
     @Test
     void getZoneById() throws Exception {
@@ -116,6 +118,7 @@ class ZoneControllerTest {
         then(zoneService).should(times(1)).getZoneById(any());
     }
 
+    @Disabled
     @DisplayName("Check status of a zone on a day")
     @Test
     void checkStatusOfAZoneOnADay() throws Exception {
@@ -189,6 +192,7 @@ class ZoneControllerTest {
         then(zoneService).should(times(1)).checkStatusOfAllFloorPeriod(any());
     }
 
+    @Disabled
     @Test
     void checkStatusOfBuildingOnPeriod() throws Exception {
         //given

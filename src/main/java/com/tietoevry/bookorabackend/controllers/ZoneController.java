@@ -13,6 +13,9 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
+/**
+ * A rest controller that provides API for checking information about zone.
+ */
 @CrossOrigin(origins = "*", maxAge = 3600)
 @Tag(name = "Zones", description = "Zones API")
 @RestController
@@ -27,13 +30,21 @@ public class ZoneController {
         this.zoneService = zoneService;
     }
 
-    @GetMapping
+/*    @GetMapping
     @PreAuthorize("hasAnyAuthority('ROLE_ADMIN', 'ROLE_USER')")
     @ResponseStatus(HttpStatus.OK)
     public ZoneListDTO getZoneList() {
         return zoneService.getAllZones();
-    }
+    }*/
 
+    /**
+     * Provides general information of all zones of the selected floor.
+     *
+     * <p>The information of the zone includes zone ID, floor, zone and accessibility.
+     *
+     * @param floor A floor
+     * @return A {@code ZoneListDTO} that contains general information of all zones on that floor
+     */
     @GetMapping({"/floor/{floor}"})
     @PreAuthorize("hasAnyAuthority('ROLE_ADMIN', 'ROLE_USER')")
     @ResponseStatus(HttpStatus.OK)
@@ -44,34 +55,54 @@ public class ZoneController {
 
         Collections.sort(zoneListDTO.getZoneDTOList(), compareById);
 
-
         return zoneListDTO;
     }
 
-    @GetMapping({"/zone/{id}"})
+/*    @GetMapping({"/zone/{id}"})
     @PreAuthorize("hasAnyAuthority('ROLE_ADMIN')")
     @ResponseStatus(HttpStatus.OK)
     public ZoneDTO getZoneById(@PathVariable Long id) throws Exception {
         return zoneService.getZoneById(id);
-    }
+    }*/
 
-    @PostMapping("/checkStatusOfAZoneOnADay")
+/*    @PostMapping("/checkStatusOfAZoneOnADay")
     @PreAuthorize("hasAnyAuthority('ROLE_ADMIN')")
     @ResponseStatus(HttpStatus.OK)
     public StatusOfAZoneOnADayDTO checkStatusOfAZoneOnADay
             (@RequestBody @Valid ZoneDateDTO zoneDateDTO) throws Exception {
 
         return zoneService.checkStatusOfAZoneOnADay(zoneDateDTO);
-    }
+    }*/
 
+    /**
+     * Provides booking information of all zones of the selected floor in a selected date.
+     *
+     * <p>The information of the zone includes total reservation of a selected day, capacity of the zone and the booked
+     * percentage.
+     *
+     * @param floorDateDTO A DTO that contains information about a date and a floor
+     * @return A list of {@code StatusOfAZoneOnADayDTO} which contains information about the total reservation on that
+     * day, capacity of the zone and the booked percentage
+     * @throws Exception ZoneNotFoundException if zone is not found
+     */
     @PostMapping("/checkStatusOfAllZoneInAFloor")
     @PreAuthorize("hasAnyAuthority('ROLE_ADMIN', 'ROLE_USER')")
     @ResponseStatus(HttpStatus.OK)
     public List<StatusOfAZoneOnADayDTO> checkStatusOfAllZoneInAFloor
-            (@RequestBody @Valid FloorDateDTO floorDateDTO) throws Exception {
+    (@RequestBody @Valid FloorDateDTO floorDateDTO) throws Exception {
         return zoneService.checkStatusOfAllZoneInAFloor(floorDateDTO);
     }
 
+    /**
+     * Updates settings of a zone.
+     *
+     * <p>The API can be used to change the capacity and accessibility of a zone.
+     *
+     * @param zoneSettingDTO A DTO that contains information about a zone, including capacity floor, zone ID and
+     *                       accessibility
+     * @return A message about the result of the API call
+     * @throws Exception ZoneNotFoundException if zone is not found
+     */
     @PostMapping("/ZoneSettings")
     @PreAuthorize("hasAnyAuthority('ROLE_ADMIN')")
     @ResponseStatus(HttpStatus.OK)
@@ -79,6 +110,12 @@ public class ZoneController {
         return zoneService.zoneSettings(zoneSettingDTO);
     }
 
+    /**
+     * Provides total bookings of different floors.
+     *
+     * @param periodDTO A DTO that contains a from-date and a to-date
+     * @return A list of {@code FloorStatusPeriodDTO} that shows total bookings of a floor
+     */
     @PostMapping("/CheckStatusOfAllFloorPeriod")
     @PreAuthorize("hasAnyAuthority('ROLE_ADMIN')")
     @ResponseStatus(HttpStatus.OK)
@@ -86,12 +123,12 @@ public class ZoneController {
         return zoneService.checkStatusOfAllFloorPeriod(periodDTO);
     }
 
-    @PostMapping("/CheckStatusOfBuildingOnPeriod")
+/*    @PostMapping("/CheckStatusOfBuildingOnPeriod")
     @PreAuthorize("hasAnyAuthority('ROLE_ADMIN')")
     @ResponseStatus(HttpStatus.OK)
     public TotalBookingInBuildingDTO CheckStatusOfBuildingOnPeriod(@RequestBody @Valid PeriodDTO periodDTO) {
         return zoneService.CheckStatusOfTheBuildingOnPeriod(periodDTO);
-    }
+    }*/
 
 
 }
