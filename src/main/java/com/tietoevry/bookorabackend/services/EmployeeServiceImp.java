@@ -244,8 +244,8 @@ public class EmployeeServiceImp implements EmployeeService {
     }
 
     @Override
-    public MessageDTO sendForgetPasswordCode(ForgetPasswordDTO forgetPasswordDTO) throws EmployeeNotFoundException {
-        Employee existingEmployee = employeeRepository.findByEmailIgnoreCase(forgetPasswordDTO.getEmail());
+    public MessageDTO sendForgetPasswordCode(EmployeeEmailDTO employeeEmailDTO) throws EmployeeNotFoundException {
+        Employee existingEmployee = employeeRepository.findByEmailIgnoreCase(employeeEmailDTO.getEmail());
 
         if (existingEmployee != null) {
             // Create token
@@ -278,15 +278,15 @@ public class EmployeeServiceImp implements EmployeeService {
     }
 
     @Override
-    public MessageDTO resendConfirmationToken(ReActiveEmailDTO reActiveEmailDTO) throws EmployeeNotFoundException {
-        String email = reActiveEmailDTO.getEmail();
+    public MessageDTO resendConfirmationToken(EmployeeEmailDTO employeeEmailDTO) throws EmployeeNotFoundException {
+        String email = employeeEmailDTO.getEmail();
         String domain = email.substring(email.indexOf("@") + 1);
 
         if (!checkValidDomain(domain))
             throw new EmployeeNotFoundException("Error: Email domain is not valid!");
 
 
-        Employee employee = employeeRepository.findByEmailIgnoreCase(reActiveEmailDTO.getEmail());
+        Employee employee = employeeRepository.findByEmailIgnoreCase(employeeEmailDTO.getEmail());
 
         ConfirmationToken confirmationToken = new ConfirmationToken(employee);
         confirmationToken.setExpiryDate(calculateExpiryDate(validMinute)); //in unit of minute

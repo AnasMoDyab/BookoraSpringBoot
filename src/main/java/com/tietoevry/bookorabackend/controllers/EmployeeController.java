@@ -72,9 +72,9 @@ public class EmployeeController {
 
     /**
      * Signs in a employee.
-     *
+     * 
      * @param logInDTO A LoginDTO that contains email and password of the employee
-     * @return A JwtDTO that contains information including token string, token type, token ID, email of the employee
+     * @return A JwtDTO that contains information including token string, token type, token ID, email of the employee 
      * and list of roles of the employee
      * @throws Exception EmployeeNotFoundException if the employee is not found
      * @throws Exception EmployeeNotActivatedException if the email account is not activated
@@ -88,10 +88,10 @@ public class EmployeeController {
 
     /**
      * Updates an employee.
-     *
-     * @param emailDTO A EmailDTO that contains email of the employee and the set of roles
-     * @return A MessageDTO that contains message about the updating
-     * @throws Exception EmployeeNotFoundException if the employee is not found
+     * 
+     * @param emailDTO A E
+     * @return
+     * @throws Exception
      */
     @PostMapping("/updateEmployee")
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
@@ -107,32 +107,16 @@ public class EmployeeController {
         employeeService.deleteEmployeeDTO(id);
     }*/
 
-    /**
-     * Requests an activation code to for resetting password.
-     *
-     * <p>The activation code is sent though email.
-     *
-     * @param forgetPasswordDTO A DTO that contains an email string
-     * @return A MessageDTO that contains message about the request
-     * @throws EmployeeNotFoundException if the employee is not found
-     */
+    // Receive the address and send an email
     @PostMapping({"/forgot-password"})
-    public MessageDTO forgotUserPassword(@Valid @RequestBody ForgetPasswordDTO forgetPasswordDTO) throws EmployeeNotFoundException {
-        return employeeService.sendForgetPasswordCode(forgetPasswordDTO);
+    public MessageDTO forgotUserPassword(@RequestBody @Valid EmployeeEmailDTO employeeEmailDTO) throws EmployeeNotFoundException {
+        return employeeService.sendForgetPasswordCode(employeeEmailDTO);
     }
 
-    /**
-     * Requests for reseeding an activation link for an account.
-     *
-     * <p>The activation link is sent though email.
-     *
-     * @param reActiveEmailDTO A DTO that contains an email string
-     * @return A MessageDTO that contains message about the request
-     * @throws EmployeeNotFoundException if the employee is not found
-     */
+    //ReActivation Account
     @RequestMapping(value = "/reactive-account", method = RequestMethod.POST)
-    public MessageDTO resetUserPassword(@RequestBody @Valid ReActiveEmailDTO reActiveEmailDTO) throws EmployeeNotFoundException {
-        return employeeService.resendConfirmationToken(reActiveEmailDTO);
+    public MessageDTO resetUserPassword(@RequestBody @Valid EmployeeEmailDTO employeeEmailDTO) throws EmployeeNotFoundException {
+        return employeeService.resendConfirmationToken(employeeEmailDTO);
     }
 }
 

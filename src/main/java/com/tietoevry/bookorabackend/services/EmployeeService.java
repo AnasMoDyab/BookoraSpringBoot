@@ -17,9 +17,9 @@ public interface EmployeeService {
     MessageDTO updateEmployee(EmailDTO emailDTO) throws Exception;
 
 
-    MessageDTO sendForgetPasswordCode(ForgetPasswordDTO forgetPasswordDTO) throws EmployeeNotFoundException;
+    MessageDTO sendForgetPasswordCode(EmployeeEmailDTO employeeEmailDTO) throws EmployeeNotFoundException;
 
-    MessageDTO resendConfirmationToken(ReActiveEmailDTO reActiveEmailDTO) throws EmployeeNotFoundException;
+    MessageDTO resendConfirmationToken(EmployeeEmailDTO employeeEmailDTO) throws EmployeeNotFoundException;
 
 
     //EmployeeDTO patchEmployee(Long id, EmployeeDTO employeeDTO);
