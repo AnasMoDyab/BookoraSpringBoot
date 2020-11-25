@@ -4,6 +4,9 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+/**
+ * DTO that transfers to server message, and bookingId.
+ */
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
