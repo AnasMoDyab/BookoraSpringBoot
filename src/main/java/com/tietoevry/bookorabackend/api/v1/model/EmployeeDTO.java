@@ -4,6 +4,9 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 import java.util.Set;
 
 /**
@@ -21,6 +24,9 @@ public class EmployeeDTO {
     private String lastName;
     //   @NotNull(message = "You must fill in email.")
     // @Email
+    @NotBlank
+    @Size(max = 50)
+    @Email
     private String email;
     //  @NotNull(message = "You must fill in first password.")
     private String password;
