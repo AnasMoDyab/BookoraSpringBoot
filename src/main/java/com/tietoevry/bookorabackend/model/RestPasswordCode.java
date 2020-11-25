@@ -8,6 +8,9 @@ import javax.persistence.*;
 import java.sql.Timestamp;
 import java.util.Date;
 
+/**
+ * Entity that used for Rest password.
+ */
 @Data
 @NoArgsConstructor
 @AllArgsConstructor

@@ -8,6 +8,9 @@ import javax.validation.constraints.NotNull;
 import java.util.HashSet;
 import java.util.Set;
 
+/**
+ * Entity that used for employee info.
+ */
 @Data
 @NoArgsConstructor
 @AllArgsConstructor

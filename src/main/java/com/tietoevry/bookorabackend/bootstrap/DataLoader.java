@@ -14,6 +14,9 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
+/**
+ * Initializer that used to load data to database.
+ */
 
 @Component
 public class DataLoader implements CommandLineRunner {
@@ -39,6 +42,11 @@ public class DataLoader implements CommandLineRunner {
     int numberOfBookings = 300;
     int numberOfEmployees = 50;
 
+    /**
+     * Loads roles,employee,zones table
+     * @param args
+     * @throws Exception
+     */
     @Override
     public void run(String... args) throws Exception {
 
