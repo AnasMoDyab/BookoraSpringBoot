@@ -108,7 +108,7 @@ class EmployeeControllerTest {
     void getEmployeeByEmail() throws Exception {
         //given
         EmployeeDTO employeeDTO = new EmployeeDTO(1L, "root", "Hi", "root@tietoevry.com",
-                "123456aB@", new HashSet<>(), "test");
+                "123456aB@", new HashSet<>());
         given(employeeService.getEmployeeByEmail(any())).willReturn(employeeDTO);
 
         //when
@@ -119,8 +119,7 @@ class EmployeeControllerTest {
                 .andExpect(jsonPath("$.firstName", is("root")))
                 .andExpect(jsonPath("$.lastName", is("Hi")))
                 .andExpect(jsonPath("$.email", is("root@tietoevry.com")))
-                .andExpect(jsonPath("$.password", is("123456aB@")))
-                .andExpect(jsonPath("$.employee_url", is("test")));
+                .andExpect(jsonPath("$.password", is("123456aB@")));
         then(employeeService).should(times(1)).getEmployeeByEmail(any());
 
 
