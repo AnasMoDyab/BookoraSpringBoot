@@ -8,19 +8,21 @@ public interface EmployeeService {
 
     //EmployeeDTO getEmployeeById(Long id) throws EmployeeNotFoundException;
 
-    MessageDTO createNewEmployee(SignUpDTO signUpDTO) throws Exception;
+    EmployeeDTO getEmployeeByEmail(String email) throws Exception;
 
-    MessageDTO resendConfirmationToken(ReActiveEmailDTO reActiveEmailDTO) throws EmployeeNotFoundException;
+    MessageDTO createNewEmployee(SignUpDTO signUpDTO) throws Exception;
 
     JwtDTO logIn(LogInDTO logInDTO) throws Exception;
 
-    MessageDTO sendForgetPasswordCode(ForgetPasswordDTO forgetPasswordDTO) throws EmployeeNotFoundException;
-
     MessageDTO updateEmployee(EmailDTO emailDTO) throws Exception;
 
-    EmployeeDTO getEmployeeByEmail(String email) throws Exception;
+
+    MessageDTO sendForgetPasswordCode(ForgetPasswordDTO forgetPasswordDTO) throws EmployeeNotFoundException;
+
+    MessageDTO resendConfirmationToken(ReActiveEmailDTO reActiveEmailDTO) throws EmployeeNotFoundException;
+
 
     //EmployeeDTO patchEmployee(Long id, EmployeeDTO employeeDTO);
 
-    void deleteEmployeeDTO(Long id);
+    //void deleteEmployeeDTO(Long id);
 }

@@ -81,6 +81,31 @@ public class EmployeeServiceImp implements EmployeeService {
                 .orElseThrow(() -> new EmployeeNotFoundException("Employee is not found"));
     }*/
 
+    @Override
+    public EmployeeDTO getEmployeeByEmail(String email) throws Exception {
+        String domain = email.substring(email.indexOf("@") + 1);
+
+        if (!checkValidDomain(domain)) {
+            throw new InvalidDomainException(null);
+        }
+
+        Employee employee = employeeRepository.findByEmailIgnoreCase(email);
+
+        if (employee != null) {
+            EmployeeDTO employeeDTO = employeeMapper.employeeToEmployeeDTO(employee);
+            Set<String> roles = new HashSet<>();
+
+            for (Role role : employee.getRoles()) {
+                roles.add(role.getName().toString());
+            }
+
+            employeeDTO.setRole(roles);
+            return employeeDTO;
+
+        }
+
+        throw new EmployeeNotFoundException(null);
+    }
 
     @Override
     public MessageDTO createNewEmployee(SignUpDTO signUpDTO) throws Exception {
@@ -144,34 +169,6 @@ public class EmployeeServiceImp implements EmployeeService {
     }
 
     @Override
-    public MessageDTO resendConfirmationToken(ReActiveEmailDTO reActiveEmailDTO) throws EmployeeNotFoundException {
-        String email = reActiveEmailDTO.getEmail();
-        String domain = email.substring(email.indexOf("@") + 1);
-
-        if (!checkValidDomain(domain))
-            throw new EmployeeNotFoundException("Error: Email domain is not valid!");
-
-
-        Employee employee = employeeRepository.findByEmailIgnoreCase(reActiveEmailDTO.getEmail());
-
-        ConfirmationToken confirmationToken = new ConfirmationToken(employee);
-        confirmationToken.setExpiryDate(calculateExpiryDate(validMinute)); //in unit of minute
-        confirmationTokenRepository.save(confirmationToken);
-
-        SimpleMailMessage mailMessage = new SimpleMailMessage();
-        mailMessage.setTo(employee.getEmail());
-        mailMessage.setSubject("Complete Registration!");
-        mailMessage.setFrom("oslomet8@gmail.com");
-        mailMessage.setText("To confirm your account, please click here : "
-                + "http://localhost:8080/confirm-account?token=" + confirmationToken.getConfirmationToken());
-
-        emailSenderService.sendEmail(mailMessage);
-
-        return new MessageDTO("Cods is sent, Check your email!");
-
-    }
-
-    @Override
     public JwtDTO logIn(LogInDTO logInDTO) throws Exception {
         String email = logInDTO.getEmail();
 
@@ -206,6 +203,41 @@ public class EmployeeServiceImp implements EmployeeService {
         }
 
         throw new EmployeeNotActivatedException("Email is not activated");
+    }
+
+
+    @Override
+    public MessageDTO updateEmployee(EmailDTO emailDTO) throws Exception {
+
+        Employee employee = employeeRepository.findByEmailIgnoreCase(emailDTO.getEmail());
+
+
+        if (employee != null) {
+            employee.setRoles(null);
+
+            Role user = new Role(1L, RoleEnum.ROLE_USER);
+            Role admin = new Role(2L, RoleEnum.ROLE_ADMIN);
+
+            HashSet<Role> Roles = new HashSet<>();
+
+            for (String role : emailDTO.getRole()) {
+
+                if (role.equals("admin")) {
+                    Roles.add(admin);
+                }
+
+                if (role.equals("user")) {
+                    Roles.add(user);
+                }
+
+            }
+            employee.setRoles(Roles);
+
+            employeeRepository.save(employee);
+
+            return new MessageDTO("Updated success");
+        }
+        throw new EmployeeNotFoundException("Updated failed");
     }
 
     @Override
@@ -243,69 +275,37 @@ public class EmployeeServiceImp implements EmployeeService {
     }
 
     @Override
-    public MessageDTO updateEmployee(EmailDTO emailDTO) throws Exception {
-
-        Employee employee = employeeRepository.findByEmailIgnoreCase(emailDTO.getEmail());
-
-
-        if (employee != null) {
-            employee.setRoles(null);
-
-            Role user = new Role(1L, RoleEnum.ROLE_USER);
-            Role admin = new Role(2L, RoleEnum.ROLE_ADMIN);
-
-            HashSet<Role> Roles = new HashSet<>();
-
-            for (String role : emailDTO.getRole()) {
-
-                if (role.equals("admin")) {
-                    Roles.add(admin);
-                }
-
-                if (role.equals("user")) {
-                    Roles.add(user);
-                }
-
-            }
-            employee.setRoles(Roles);
-
-            employeeRepository.save(employee);
-
-            return new MessageDTO("Updated success");
-        }
-        throw new EmployeeNotFoundException("Updated failed");
-    }
-
-    @Override
-    public EmployeeDTO getEmployeeByEmail(String email) throws Exception {
+    public MessageDTO resendConfirmationToken(ReActiveEmailDTO reActiveEmailDTO) throws EmployeeNotFoundException {
+        String email = reActiveEmailDTO.getEmail();
         String domain = email.substring(email.indexOf("@") + 1);
 
-        if (!checkValidDomain(domain)) {
-            throw new InvalidDomainException(null);
-        }
+        if (!checkValidDomain(domain))
+            throw new EmployeeNotFoundException("Error: Email domain is not valid!");
 
-        Employee employee = employeeRepository.findByEmailIgnoreCase(email);
 
-        if (employee != null) {
-            EmployeeDTO employeeDTO = employeeMapper.employeeToEmployeeDTO(employee);
-            Set<String> roles = new HashSet<>();
+        Employee employee = employeeRepository.findByEmailIgnoreCase(reActiveEmailDTO.getEmail());
 
-            for (Role role : employee.getRoles()) {
-                roles.add(role.getName().toString());
-            }
+        ConfirmationToken confirmationToken = new ConfirmationToken(employee);
+        confirmationToken.setExpiryDate(calculateExpiryDate(validMinute)); //in unit of minute
+        confirmationTokenRepository.save(confirmationToken);
 
-            employeeDTO.setRole(roles);
-            return employeeDTO;
+        SimpleMailMessage mailMessage = new SimpleMailMessage();
+        mailMessage.setTo(employee.getEmail());
+        mailMessage.setSubject("Complete Registration!");
+        mailMessage.setFrom("oslomet8@gmail.com");
+        mailMessage.setText("To confirm your account, please click here : "
+                + "http://localhost:8080/confirm-account?token=" + confirmationToken.getConfirmationToken());
 
-        }
+        emailSenderService.sendEmail(mailMessage);
 
-        throw new EmployeeNotFoundException(null);
+        return new MessageDTO("Cods is sent, Check your email!");
+
     }
 
-    @Override
+/*    @Override
     public void deleteEmployeeDTO(Long id) {
         employeeRepository.deleteById(id);
-    }
+    }*/
 
 /*    private String getEmployeeUrl(Long id) {
         return EmployeeController.BASE_URL + "/" + id;

@@ -21,12 +21,12 @@ import java.util.List;
 
 import static org.hamcrest.core.Is.is;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.BDDMockito.then;
 import static org.mockito.Mockito.reset;
 import static org.mockito.Mockito.times;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -178,7 +178,7 @@ class EmployeeControllerTest {
         then(employeeService).should(times(1)).updateEmployee(any());
 
     }
-    @Disabled
+/*    @Disabled
     @Test
     void deleteEmployee() throws Exception {
 
@@ -187,7 +187,7 @@ class EmployeeControllerTest {
                 //then
                 .andExpect(status().isOk());
         then(employeeService).should(times(1)).deleteEmployeeDTO(anyLong());
-    }
+    }*/
 
     @Test
     void forgotUserPassword() throws Exception {

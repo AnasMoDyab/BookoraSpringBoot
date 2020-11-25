@@ -456,12 +456,12 @@ class EmployeeServiceImpTest {
                 .isInstanceOf(EmployeeNotFoundException.class);
     }
 
-    @Test
+/*    @Test
     void deleteEmployeeDTO() {
         //when
         employeeServiceImp.deleteEmployeeDTO(1L);
 
         //then
         then(employeeRepository).should(times(1)).deleteById(any());
-    }
+    }*/
 }
