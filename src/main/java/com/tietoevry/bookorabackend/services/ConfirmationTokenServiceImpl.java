@@ -8,6 +8,9 @@ import org.springframework.stereotype.Service;
 
 import java.sql.Timestamp;
 
+/**
+ * {@inheritDoc}
+ */
 @Service
 public class ConfirmationTokenServiceImpl implements ConfirmationTokenService {
 

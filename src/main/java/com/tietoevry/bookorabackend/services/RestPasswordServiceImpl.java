@@ -14,6 +14,9 @@ import org.springframework.stereotype.Service;
 
 import java.sql.Timestamp;
 
+/**
+ * {@inheritDoc}
+ */
 @Service
 public class RestPasswordServiceImpl implements RestPasswordService {
     private final RestPasswordCodeRepository restPasswordCodeRepository;

@@ -20,6 +20,9 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * {@inheritDoc}
+ */
 @Service
 public class BookingServiceImpl implements BookingService {
 
