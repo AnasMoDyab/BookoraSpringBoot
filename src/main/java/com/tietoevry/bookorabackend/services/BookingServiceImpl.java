@@ -156,6 +156,7 @@ public class BookingServiceImpl implements BookingService {
     @Override
     public MessageDTO deleteOneBookingForEmployee(Long bookingId) throws Exception {
         Integer bookingIdToDelete = bookingRepository.deleteBookingById(bookingId);
+        System.out.println(bookingIdToDelete);
         if (bookingIdToDelete != 0) {
             return new MessageDTO("success deleted");
         } else {
