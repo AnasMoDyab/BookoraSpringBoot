@@ -7,15 +7,15 @@ public interface BookingService {
 
     BookingIdDTO bookOneZoneOfOneDay(BookingDTO bookingDTO) throws Exception;
 
-    MessageDTO deleteOneBookingForEmployee(Long bookingId) throws Exception;
-
     //BookingListDTO getAllBookingOfEmployee(EmployeeEmailDTO employeeEmailDTO) throws Exception;
 
     //BookingListDTO getAllValidBookingOfEmployee(EmployeeEmailDTO employeeEmailDTO) throws Exception;
 
     //BookingListDTO getAllPastBookingOfEmployee(EmployeeEmailDTO employeeEmailDTO) throws EmployeeNotFoundException;
 
+    BookingToShowDtoList getAllBookingOfEmployeeInAPeriod(EmployeeBookingInAPeriodDTO employeeBookingInAPeriodDTO) throws EmployeeNotFoundException;
+
     BookingListDTOAdmin getAllBookingInAPeriodAdmin(AdminBookingForAllDTO adminBookingForAllDTO);
 
-    BookingToShowDtoList getAllBookingOfEmployeeInAPeriod(EmployeeBookingInAPeriodDTO employeeBookingInAPeriodDTO) throws EmployeeNotFoundException;
+    MessageDTO deleteOneBookingForEmployee(Long bookingId) throws Exception;
 }

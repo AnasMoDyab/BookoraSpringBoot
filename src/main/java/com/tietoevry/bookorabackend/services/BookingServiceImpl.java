@@ -64,17 +64,6 @@ public class BookingServiceImpl implements BookingService {
 
     }
 
-    @Override
-    public MessageDTO deleteOneBookingForEmployee(Long bookingId) throws Exception {
-        Integer bookingIdToDelete = bookingRepository.deleteBookingById(bookingId);
-        if (bookingIdToDelete != 0) {
-            return new MessageDTO("success deleted");
-        } else {
-            throw new InvalidActionException("failed deleted");
-        }
-
-    }
-
 
 /*    @Override
     public BookingListDTO getAllBookingOfEmployee(EmployeeEmailDTO employeeEmailDTO) throws Exception {
@@ -126,6 +115,23 @@ public class BookingServiceImpl implements BookingService {
     }*/
 
     @Override
+    public BookingToShowDtoList getAllBookingOfEmployeeInAPeriod(EmployeeBookingInAPeriodDTO employeeBookingInAPeriodDTO) throws EmployeeNotFoundException {
+        UserDetails userDetails =
+                (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+        Employee employee = employeeRepository.findByEmail(userDetails.getUsername())
+                .orElseThrow(() -> new EmployeeNotFoundException("Employee is not found"));
+        List<BookingToShowDTO> bookingDTOList = new ArrayList<>();
+
+        for (Booking booking : bookingRepository.findAllByEmployeeAndDateGreaterThanEqualAndDateLessThanEqual(employee, employeeBookingInAPeriodDTO.getFrom(), employeeBookingInAPeriodDTO.getTo())) {
+            BookingToShowDTO bookingToshowDTO = bookingMapper.bookingToBookingToShowDto(booking);
+            bookingDTOList.add(bookingToshowDTO);
+        }
+
+        return new BookingToShowDtoList(bookingDTOList);
+    }
+
+    @Override
     public BookingListDTOAdmin getAllBookingInAPeriodAdmin(AdminBookingForAllDTO adminBookingForAllDTO) {
         List<Booking> bookings = bookingRepository.
                 findAllByDateLessThanEqualAndDateGreaterThanEqual(adminBookingForAllDTO.getTo()
@@ -145,20 +151,14 @@ public class BookingServiceImpl implements BookingService {
     }
 
     @Override
-    public BookingToShowDtoList getAllBookingOfEmployeeInAPeriod(EmployeeBookingInAPeriodDTO employeeBookingInAPeriodDTO) throws EmployeeNotFoundException {
-        UserDetails userDetails =
-                (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-
-        Employee employee = employeeRepository.findByEmail(userDetails.getUsername())
-                .orElseThrow(() -> new EmployeeNotFoundException("Employee is not found"));
-        List<BookingToShowDTO> bookingDTOList = new ArrayList<>();
-
-        for (Booking booking : bookingRepository.findAllByEmployeeAndDateGreaterThanEqualAndDateLessThanEqual(employee, employeeBookingInAPeriodDTO.getFrom(), employeeBookingInAPeriodDTO.getTo())) {
-            BookingToShowDTO bookingToshowDTO = bookingMapper.bookingToBookingToShowDto(booking);
-            bookingDTOList.add(bookingToshowDTO);
+    public MessageDTO deleteOneBookingForEmployee(Long bookingId) throws Exception {
+        Integer bookingIdToDelete = bookingRepository.deleteBookingById(bookingId);
+        if (bookingIdToDelete != 0) {
+            return new MessageDTO("success deleted");
+        } else {
+            throw new InvalidActionException("failed deleted");
         }
 
-        return new BookingToShowDtoList(bookingDTOList);
     }
 
 }
