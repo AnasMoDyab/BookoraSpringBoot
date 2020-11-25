@@ -15,6 +15,9 @@ import java.io.IOException;
 //Triggered anytime unauthenticated User requests a secured HTTP resource
 //and an AuthenticationException is thrown
 
+/**
+ * Class that used to catch catch authentication error.
+ */
 @Component
 public class AuthenticationEntryPointJWT implements AuthenticationEntryPoint {
 

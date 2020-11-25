@@ -10,12 +10,13 @@ import org.springframework.stereotype.Component;
 
 import java.util.Date;
 
-/*
-This class has 3 functions:
-	1. generate a JWT from username, date, expiration, secret
-	2. get username from JWT
-	3. validate a JWT
-*/
+
+/**
+ * This class has 3 functions:
+ * 	1. generate a JWT from username, date, expiration, secret
+ * 	2. get username from JWT
+ * 	3. validate a JWT
+ */
 
 @Component
 public class JwtUtils {
@@ -27,7 +28,13 @@ public class JwtUtils {
     @Value("${jwtExpirationMs}")
     private int jwtExpirationMs;
 
-    //1. generate a JWT from username, date, expiration, secret
+
+
+    /**
+     *Generate a JWT from username, date, expiration, secret
+     * @param authentication
+     * @return
+     */
     public String generateJwtToken(Authentication authentication) {
 
         //Get UserDetails from Authentication object
@@ -42,12 +49,22 @@ public class JwtUtils {
                 .compact();
     }
 
-    //2. get username from JWT
+
+    /**
+     *  Get username from JWT
+     * @param token
+     * @return
+     */
     public String getUserNameFromJwtToken(String token) {
         return Jwts.parser().setSigningKey(jwtSecret).parseClaimsJws(token).getBody().getSubject();
     }
 
-    //3. validate a JWT
+
+    /**
+     * Validate a JWT
+     * @param authToken
+     * @return
+     */
     public boolean validateJwtToken(String authToken) {
         try {
             Jwts.parser().setSigningKey(jwtSecret).parseClaimsJws(authToken);

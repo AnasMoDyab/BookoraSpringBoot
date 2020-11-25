@@ -17,6 +17,9 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
+/**
+ * Configuration of web security.
+ */
 @Configuration
 @EnableWebSecurity //allows Spring to find and automatically apply the class to the global Web Security
 @EnableGlobalMethodSecurity(prePostEnabled = true)//It enables @PreAuthorize, @PostAuthorize
@@ -33,29 +36,48 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         return new AuthTokenFilter();
     }
 
-    //AuthenticationManager is used for .authenticate()
+
+    /**
+     * Used for authenticate employee.
+     * @return
+     * @throws Exception
+     */
     @Bean
     @Override
     public AuthenticationManager authenticationManagerBean() throws Exception {
         return super.authenticationManagerBean();
     }
 
-    //PasswordEncoder when configuring DaoAuthenticationProvider
+    /**
+     * Crypts the password.
+     * @return
+     */
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
 
-    //configuring DaoAuthenticationProvider by AuthenticationManagerBuilder.userDetailsService()
+    /**
+     * configuring DaoAuthenticationProvider by AuthenticationManagerBuilder.userDetailsService()
+     * @param authenticationManagerBuilder
+     * @throws Exception
+     */
+
     @Override
     public void configure(AuthenticationManagerBuilder authenticationManagerBuilder) throws Exception {
         authenticationManagerBuilder.userDetailsService(userDetailsServiceImpl).passwordEncoder(passwordEncoder());
     }
 
-    //Tells Spring Security how we configure CORS and CSRF
-    //when we want to require all users to be authenticated or not
-    //which filter (AuthTokenFilter) and when we want it to work(filter before UsernamePasswordAuthenticationFilter)
-    //which Exception Handler is chosen (AuthEntryPointJwt)
+    /**
+     *Tells Spring Security how we configure CORS and CSRF
+     * when we want to require all users to be authenticated or not
+     * which filter (AuthTokenFilter)
+     * and when we want it to work(filter before UsernamePasswordAuthenticationFilter)
+     * which Exception Handler is chosen (AuthEntryPointJwt)
+     * @param http
+     * @throws Exception
+     */
+
     @Override
     protected void configure(HttpSecurity http) throws Exception {
 

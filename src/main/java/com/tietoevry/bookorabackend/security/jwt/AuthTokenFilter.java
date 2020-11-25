@@ -22,6 +22,9 @@ import java.io.IOException;
 //doFilterInternal() method that we will implement parsing & validating JWT,
 //loading User details (using UserDetailsService), checking Authorization (using UsernamePasswordAuthenticationToken).
 
+/**
+ * Class that used to filter every request.
+ */
 public class AuthTokenFilter extends OncePerRequestFilter {
     @Autowired
     private JwtUtils jwtUtils;
@@ -31,13 +34,20 @@ public class AuthTokenFilter extends OncePerRequestFilter {
 
     private static final Logger logger = LoggerFactory.getLogger(AuthTokenFilter.class);
 
-    //doFilterInternal do 6 things:
-    //1. get JWT from the Authorization header (by removing Bearer prefix)
-    //2. if the request has JWT, validate it
-    //3. parse username from it
-    //4. From username, get UserDetails to create an Authentication object
-    //5. Add request into the authentication
-    //6. set the current UserDetails in SecurityContext
+    /**
+     * doFilterInternal do 6 things:
+     * 1. get JWT from the Authorization header (by removing Bearer prefix)
+     * 2. if the request has JWT, validate it
+     * 3. parse username from it
+     * 4. From username, get UserDetails to create an Authentication object
+     * 5. Add request into the authentication
+     * 6. set the current UserDetails in SecurityContext
+     * @param request
+     * @param response
+     * @param filterChain
+     * @throws ServletException
+     * @throws IOException
+     */
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
             throws ServletException, IOException {
