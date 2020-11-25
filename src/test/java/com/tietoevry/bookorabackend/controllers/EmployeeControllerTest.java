@@ -1,7 +1,6 @@
 package com.tietoevry.bookorabackend.controllers;
 
 import com.tietoevry.bookorabackend.api.v1.model.EmployeeDTO;
-import com.tietoevry.bookorabackend.api.v1.model.EmployeeListDTO;
 import com.tietoevry.bookorabackend.api.v1.model.JwtDTO;
 import com.tietoevry.bookorabackend.api.v1.model.MessageDTO;
 import com.tietoevry.bookorabackend.repositories.EmployeeRepository;
@@ -62,7 +61,7 @@ class EmployeeControllerTest {
         reset(confirmationTokenService);
         reset(employeeRepository);
     }
-    @Disabled
+/*    @Disabled
    @Test
     void getEmployeeList() throws Exception {
         //given
@@ -103,7 +102,7 @@ class EmployeeControllerTest {
                 .andExpect(jsonPath("$.password", is("123456aB@")))
                 .andExpect(jsonPath("$.employee_url", is("test")));
         then(employeeService).should(times(1)).getEmployeeById(anyLong());
-    }
+    }*/
 
     @Test
     void getEmployeeByEmail() throws Exception {
