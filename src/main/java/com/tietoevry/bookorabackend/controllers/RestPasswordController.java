@@ -1,7 +1,7 @@
 package com.tietoevry.bookorabackend.controllers;
 
+import com.tietoevry.bookorabackend.api.v1.model.LogInDTO;
 import com.tietoevry.bookorabackend.api.v1.model.MessageDTO;
-import com.tietoevry.bookorabackend.api.v1.model.UpdatePasswordDTO;
 import com.tietoevry.bookorabackend.services.RestPasswordService;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -35,20 +35,18 @@ public class RestPasswordController {
 
     }
 
-    //Use to update password
-
     /**
      * Updates the password of a employee.
      *
-     * @param updatePasswordDTO A DTO that contains email of employee and the new password
+     * @param logInDTO A DTO that contains email of employee and the new password
      * @return A DTO that contains message about the password update action
      * @throws Exception EmployeeNotFoundException if email is not found
      * @throws Exception InvalidInputException if the new password is the same as the previous
      * @throws Exception InvalidActionException if the employee is not allowed to change the password
      */
     @RequestMapping(value = "/reset-password", method = RequestMethod.POST)
-    public MessageDTO resetUserPassword(@RequestBody @Valid UpdatePasswordDTO updatePasswordDTO) throws Exception {
-        return restPasswordService.updatePassword(updatePasswordDTO);
+    public MessageDTO resetUserPassword(@RequestBody @Valid LogInDTO logInDTO) throws Exception {
+        return restPasswordService.updatePassword(logInDTO);
     }
 }
 
