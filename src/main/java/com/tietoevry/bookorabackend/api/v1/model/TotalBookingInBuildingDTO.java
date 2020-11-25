@@ -4,6 +4,9 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+/**
+ * DTO that used to transfer total booking in the whole building.
+ */
 @Data
 @NoArgsConstructor
 @AllArgsConstructor

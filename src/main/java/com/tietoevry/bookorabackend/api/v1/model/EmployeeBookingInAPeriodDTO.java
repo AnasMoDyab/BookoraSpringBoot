@@ -6,6 +6,9 @@ import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
 
+/**
+ * DTO that used to transfer a period and email of employee.
+ */
 @Data
 @NoArgsConstructor
 @AllArgsConstructor

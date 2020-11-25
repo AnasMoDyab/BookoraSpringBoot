@@ -8,6 +8,9 @@ import lombok.NoArgsConstructor;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 
+/**
+ * DTO that used to transfer email and password of employee.
+ */
 @Data
 @NoArgsConstructor
 @AllArgsConstructor

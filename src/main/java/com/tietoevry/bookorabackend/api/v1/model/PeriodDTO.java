@@ -6,6 +6,9 @@ import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
 
+/**
+ * DTO that used to transfer a period.
+ */
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
