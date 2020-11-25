@@ -1,7 +1,7 @@
 package com.tietoevry.bookorabackend.services;
 
+import com.tietoevry.bookorabackend.api.v1.model.LogInDTO;
 import com.tietoevry.bookorabackend.api.v1.model.MessageDTO;
-import com.tietoevry.bookorabackend.api.v1.model.UpdatePasswordDTO;
 import com.tietoevry.bookorabackend.exception.EmployeeNotFoundException;
 import com.tietoevry.bookorabackend.exception.InvalidActionException;
 import com.tietoevry.bookorabackend.exception.InvalidInputException;
@@ -30,8 +30,8 @@ public class RestPasswordServiceImpl implements RestPasswordService {
     }
 
     @Override
-    public MessageDTO updatePassword(UpdatePasswordDTO updatePasswordDTO) throws Exception {
-        Employee employee = employeeRepository.findByEmailIgnoreCase(updatePasswordDTO.getEmail());
+    public MessageDTO updatePassword(LogInDTO logInDTO) throws Exception {
+        Employee employee = employeeRepository.findByEmailIgnoreCase(logInDTO.getEmail());
 
         if (employee == null) {
             throw new EmployeeNotFoundException("Error: Email is invalid");
@@ -41,11 +41,11 @@ public class RestPasswordServiceImpl implements RestPasswordService {
             if (employee.isAbleToChangePassword()) {
                 String oldPassword = employee.getPassword();
 
-                if (encoder.matches(updatePasswordDTO.getPassword(), oldPassword)) {
+                if (encoder.matches(logInDTO.getPassword(), oldPassword)) {
                     throw new InvalidInputException("you have used the old password");
                 }
 
-                employee.setPassword(encoder.encode(updatePasswordDTO.getPassword()));
+                employee.setPassword(encoder.encode(logInDTO.getPassword()));
                 employee.setAbleToChangePassword(false);
                 employeeRepository.save(employee);
 

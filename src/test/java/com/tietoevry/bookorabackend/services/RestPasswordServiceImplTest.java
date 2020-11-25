@@ -1,7 +1,7 @@
 package com.tietoevry.bookorabackend.services;
 
+import com.tietoevry.bookorabackend.api.v1.model.LogInDTO;
 import com.tietoevry.bookorabackend.api.v1.model.MessageDTO;
-import com.tietoevry.bookorabackend.api.v1.model.UpdatePasswordDTO;
 import com.tietoevry.bookorabackend.exception.EmployeeNotFoundException;
 import com.tietoevry.bookorabackend.exception.InvalidActionException;
 import com.tietoevry.bookorabackend.exception.InvalidInputException;
@@ -64,14 +64,14 @@ class RestPasswordServiceImplTest {
         Employee employee = new Employee();
         employee.setPassword("password");
         employee.setAbleToChangePassword(true);
-        UpdatePasswordDTO updatePasswordDTO = new UpdatePasswordDTO("email", "password");
+        LogInDTO logInDTO = new LogInDTO("email", "password");
 
         given(employeeRepository.findByEmailIgnoreCase(any())).willReturn(employee);
         given(encoder.matches(any(), any())).willReturn(true);
 
         //when
         assertThatThrownBy(() -> {
-            restPasswordService.updatePassword(updatePasswordDTO);
+            restPasswordService.updatePassword(logInDTO);
         })
                 //then
                 .isInstanceOf(InvalidInputException.class)
@@ -87,14 +87,14 @@ class RestPasswordServiceImplTest {
         Employee employee = new Employee();
         employee.setPassword("password");
         employee.setAbleToChangePassword(true);
-        UpdatePasswordDTO updatePasswordDTO = new UpdatePasswordDTO("email", "password");
+        LogInDTO logInDTO = new LogInDTO("email", "password");
 
         given(employeeRepository.findByEmailIgnoreCase(any())).willReturn(employee);
         given(encoder.matches(any(), any())).willReturn(false);
         given(encoder.encode(any())).willReturn("test");
 
         //when
-        MessageDTO messageDTO = restPasswordService.updatePassword(updatePasswordDTO);
+        MessageDTO messageDTO = restPasswordService.updatePassword(logInDTO);
 
         //then
         assertThat(messageDTO.getMessage()).isEqualTo("Password successfully reset. You can now log in with the new credentials.");
@@ -112,13 +112,13 @@ class RestPasswordServiceImplTest {
         Employee employee = new Employee();
         employee.setPassword("password");
         employee.setAbleToChangePassword(false);
-        UpdatePasswordDTO updatePasswordDTO = new UpdatePasswordDTO("email", "password");
+        LogInDTO logInDTO = new LogInDTO("email", "password");
 
         given(employeeRepository.findByEmailIgnoreCase(any())).willReturn(employee);
 
         //when
         assertThatThrownBy(() -> {
-            restPasswordService.updatePassword(updatePasswordDTO);
+            restPasswordService.updatePassword(logInDTO);
         })
                 //then
                 .isInstanceOf(InvalidActionException.class)
@@ -130,13 +130,13 @@ class RestPasswordServiceImplTest {
     @Test
     void updatePasswordWithNonExistingEmployee() throws Exception {
         //given
-        UpdatePasswordDTO updatePasswordDTO = new UpdatePasswordDTO("email", "password");
+        LogInDTO logInDTO = new LogInDTO("email", "password");
 
         given(employeeRepository.findByEmailIgnoreCase(any())).willReturn(null);
 
         //when
         assertThatThrownBy(() -> {
-            restPasswordService.updatePassword(updatePasswordDTO);
+            restPasswordService.updatePassword(logInDTO);
         })
                 //then
                 .isInstanceOf(EmployeeNotFoundException.class)
