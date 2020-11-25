@@ -35,8 +35,6 @@ public class RestPasswordController {
 
     }
 
-    //Use to update password
-
     /**
      * Updates the password of a employee.
      *

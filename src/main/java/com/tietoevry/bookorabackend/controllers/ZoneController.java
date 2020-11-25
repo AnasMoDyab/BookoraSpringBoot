@@ -9,12 +9,10 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 
 /**
- * A rest controller that provides API for checking information about zone.
+ * A rest controller that provides API for checking information about zones.
  */
 @CrossOrigin(origins = "*", maxAge = 3600)
 @Tag(name = "Zones", description = "Zones API")
