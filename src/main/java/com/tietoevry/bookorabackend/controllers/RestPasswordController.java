@@ -8,7 +8,9 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
-
+/**
+ * A rest controller that provides API for resetting password.
+ */
 @RestController
 @CrossOrigin(origins = "*", maxAge = 3600)
 public class RestPasswordController {
@@ -18,7 +20,12 @@ public class RestPasswordController {
         this.restPasswordService = restPasswordService;
     }
 
-    //Use to check the activation code for resetting password
+    /**
+     * Checks activation code for resetting password.
+     *
+     * @param codeConfirmationDto A string of activation code for resetting password
+     * @return True if the activation is valid
+     */
     @GetMapping("/confirm-reset")
     @ResponseStatus(HttpStatus.OK)
     public boolean responsePasswordRest(@RequestParam("codeConfirmationDto") String codeConfirmationDto) {
@@ -29,6 +36,16 @@ public class RestPasswordController {
     }
 
     //Use to update password
+
+    /**
+     * Updates the password of a employee.
+     *
+     * @param updatePasswordDTO A DTO that contains email of employee and the new password
+     * @return A DTO that contains message about the password update action
+     * @throws Exception EmployeeNotFoundException if email is not found
+     * @throws Exception InvalidInputException if the new password is the same as the previous
+     * @throws Exception InvalidActionException if the employee is not allowed to change the password
+     */
     @RequestMapping(value = "/reset-password", method = RequestMethod.POST)
     public MessageDTO resetUserPassword(@RequestBody @Valid UpdatePasswordDTO updatePasswordDTO) throws Exception {
         return restPasswordService.updatePassword(updatePasswordDTO);
