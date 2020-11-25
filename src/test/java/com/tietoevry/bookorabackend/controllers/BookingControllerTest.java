@@ -65,7 +65,7 @@ class BookingControllerTest {
         then(bookingService).should(times(1)).bookOneZoneOfOneDay(any());
     }
 
-    @Disabled
+/*    @Disabled
     @Test
     void getAllBookingOfEmployee() throws Exception {
         //given
@@ -135,7 +135,7 @@ class BookingControllerTest {
                 .andExpect(jsonPath("$.bookingDTOList[0].employeeId", is(1)))
                 .andExpect(jsonPath("$.bookingDTOList[0].zoneId", is(1)));
         then(bookingService).should(times(1)).getAllPastBookingOfEmployee(any());
-    }
+    }*/
 
     @Test
     void getAllBookingOfEmployeeInAPeriod() throws Exception {

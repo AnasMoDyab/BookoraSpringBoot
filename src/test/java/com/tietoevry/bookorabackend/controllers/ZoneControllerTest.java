@@ -88,12 +88,12 @@ class ZoneControllerTest {
         mockMvc.perform(get(ZoneController.BASE_URL + "/floor/1"))
                 //then
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.zoneDTOList[1].id", is(2)))
-                .andExpect(jsonPath("$.zoneDTOList[0].id", is(1)))
-                .andExpect(jsonPath("$.zoneDTOList[0].floor", is(1)))
-                .andExpect(jsonPath("$.zoneDTOList[0].zone", is("A")))
+                .andExpect(jsonPath("$.zoneDTOList[1].id", is(1)))
+                .andExpect(jsonPath("$.zoneDTOList[0].id", is(2)))
+                .andExpect(jsonPath("$.zoneDTOList[0].floor", is(2)))
+                .andExpect(jsonPath("$.zoneDTOList[0].zone", is("B")))
                 .andExpect(jsonPath("$.zoneDTOList[0].activated", is(true)))
-                .andExpect(jsonPath("$.zoneDTOList[0].capacity", is(10)));
+                .andExpect(jsonPath("$.zoneDTOList[0].capacity", is(20)));
         then(zoneService).should(times(1)).getZonesByFloor(any());
     }
 

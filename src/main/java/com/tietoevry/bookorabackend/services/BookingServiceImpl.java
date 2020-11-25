@@ -76,7 +76,7 @@ public class BookingServiceImpl implements BookingService {
     }
 
 
-    @Override
+/*    @Override
     public BookingListDTO getAllBookingOfEmployee(EmployeeEmailDTO employeeEmailDTO) throws Exception {
 
 
@@ -91,9 +91,9 @@ public class BookingServiceImpl implements BookingService {
         }
 
         return new BookingListDTO(bookingDTOList);
-    }
+    }*/
 
-    @Override
+/*    @Override
     public BookingListDTO getAllValidBookingOfEmployee(EmployeeEmailDTO employeeEmailDTO) throws Exception {
 
         Employee employee = employeeRepository.findByEmail(employeeEmailDTO.getEmail())
@@ -108,9 +108,9 @@ public class BookingServiceImpl implements BookingService {
 
         return new BookingListDTO(bookingDTOList);
 
-    }
+    }*/
 
-    @Override
+/*    @Override
     public BookingListDTO getAllPastBookingOfEmployee(EmployeeEmailDTO employeeEmailDTO) throws EmployeeNotFoundException {
         Employee employee = employeeRepository.findByEmail(employeeEmailDTO.getEmail())
                 .orElseThrow(() -> new EmployeeNotFoundException("Employee is not found"));
@@ -123,7 +123,7 @@ public class BookingServiceImpl implements BookingService {
         }
 
         return new BookingListDTO(bookingDTOList);
-    }
+    }*/
 
     @Override
     public BookingListDTOAdmin getAllBookingInAPeriodAdmin(AdminBookingForAllDTO adminBookingForAllDTO) {
