@@ -4,6 +4,9 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+/**
+ * DTO that used to transfer a status of zone on a day.
+ */
 @Data
 @NoArgsConstructor
 @AllArgsConstructor

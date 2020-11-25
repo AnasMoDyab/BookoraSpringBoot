@@ -6,6 +6,9 @@ import lombok.NoArgsConstructor;
 
 import java.util.Set;
 
+/**
+ * DTO that used to transfer Employee info.
+ */
 @Data
 @NoArgsConstructor
 @AllArgsConstructor

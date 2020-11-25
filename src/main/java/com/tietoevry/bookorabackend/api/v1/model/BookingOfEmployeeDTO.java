@@ -6,10 +6,12 @@ import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
 
+/**
+ * DTO that transfers info about a booking of employee.
+ */
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-
 public class BookingOfEmployeeDTO {
     private Long bookingId;
     private LocalDate date;

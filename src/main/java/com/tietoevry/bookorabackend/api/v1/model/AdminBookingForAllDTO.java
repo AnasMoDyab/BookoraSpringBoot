@@ -10,7 +10,7 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @AllArgsConstructor
 /**
- * DTO that  transfers  from, to.
+ * DTO that  transfers  a period.
  */
 public class AdminBookingForAllDTO {
     private LocalDate from;
