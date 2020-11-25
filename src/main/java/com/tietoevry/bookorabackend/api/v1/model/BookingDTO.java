@@ -6,6 +6,9 @@ import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
 
+/**
+ * DTO that used in mapping between Booking entity and BookingDTO
+ */
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
