@@ -3,7 +3,6 @@ package com.tietoevry.bookorabackend.services;
 import com.tietoevry.bookorabackend.api.v1.mapper.EmployeeMapper;
 import com.tietoevry.bookorabackend.api.v1.mapper.SignUpMapper;
 import com.tietoevry.bookorabackend.api.v1.model.*;
-import com.tietoevry.bookorabackend.controllers.EmployeeController;
 import com.tietoevry.bookorabackend.exception.*;
 import com.tietoevry.bookorabackend.model.*;
 import com.tietoevry.bookorabackend.repositories.ConfirmationTokenRepository;
@@ -60,7 +59,7 @@ public class EmployeeServiceImp implements EmployeeService {
         this.restPasswordCodeRepository = restPasswordCodeRepository;
     }
 
-    @Override
+/*    @Override
     public EmployeeListDTO getAllEmployees() {
         List<EmployeeDTO> employeeDTOList = employeeRepository.findAll().stream().map(employee -> {
             EmployeeDTO employeeDTO = employeeMapper.employeeToEmployeeDTO(employee);
@@ -80,7 +79,7 @@ public class EmployeeServiceImp implements EmployeeService {
                     return employeeDTO;
                 })
                 .orElseThrow(() -> new EmployeeNotFoundException("Employee is not found"));
-    }
+    }*/
 
 
     @Override
@@ -308,9 +307,9 @@ public class EmployeeServiceImp implements EmployeeService {
         employeeRepository.deleteById(id);
     }
 
-    private String getEmployeeUrl(Long id) {
+/*    private String getEmployeeUrl(Long id) {
         return EmployeeController.BASE_URL + "/" + id;
-    }
+    }*/
 
     private boolean existedByEmail(String email) {
         Employee employee = employeeRepository.findByEmailIgnoreCase(email);
