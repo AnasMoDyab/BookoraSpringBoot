@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 
 /**
- * Entity that contains role info.
+ * Entity that represents a role.
  */
 @Data
 @NoArgsConstructor

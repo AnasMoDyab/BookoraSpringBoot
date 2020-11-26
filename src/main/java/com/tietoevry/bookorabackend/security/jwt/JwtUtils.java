@@ -13,9 +13,9 @@ import java.util.Date;
 
 /**
  * This class has 3 functions:
- * 1. generate a JWT from username, date, expiration, secret
- * 2. get username from JWT
- * 3. validate a JWT
+ * 1. Generates a JWT from username, date, expiration, secret
+ * 2. Gets username from JWT
+ * 3. Validate a JWT
  */
 
 @Component
@@ -30,10 +30,10 @@ public class JwtUtils {
 
 
     /**
-     * Generate a JWT from username, date, expiration, secret
+     * Generate a JWT with username, issue date, expired date and a JWT secret code.
      *
-     * @param authentication
-     * @return
+     * @param authentication A Authentication object
+     * @return A JWT string
      */
     public String generateJwtToken(Authentication authentication) {
 
@@ -49,12 +49,11 @@ public class JwtUtils {
                 .compact();
     }
 
-
     /**
-     * Get username from JWT
+     * Fetches username from JWT
      *
-     * @param token
-     * @return
+     * @param token A JWT string
+     * @return A username string
      */
     public String getUserNameFromJwtToken(String token) {
         return Jwts.parser().setSigningKey(jwtSecret).parseClaimsJws(token).getBody().getSubject();
@@ -62,10 +61,10 @@ public class JwtUtils {
 
 
     /**
-     * Validate a JWT
+     * Validates a JWT
      *
-     * @param authToken
-     * @return
+     * @param authToken A JWT string
+     * @return True if the JWT is valid
      */
     public boolean validateJwtToken(String authToken) {
         try {

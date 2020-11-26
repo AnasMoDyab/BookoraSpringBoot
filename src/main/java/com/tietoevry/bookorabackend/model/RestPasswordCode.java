@@ -9,7 +9,7 @@ import java.sql.Timestamp;
 import java.util.Date;
 
 /**
- * Entity that used for Rest password.
+ * Entity that represents a activation code for resetting password.
  */
 @Data
 @NoArgsConstructor
@@ -36,9 +36,14 @@ public class RestPasswordCode {
     }
 
 
+    /**
+     * Generates a random string.
+     * @param n A integer that represents the total length of the random string
+     * @return A random string
+     */
     static String getAlphaNumericString(int n) {
 
-        // chose a Character random from this String
+        // Possible choices of character random from this String
         String AlphaNumericString = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
                 + "0123456789"
                 + "abcdefghijklmnopqrstuvxyz";

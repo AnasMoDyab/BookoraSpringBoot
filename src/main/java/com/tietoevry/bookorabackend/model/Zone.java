@@ -8,7 +8,7 @@ import javax.persistence.*;
 import java.util.Set;
 
 /**
- * Entity that contains  Zone info.
+ * Entity that represents a zone.
  */
 @Data
 @NoArgsConstructor

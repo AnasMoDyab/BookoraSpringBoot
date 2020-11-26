@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 /**
- * Class that  used to validate the password.
+ * Class that uses to validate the password.
  */
 
 public class PasswordConstraintValidator implements ConstraintValidator<ValidPassword, String> {
@@ -21,9 +21,9 @@ public class PasswordConstraintValidator implements ConstraintValidator<ValidPas
     /**
      * Checks if the password is valid or not.
      *
-     * @param password
-     * @param context
-     * @return Password is valid or not.
+     * @param password A password string
+     * @param context A ConstraintValidatorContext object
+     * @return True is the password is valid or not.
      */
     @Override
     public boolean isValid(String password, ConstraintValidatorContext context) {
