@@ -38,10 +38,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
 
     /**
-     * Used for authenticate employee.
-     *
-     * @return
-     * @throws Exception
+     * {@inheritDoc}
      */
     @Bean
     @Override
@@ -50,9 +47,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     /**
-     * Crypts the password.
+     * Set up the encryption method.
      *
-     * @return
+     * @return A PasswordEncoder object
      */
     @Bean
     public PasswordEncoder passwordEncoder() {
@@ -60,26 +57,22 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     /**
-     * configuring DaoAuthenticationProvider by AuthenticationManagerBuilder.userDetailsService()
+     * Configures DaoAuthenticationProvider by AuthenticationManagerBuilder.userDetailsService()
      *
-     * @param authenticationManagerBuilder
-     * @throws Exception
+     * @param authenticationManagerBuilder A AuthenticationManagerBuilder object
+     * @throws Exception if user if not found
      */
-
     @Override
     public void configure(AuthenticationManagerBuilder authenticationManagerBuilder) throws Exception {
         authenticationManagerBuilder.userDetailsService(userDetailsServiceImpl).passwordEncoder(passwordEncoder());
     }
 
     /**
-     * Tells Spring Security how we configure CORS and CSRF
-     * when we want to require all users to be authenticated or not
-     * which filter (AuthTokenFilter)
-     * and when we want it to work(filter before UsernamePasswordAuthenticationFilter)
-     * which Exception Handler is chosen (AuthEntryPointJwt)
+     * Tells Spring Security about configurations about CORS and CSRF, authentication about request, filter to use,
+     * time the filter should apply and which Exception Handler is chosen.
      *
-     * @param http
-     * @throws Exception
+     * @param http A HttpSecurity object
+     * @throws Exception if any authentication error
      */
 
     @Override
@@ -113,8 +106,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                         "/webjars/**",
                         "/swagger-ui/index.html?configUrl=/v3/api-docs/swagger-config").permitAll()
 
-
-                .and()//allow all authenticated request
+                .and()
                 //Tell Spring security to use AuthTokenFilter to filter before using UsernamePasswordAuthenticationFilter
                 .addFilterBefore(authTokenFilter(), UsernamePasswordAuthenticationFilter.class);
 
