@@ -7,7 +7,7 @@ import org.mapstruct.Mapping;
 import org.mapstruct.factory.Mappers;
 
 /**
- * Mapper maps between SignUPDTO and Employee entity.
+ * Mapper that maps between SignUPDTO and Employee entity.
  */
 @Mapper
 public interface SignUpMapper {
@@ -15,10 +15,10 @@ public interface SignUpMapper {
     SignUpMapper INSTANCE = Mappers.getMapper(SignUpMapper.class);
 
     /**
-     * Maps between SignUPDTO and Employee entity.
+     * Maps SignUPDTO to Employee entity.
      *
-     * @param signUpDTO
-     * @return A employee
+     * @param signUpDTO A signUpDTO that contains information about the registering employee
+     * @return A Employee object
      */
     @Mapping(target = "roles", ignore = true)
     Employee signUpDTOtoEmployee(SignUpDTO signUpDTO);

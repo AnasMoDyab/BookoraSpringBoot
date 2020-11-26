@@ -6,7 +6,7 @@ import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
 
 /**
- * Mapper maps between Employee entity and DTOs.
+ * Mapper that maps between Employee entity and DTOs.
  */
 
 @Mapper
@@ -15,9 +15,9 @@ public interface EmployeeMapper {
     EmployeeMapper INSTANCE = Mappers.getMapper(EmployeeMapper.class);
 
     /**
-     * Maps between EmployeeDTO and Employee entity.
+     * Maps Employee to EmployeeDTO.
      *
-     * @param employee
+     * @param employee A Employee object
      * @return A EmployeeDTO that contains Employee info.
      */
 
