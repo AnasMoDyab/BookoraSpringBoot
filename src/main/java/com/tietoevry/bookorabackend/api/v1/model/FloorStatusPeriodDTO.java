@@ -5,7 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 /**
- * DTO that transfers floor, and total of booking.
+ * A DTO that transfers information, including floor and total bookings.
  */
 @Data
 @NoArgsConstructor

@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 import java.util.List;
 
 /**
- * DTO that used to transfer token,id,email, and roles of employee.
+ * A DTO that transfers information, including token, token type, id, email and roles of employee.
  */
 @Data
 @AllArgsConstructor

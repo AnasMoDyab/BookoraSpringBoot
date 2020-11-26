@@ -10,7 +10,7 @@ import javax.validation.constraints.Size;
 import java.time.LocalDate;
 
 /**
- * DTO that transfers info about a booking of employee.
+ * A DTO that transfer information about a booking of a employee.
  */
 @Data
 @NoArgsConstructor

@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 import java.time.LocalDate;
 
 /**
- * DTO that used to transfer  floorId and date.
+ * A DTO that transfers information, including floor ID and a date.
  */
 @Data
 @NoArgsConstructor

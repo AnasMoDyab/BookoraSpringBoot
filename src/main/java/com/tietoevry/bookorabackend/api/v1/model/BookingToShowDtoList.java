@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 import java.util.List;
 
 /**
- * DTO that contains a list of BookingToShowDTO.
+ * A DTO that transfers a list of BookingToShowDTO.
  */
 @Data
 @NoArgsConstructor

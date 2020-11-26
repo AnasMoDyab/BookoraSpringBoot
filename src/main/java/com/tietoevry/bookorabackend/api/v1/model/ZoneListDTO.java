@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 import java.util.List;
 
 /**
- * DTO that contains a list of ZoneDTO.
+ * A DTO that transfers a list of ZoneDTO.
  */
 @Data
 @NoArgsConstructor

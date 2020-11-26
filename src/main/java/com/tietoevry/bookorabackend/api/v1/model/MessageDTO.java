@@ -5,7 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 /**
- * DTO that used to transfer message to server.
+ * A DTO that transfers information, including a message.
  */
 @Data
 @AllArgsConstructor

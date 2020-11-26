@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 import java.time.LocalDate;
 
 /**
- * DTO that used to transfer zoneId,and date.
+ * A DTO that transfers information, including  zone ID and a date.
  */
 @Data
 @NoArgsConstructor

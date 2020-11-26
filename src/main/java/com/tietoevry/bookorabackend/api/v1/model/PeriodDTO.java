@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 import java.time.LocalDate;
 
 /**
- * DTO that used to transfer a period.
+ * A DTO that transfers a period.
  */
 @Data
 @NoArgsConstructor

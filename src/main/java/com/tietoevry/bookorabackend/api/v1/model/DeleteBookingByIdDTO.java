@@ -5,7 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 /**
- * DTO that used to delete a booking by bookingId.
+ * A DTO that transfers a booking ID.
  */
 @Data
 @NoArgsConstructor

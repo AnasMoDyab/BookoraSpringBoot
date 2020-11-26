@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 import java.time.LocalDate;
 
 /**
- * DTO that used in mapping between Booking entity and BookingDTO
+ * A DTO that transfers information, including a specific date, employee ID and zone ID.
  */
 @Data
 @NoArgsConstructor

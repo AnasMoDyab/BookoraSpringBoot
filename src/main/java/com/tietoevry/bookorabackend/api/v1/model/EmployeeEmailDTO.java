@@ -8,7 +8,7 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 
 /**
- * DTO that used to transfer email of employee.
+ * A DTO that transfers email of a employee.
  */
 @Data
 @NoArgsConstructor

@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 import java.time.LocalDate;
 
 /**
- * DTO that used to show booking info.
+ * A DTO that transfers information, including booking ID, a date, zone name and floor.
  */
 @Data
 @NoArgsConstructor

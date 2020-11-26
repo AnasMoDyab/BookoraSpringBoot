@@ -10,7 +10,7 @@ import javax.validation.constraints.Size;
 import java.util.Set;
 
 /**
- * DTO that used to transfer Employee info.
+ * A DTO that transfers employee information.
  */
 @Data
 @NoArgsConstructor

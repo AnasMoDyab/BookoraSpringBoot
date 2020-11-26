@@ -5,7 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 /**
- * DTO that used to transfer settings of zone.
+ * A DTO that transfers information, including settings of a zone.
  */
 @Data
 @NoArgsConstructor

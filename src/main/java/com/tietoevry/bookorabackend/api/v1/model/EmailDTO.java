@@ -10,7 +10,7 @@ import javax.validation.constraints.Size;
 import java.util.Set;
 
 /**
- * DTO that used to transfer email and roles of employee.
+ * A DTO that transfers information, including email and roles of employee.
  */
 @Data
 @NoArgsConstructor

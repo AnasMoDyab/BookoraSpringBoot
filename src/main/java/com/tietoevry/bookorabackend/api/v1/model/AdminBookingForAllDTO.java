@@ -6,13 +6,14 @@ import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
 
+/**
+ * A DTO that transfers a period.
+ */
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-/**
- * DTO that  transfers  a period.
- */
 public class AdminBookingForAllDTO {
+
     private LocalDate from;
     private LocalDate to;
 }

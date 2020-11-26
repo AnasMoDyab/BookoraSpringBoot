@@ -5,7 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 /**
- * DTO that used to transfer zone info.
+ * A DTO that transfers information, including zone ID, floor, zone, accessibility and capacity.
  */
 @Data
 @NoArgsConstructor
