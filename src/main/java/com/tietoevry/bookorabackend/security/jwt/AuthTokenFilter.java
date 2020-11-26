@@ -36,18 +36,18 @@ public class AuthTokenFilter extends OncePerRequestFilter {
 
     /**
      * doFilterInternal do 6 things:
-     * 1. get JWT from the Authorization header (by removing Bearer prefix)
+     * 1. Get JWT from the Authorization header (by removing Bearer prefix)
      * 2. if the request has JWT, validate it
-     * 3. parse username from it
+     * 3. Fetch username from the JWT
      * 4. From username, get UserDetails to create an Authentication object
      * 5. Add request into the authentication
-     * 6. set the current UserDetails in SecurityContext
+     * 6. Set the current UserDetails in SecurityContext
      *
-     * @param request
-     * @param response
-     * @param filterChain
-     * @throws ServletException
-     * @throws IOException
+     * @param request A HttpServletRequest request
+     * @param response A HttpServletResponse response
+     * @param filterChain A FilterChain
+     * @throws ServletException if there is a servlet error
+     * @throws IOException if there is a IO error
      */
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)

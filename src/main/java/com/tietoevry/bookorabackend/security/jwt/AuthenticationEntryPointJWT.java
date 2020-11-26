@@ -16,7 +16,7 @@ import java.io.IOException;
 //and an AuthenticationException is thrown
 
 /**
- * Class that used to catch authentication error.
+ * Class that uses to catch authentication error.
  */
 @Component
 public class AuthenticationEntryPointJWT implements AuthenticationEntryPoint {
