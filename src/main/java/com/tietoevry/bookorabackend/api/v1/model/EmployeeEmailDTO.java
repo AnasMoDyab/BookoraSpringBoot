@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 /**
  * A DTO that transfers email of a employee.
@@ -17,7 +18,7 @@ public class EmployeeEmailDTO {
 
 
     @Email
-    @NotBlank
+    @NotNull
     private String email;
 
 }

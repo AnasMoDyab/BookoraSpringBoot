@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 
 /**
@@ -13,8 +14,11 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @AllArgsConstructor
 public class BookingDTO {
+    @NotNull
     private LocalDate date;
+    @NotNull
     private Long employeeId;
+    @NotNull
     private Long zoneId;
 
 }

@@ -5,7 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.Email;
-import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.time.LocalDate;
 
@@ -20,7 +20,7 @@ public class BookingOfEmployeeDTO {
     private LocalDate date;
     private Character zoneName;
     private Integer floor;
-    @NotBlank
+    @NotNull
     @Size(max = 50)
     @Email
     private String email;

@@ -5,7 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.Email;
-import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.util.Set;
 
@@ -18,22 +18,20 @@ import java.util.Set;
 public class EmployeeDTO {
 
     private long id;
-    //   @NotNull(message = "You must fill in first name.")
+    @NotNull(message = "You must fill in first name.")
     private String firstName;
-    //   @NotNull(message = "You must fill in last name.")
+    @NotNull(message = "You must fill in last name.")
     private String lastName;
-    //   @NotNull(message = "You must fill in email.")
-    // @Email
-    @NotBlank
+    @NotNull(message = "You must fill in email.")
+    @Email
     @Size(max = 50)
     @Email
     private String email;
-    //  @NotNull(message = "You must fill in first password.")
+    @NotNull(message = "You must fill in first password.")
     private String password;
+    @NotNull
     private Set<String> role;
 
-/*    @JsonProperty("employee_url")
-    private String employeeUrl;*/
 
 
 }

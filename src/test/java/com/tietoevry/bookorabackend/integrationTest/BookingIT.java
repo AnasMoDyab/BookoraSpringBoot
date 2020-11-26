@@ -112,7 +112,7 @@ public class BookingIT {
     @Test
     void deleteABookingWithValidJWT() {
         //given
-        DeleteBookingByIdDTO deleteBookingByIdDTO = new DeleteBookingByIdDTO(1);
+        DeleteBookingByIdDTO deleteBookingByIdDTO = new DeleteBookingByIdDTO(1L);
         headers.set("Authorization", "Bearer " + validJwt);
 
         HttpEntity<DeleteBookingByIdDTO> request = new HttpEntity<>(deleteBookingByIdDTO, headers);

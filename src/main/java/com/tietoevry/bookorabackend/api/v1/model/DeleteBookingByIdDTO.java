@@ -4,6 +4,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.validation.constraints.NotNull;
+
 /**
  * A DTO that transfers a booking ID.
  */
@@ -11,6 +13,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class DeleteBookingByIdDTO {
-    private long bookingId;
+    @NotNull
+    private  Long bookingId;
 
 }
