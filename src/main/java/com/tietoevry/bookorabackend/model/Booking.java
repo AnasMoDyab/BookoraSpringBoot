@@ -7,7 +7,7 @@ import javax.persistence.*;
 import java.time.LocalDate;
 
 /**
- * Booking entity that contains booking info.
+ * Entity that represents a booking.
  */
 @Data
 @NoArgsConstructor

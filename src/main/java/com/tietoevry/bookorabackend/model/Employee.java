@@ -9,7 +9,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 /**
- * Entity that used for employee info.
+ * Entity that represents a employee.
  */
 @Data
 @NoArgsConstructor

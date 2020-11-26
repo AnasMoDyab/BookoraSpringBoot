@@ -1,7 +1,7 @@
 package com.tietoevry.bookorabackend.model;
 
 /**
- * enum that contains all roles we have.
+ * Enum that represents a role.
  */
 public enum RoleEnum {
 

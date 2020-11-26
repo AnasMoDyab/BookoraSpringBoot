@@ -10,7 +10,7 @@ import java.util.Date;
 import java.util.UUID;
 
 /**
- * Entity that used for confirmation token.
+ * Entity represents a confirmation token.
  */
 @Data
 @NoArgsConstructor
