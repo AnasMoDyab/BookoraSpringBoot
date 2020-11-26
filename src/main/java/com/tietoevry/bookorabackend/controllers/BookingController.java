@@ -66,6 +66,7 @@ public class BookingController {
         return bookingService.getAllPastBookingOfEmployee(employeeEmailDTO);
     }*/
 
+    //
     /**
      * Provides all bookings information for a employee in a period.
      *
