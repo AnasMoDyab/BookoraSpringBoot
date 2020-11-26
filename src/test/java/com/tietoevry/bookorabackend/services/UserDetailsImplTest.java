@@ -46,6 +46,4 @@ class UserDetailsImplTest {
         assertThat(userDetails1.equals(new Object())).isEqualTo(false);
         assertThat(userDetails1.equals(userDetails2)).isEqualTo(true);
     }
-
-
 }

@@ -61,48 +61,6 @@ class EmployeeControllerTest {
         reset(confirmationTokenService);
         reset(employeeRepository);
     }
-/*    @Disabled
-   @Test
-    void getEmployeeList() throws Exception {
-        //given
-        EmployeeListDTO employeeListDTO = new EmployeeListDTO(new ArrayList<>());
-        EmployeeDTO employeeDTO = new EmployeeDTO(1L, "root", "Hi", "root@tietoevry.com",
-                "123456aB@", new HashSet<>(), "test");
-        employeeListDTO.getEmployeeDTOList().add(employeeDTO);
-        given(employeeService.getAllEmployees()).willReturn(employeeListDTO);
-
-        //when
-        mockMvc.perform(get(EmployeeController.BASE_URL))
-                //then
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$.employeeDTOList[0].id", is(1)))
-                .andExpect(jsonPath("$.employeeDTOList[0].firstName", is("root")))
-                .andExpect(jsonPath("$.employeeDTOList[0].lastName", is("Hi")))
-                .andExpect(jsonPath("$.employeeDTOList[0].email", is("root@tietoevry.com")))
-                .andExpect(jsonPath("$.employeeDTOList[0].password", is("123456aB@")))
-                .andExpect(jsonPath("$.employeeDTOList[0].employee_url", is("test")));
-        then(employeeService).should(times(1)).getAllEmployees();
-    }
-    @Disabled
-   @Test
-    void getEmployeeById() throws Exception {
-        //given
-        EmployeeDTO employeeDTO = new EmployeeDTO(1L, "root", "Hi", "root@tietoevry.com",
-                "123456aB@", new HashSet<>(), "test");
-        given(employeeService.getEmployeeById(any())).willReturn(employeeDTO);
-
-        //when
-        mockMvc.perform(get(EmployeeController.BASE_URL + "/" + employeeDTO.getId()))
-                //then
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$.id", is(1)))
-                .andExpect(jsonPath("$.firstName", is("root")))
-                .andExpect(jsonPath("$.lastName", is("Hi")))
-                .andExpect(jsonPath("$.email", is("root@tietoevry.com")))
-                .andExpect(jsonPath("$.password", is("123456aB@")))
-                .andExpect(jsonPath("$.employee_url", is("test")));
-        then(employeeService).should(times(1)).getEmployeeById(anyLong());
-    }*/
 
     @Test
     void getEmployeeByEmail() throws Exception {
@@ -177,16 +135,6 @@ class EmployeeControllerTest {
         then(employeeService).should(times(1)).updateEmployee(any());
 
     }
-/*    @Disabled
-    @Test
-    void deleteEmployee() throws Exception {
-
-        //when
-        mockMvc.perform(delete(EmployeeController.BASE_URL + "/1"))
-                //then
-                .andExpect(status().isOk());
-        then(employeeService).should(times(1)).deleteEmployeeDTO(anyLong());
-    }*/
 
     @Test
     void forgotUserPassword() throws Exception {

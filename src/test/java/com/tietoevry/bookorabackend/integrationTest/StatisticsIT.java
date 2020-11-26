@@ -1,9 +1,15 @@
 package com.tietoevry.bookorabackend.integrationTest;
 
-import com.tietoevry.bookorabackend.api.v1.model.*;
+import com.tietoevry.bookorabackend.api.v1.model.FloorDateDTO;
+import com.tietoevry.bookorabackend.api.v1.model.JwtDTO;
+import com.tietoevry.bookorabackend.api.v1.model.LogInDTO;
+import com.tietoevry.bookorabackend.api.v1.model.StatusOfAZoneOnADayDTO;
 import com.tietoevry.bookorabackend.controllers.EmployeeController;
 import com.tietoevry.bookorabackend.controllers.ZoneController;
-import org.junit.jupiter.api.*;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
+import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.boot.web.server.LocalServerPort;
@@ -16,7 +22,6 @@ import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
-import static org.springframework.http.HttpStatus.FORBIDDEN;
 import static org.springframework.http.HttpStatus.OK;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
@@ -115,56 +120,4 @@ public class StatisticsIT {
                 .isInstanceOf(ResourceAccessException.class);
     }
 
-    @Disabled
-    @DisplayName("Check status of all zones in a floor in a period by admin")
-    @Test
-    void checkStatusOfAllZonesInAFloorInAPeriodByAdmin() {
-        PeriodDTO periodDTO = new PeriodDTO(LocalDate.now(), LocalDate.now().plusDays(7));
-        headers.set("Authorization", "Bearer " + validAdminJwt);
-        HttpEntity<PeriodDTO> request = new HttpEntity<>(periodDTO, headers);
-
-        //when
-        ResponseEntity<TotalBookingInBuildingDTO> response = restTemplate
-                .postForEntity("http://localhost:" + port + ZoneController.BASE_URL + "/CheckStatusOfBuildingOnPeriod"
-                        , request, TotalBookingInBuildingDTO.class);
-
-        //then
-        assertThat(response.getStatusCode()).isEqualTo(OK);
-        assertThat(response.getBody().getTotalForAllFloor()).isNotNull();
-    }
-
-    @Disabled
-    @DisplayName("Check status of all zones in a floor in a period by user")
-    @Test
-    void checkStatusOfAllZonesInAFloorInAPeriodByUser() {
-        PeriodDTO periodDTO = new PeriodDTO(LocalDate.now(), LocalDate.now().plusDays(7));
-        headers.set("Authorization", "Bearer " + validUserJwt);
-        HttpEntity<PeriodDTO> request = new HttpEntity<>(periodDTO, headers);
-
-        //when
-        ResponseEntity<TotalBookingInBuildingDTO> response = restTemplate
-                .postForEntity("http://localhost:" + port + ZoneController.BASE_URL + "/CheckStatusOfBuildingOnPeriod"
-                        , request, TotalBookingInBuildingDTO.class);
-
-        //then
-        assertThat(response.getStatusCode()).isEqualTo(FORBIDDEN);
-    }
-
-    @Disabled
-    @DisplayName("Check status of all zones in a floor in a period with invalid JWT")
-    @Test
-    void checkStatusOfAllZonesInAFloorInAPeriodWithInvalidJWT() {
-        PeriodDTO periodDTO = new PeriodDTO(LocalDate.now(), LocalDate.now().plusDays(7));
-        headers.set("Authorization", "Bearer " + inValidJwt);
-        HttpEntity<PeriodDTO> request = new HttpEntity<>(periodDTO, headers);
-
-        //when
-        assertThatThrownBy(() -> {
-            restTemplate
-                    .postForEntity("http://localhost:" + port + ZoneController.BASE_URL + "/CheckStatusOfBuildingOnPeriod"
-                            , request, TotalBookingInBuildingDTO.class);
-        })
-                //then
-                .isInstanceOf(ResourceAccessException.class);
-    }
 }

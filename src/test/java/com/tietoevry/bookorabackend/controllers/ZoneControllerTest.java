@@ -49,29 +49,6 @@ class ZoneControllerTest {
         reset(zoneService);
     }
 
-/*    @Disabled
-    @DisplayName("Get zone list")
-    @WithMockUser(username = "admin", roles = {"USER", "ADMIN"})
-    @Test
-    void getZoneList() throws Exception {
-        //given
-        ZoneListDTO zoneListDTO = new ZoneListDTO(new ArrayList<>());
-        ZoneDTO zoneDTO = new ZoneDTO(1l, 1, 'A', true, 10);
-        zoneListDTO.getZoneDTOList().add(zoneDTO);
-        given(zoneService.getAllZones()).willReturn(zoneListDTO);
-
-        //when
-        mockMvc.perform(get(ZoneController.BASE_URL))
-                //then
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$.zoneDTOList[0].id", is(1)))
-                .andExpect(jsonPath("$.zoneDTOList[0].floor", is(1)))
-                .andExpect(jsonPath("$.zoneDTOList[0].zone", is("A")))
-                .andExpect(jsonPath("$.zoneDTOList[0].activated", is(true)))
-                .andExpect(jsonPath("$.zoneDTOList[0].capacity", is(10)));
-        then(zoneService).should(times(1)).getAllZones();
-    }*/
-
     @Test
     void getZoneListByFloor() throws Exception {
 
@@ -96,47 +73,6 @@ class ZoneControllerTest {
                 .andExpect(jsonPath("$.zoneDTOList[0].capacity", is(20)));
         then(zoneService).should(times(1)).getZonesByFloor(any());
     }
-
-/*    @Disabled
-    @DisplayName("Get zone by id")
-    @Test
-    void getZoneById() throws Exception {
-        //given
-        ZoneDTO zoneDTO = new ZoneDTO(1l, 1, 'A', true, 10);
-        given(zoneService.getZoneById(any())).willReturn(zoneDTO);
-
-        //when
-        mockMvc.perform(get(ZoneController.BASE_URL + "/zone/{id}", zoneDTO.getId()))
-                //then
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$.id", is(1)))
-                .andExpect(jsonPath("$.floor", is(1)))
-                .andExpect(jsonPath("$.zone", is("A")))
-                .andExpect(jsonPath("$.activated", is(true)))
-                .andExpect(jsonPath("$.capacity", is(10)));
-        then(zoneService).should(times(1)).getZoneById(any());
-    }
-
-    @Disabled
-    @DisplayName("Check status of a zone on a day")
-    @Test
-    void checkStatusOfAZoneOnADay() throws Exception {
-        //given
-        StatusOfAZoneOnADayDTO statusOfAZoneOnADayDTO = new StatusOfAZoneOnADayDTO(10, 20);
-        given(zoneService.checkStatusOfAZoneOnADay(any())).willReturn(statusOfAZoneOnADayDTO);
-
-        //when
-        mockMvc.perform(post(ZoneController.BASE_URL + "/checkStatusOfAZoneOnADay")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content("{\"zoneId\":\"1\",\"date\":\"2020-11-12\"}"))
-                //then
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$.totalReservation", is(10)))
-                .andExpect(jsonPath("$.capacity", is(20)))
-                .andExpect(jsonPath("$.bookedPercentage", is(50)));
-        then(zoneService).should(times(1)).checkStatusOfAZoneOnADay(any());
-    }*/
-
 
     @Test
     void checkStatusOfAllZoneInAFloor() throws Exception {
@@ -191,20 +127,4 @@ class ZoneControllerTest {
         then(zoneService).should(times(1)).checkStatusOfAllFloorPeriod(any());
     }
 
-/*    @Disabled
-    @Test
-    void checkStatusOfBuildingOnPeriod() throws Exception {
-        //given
-        TotalBookingInBuildingDTO totalBookingInBuildingDTO = new TotalBookingInBuildingDTO(10);
-        given(zoneService.CheckStatusOfTheBuildingOnPeriod(any())).willReturn(totalBookingInBuildingDTO);
-
-        //when
-        mockMvc.perform(post(ZoneController.BASE_URL + "/CheckStatusOfBuildingOnPeriod")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content("{\"from\":\"2020-11-12\",\"to\":\"2020-11-12\"}"))
-                //then
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$.totalForAllFloor", is(10)));
-        then(zoneService).should(times(1)).CheckStatusOfTheBuildingOnPeriod(any());
-    }*/
 }

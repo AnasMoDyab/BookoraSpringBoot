@@ -93,30 +93,6 @@ class ZoneServiceImplTest {
         then(zoneRepository).should(times(0)).save(any());
     }
 
-/*    @DisplayName("Get all zones")
-    @Test
-    void getAllZones() {
-        //given
-        Zone zone = new Zone(1L, 1, 'A', true, 10, new HashSet<>());
-        List<Zone> list = new ArrayList<>();
-        list.add(zone);
-        ZoneDTO zoneDTO = new ZoneDTO(1L, 1, 'A', true, 10);
-        given(zoneRepository.findAll()).willReturn(list);
-        given(zoneMapper.zoneToZoneDTO(any())).willReturn(zoneDTO);
-
-        //when
-        ZoneListDTO zoneListDTO = zoneService.getAllZones();
-
-        //then
-        assertThat(zoneListDTO.getZoneDTOList().get(0).getId()).isEqualTo(1);
-        assertThat(zoneListDTO.getZoneDTOList().get(0).getFloor()).isEqualTo(1);
-        assertThat(zoneListDTO.getZoneDTOList().get(0).getZone()).isEqualTo('A');
-        assertThat(zoneListDTO.getZoneDTOList().get(0).isActivated()).isEqualTo(true);
-        assertThat(zoneListDTO.getZoneDTOList().get(0).getCapacity()).isEqualTo(10);
-        then(zoneRepository).should(times(1)).findAll();
-        then(zoneMapper).should(times(1)).zoneToZoneDTO(any());
-    }*/
-
     @DisplayName("Get all zones by floor")
     @Test
     void getZonesByFloor() {
@@ -141,29 +117,6 @@ class ZoneServiceImplTest {
         then(zoneRepository).should(times(1)).findAllByFloor(any());
         then(zoneMapper).should(times(1)).zoneToZoneDTO(any());
     }
-
-/*    @DisplayName("Get zone by ID")
-    @Test
-    void getZoneById() throws Exception {
-        //given
-        Zone zone = new Zone(1L, 1, 'A', true, 10, new HashSet<>());
-        ZoneDTO zoneDTO = new ZoneDTO(1L, 1, 'A', true, 10);
-
-        given(zoneRepository.findById(any())).willReturn(Optional.of(zone));
-        given(zoneMapper.zoneToZoneDTO(any())).willReturn(zoneDTO);
-
-        //when
-        ZoneDTO returnedZoneDTO = zoneService.getZoneById(any());
-
-        //then
-        assertThat(returnedZoneDTO.getId()).isEqualTo(1);
-        assertThat(returnedZoneDTO.getFloor()).isEqualTo(1);
-        assertThat(returnedZoneDTO.getZone()).isEqualTo('A');
-        assertThat(returnedZoneDTO.isActivated()).isEqualTo(true);
-        assertThat(returnedZoneDTO.getCapacity()).isEqualTo(10);
-        then(zoneRepository).should(times(1)).findById(any());
-        then(zoneMapper).should(times(1)).zoneToZoneDTO(any());
-    }*/
 
     @DisplayName("Check if a zone on a day which is full")
     @Test
@@ -290,32 +243,6 @@ class ZoneServiceImplTest {
         assertThat(floorStatusPeriodDTOList.get(6).getTotalBooking()).isEqualTo(1);
         then(bookingRepository).should(times(1)).findAllByDateLessThanEqualAndDateGreaterThanEqual(any(), any());
     }
-
-/*    @DisplayName("Check status of the whole building in a period")
-    @Test
-    void checkStatusOfTheBuildingOnPeriod() {
-        //given
-        PeriodDTO periodDTO = new PeriodDTO(LocalDate.of(2020, 11, 11), LocalDate.of(2020, 11, 12));
-
-        List<Booking> bookingList = new ArrayList<>();
-        for (int i = 1; i <= 7; i++) {
-            Booking booking = new Booking();
-            Zone zone = new Zone(1L, i, 'A', true, 10, new HashSet<>());
-            booking.setZone(zone);
-            bookingList.add(booking);
-        }
-
-        given(bookingRepository.findAllByDateLessThanEqualAndDateGreaterThanEqual(any(), any())).willReturn(bookingList);
-        given(zoneRepository.selectTotalsCapacities()).willReturn(10);
-
-        //when
-        TotalBookingInBuildingDTO totalBookingInBuildingDTO = zoneService.CheckStatusOfTheBuildingOnPeriod(periodDTO);
-
-        //then
-        assertThat(totalBookingInBuildingDTO.getTotalForAllFloor()).isEqualTo(70);
-        then(bookingRepository).should(times(1)).findAllByDateLessThanEqualAndDateGreaterThanEqual(any(), any());
-        then(zoneRepository).should(times(1)).selectTotalsCapacities();
-    }*/
 
     @DisplayName("Get total booking of a day in a zone")
     @Test

@@ -84,44 +84,6 @@ class EmployeeServiceImpTest {
         reset(restPasswordCodeRepository);
     }
 
-/*    @Test
-    void getAllEmployees() {
-        //given
-        List<Employee> employees = new ArrayList<>();
-        Employee employee = new Employee();
-        employee.setId(1L);
-        employees.add(employee);
-
-        given(employeeRepository.findAll()).willReturn(employees);
-        given(employeeMapper.employeeToEmployeeDTO(any())).willReturn(new EmployeeDTO());
-
-        //when
-        EmployeeListDTO employeeListDTO = employeeServiceImp.getAllEmployees();
-
-        //then
-        assertThat(employeeListDTO.getEmployeeDTOList().get(0).getEmployeeUrl()).isEqualTo("/api/v1/employees/1");
-        then(employeeRepository).should(times(1)).findAll();
-        then(employeeMapper).should(times(1)).employeeToEmployeeDTO(any());
-    }
-
-    @Test
-    void getEmployeeById() throws EmployeeNotFoundException {
-        //given
-        Employee employee = new Employee();
-        employee.setId(1L);
-
-        given(employeeRepository.findById(anyLong())).willReturn(Optional.of(employee));
-        given(employeeMapper.employeeToEmployeeDTO(any())).willReturn(new EmployeeDTO());
-
-        //when
-        EmployeeDTO employeeDTO = employeeServiceImp.getEmployeeById(1L);
-
-        //then
-        assertThat(employeeDTO.getEmployeeUrl()).isEqualTo("/api/v1/employees/1");
-        then(employeeRepository).should(times(1)).findById(anyLong());
-        then(employeeMapper).should(times(1)).employeeToEmployeeDTO(any());
-    }*/
-
     @DisplayName("Create new employee with invalid domain")
     @Test
     void createNewEmployeeWithInvalidDomain() throws Exception {
@@ -456,12 +418,4 @@ class EmployeeServiceImpTest {
                 .isInstanceOf(EmployeeNotFoundException.class);
     }
 
-/*    @Test
-    void deleteEmployeeDTO() {
-        //when
-        employeeServiceImp.deleteEmployeeDTO(1L);
-
-        //then
-        then(employeeRepository).should(times(1)).deleteById(any());
-    }*/
 }
