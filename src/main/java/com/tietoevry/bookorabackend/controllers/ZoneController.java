@@ -28,13 +28,6 @@ public class ZoneController {
         this.zoneService = zoneService;
     }
 
-/*    @GetMapping
-    @PreAuthorize("hasAnyAuthority('ROLE_ADMIN', 'ROLE_USER')")
-    @ResponseStatus(HttpStatus.OK)
-    public ZoneListDTO getZoneList() {
-        return zoneService.getAllZones();
-    }*/
-
     /**
      * Provides general information of all zones of the selected floor.
      *
@@ -49,22 +42,6 @@ public class ZoneController {
     public ZoneListDTO getZoneListByFloor(@PathVariable Integer floor) {
         return zoneService.getZonesByFloor(floor);
     }
-
-/*    @GetMapping({"/zone/{id}"})
-    @PreAuthorize("hasAnyAuthority('ROLE_ADMIN')")
-    @ResponseStatus(HttpStatus.OK)
-    public ZoneDTO getZoneById(@PathVariable Long id) throws Exception {
-        return zoneService.getZoneById(id);
-    }*/
-
-/*    @PostMapping("/checkStatusOfAZoneOnADay")
-    @PreAuthorize("hasAnyAuthority('ROLE_ADMIN')")
-    @ResponseStatus(HttpStatus.OK)
-    public StatusOfAZoneOnADayDTO checkStatusOfAZoneOnADay
-            (@RequestBody @Valid ZoneDateDTO zoneDateDTO) throws Exception {
-
-        return zoneService.checkStatusOfAZoneOnADay(zoneDateDTO);
-    }*/
 
     /**
      * Provides booking information of all zones of the selected floor in a selected date.
@@ -114,13 +91,6 @@ public class ZoneController {
     public List<FloorStatusPeriodDTO> CheckStatusOfAllFloorPeriod(@RequestBody @Valid PeriodDTO periodDTO) {
         return zoneService.checkStatusOfAllFloorPeriod(periodDTO);
     }
-
-/*    @PostMapping("/CheckStatusOfBuildingOnPeriod")
-    @PreAuthorize("hasAnyAuthority('ROLE_ADMIN')")
-    @ResponseStatus(HttpStatus.OK)
-    public TotalBookingInBuildingDTO CheckStatusOfBuildingOnPeriod(@RequestBody @Valid PeriodDTO periodDTO) {
-        return zoneService.CheckStatusOfTheBuildingOnPeriod(periodDTO);
-    }*/
 
 
 }

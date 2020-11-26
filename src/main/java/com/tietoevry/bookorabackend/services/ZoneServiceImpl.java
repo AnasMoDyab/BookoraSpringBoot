@@ -46,16 +46,6 @@ public class ZoneServiceImpl implements ZoneService {
         throw new InvalidActionException("The operation failed");
     }
 
-/*    @Override
-    public ZoneListDTO getAllZones() {
-        List<ZoneDTO> zoneListDTO = new ArrayList<>();
-        for (Zone zone : zoneRepository.findAll()) {
-            ZoneDTO zoneDTO = zoneMapper.zoneToZoneDTO(zone);
-            zoneListDTO.add(zoneDTO);
-        }
-        return new ZoneListDTO(zoneListDTO);
-    }*/
-
     @Override
     public ZoneListDTO getZonesByFloor(Integer floor) {
         List<ZoneDTO> zoneListDTO = new ArrayList<>();
@@ -70,12 +60,6 @@ public class ZoneServiceImpl implements ZoneService {
         Collections.sort(zoneListDTO, compareById);
         return new ZoneListDTO(zoneListDTO);
     }
-
-/*    @Override
-    public ZoneDTO getZoneById(Long id) throws Exception {
-        Zone zone = zoneRepository.findById(id).orElseThrow(() -> new ZoneNotFoundException("zone id is not found"));
-        return zoneMapper.zoneToZoneDTO(zone);
-    }*/
 
     @Override
     public boolean isFullOnADay(Long id, LocalDate date) throws Exception {
@@ -174,19 +158,6 @@ public class ZoneServiceImpl implements ZoneService {
         floorStatusPeriodDTOS.add(floorStatusPeriodDTO7);
         return floorStatusPeriodDTOS;
     }
-
-/*
-    @Override
-    public TotalBookingInBuildingDTO CheckStatusOfTheBuildingOnPeriod(PeriodDTO buildingPeriodDTO) {
-        LocalDate from = buildingPeriodDTO.getFrom();
-        LocalDate to = buildingPeriodDTO.getTo();
-        List<Booking> bookingBookingList = bookingRepository.findAllByDateLessThanEqualAndDateGreaterThanEqual(to, from);
-        Integer totalBooking = bookingBookingList.size();
-        Integer totalCapacity = zoneRepository.selectTotalsCapacities();
-        Integer percentUsed = (totalBooking * 100) / totalCapacity;
-        return new TotalBookingInBuildingDTO(percentUsed);
-    }
-*/
 
     public int getTotalBookingOfADayInAZone(Long id, LocalDate date) throws Exception {
         Zone zone = zoneRepository.findById(id).orElseThrow(() -> new ZoneNotFoundException("zone id is not found"));

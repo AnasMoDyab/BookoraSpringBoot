@@ -39,12 +39,6 @@ public interface BookingRepository extends JpaRepository<Booking, Long> {
      */
     List<Booking> findAllByDateAndEmployee(LocalDate date, Employee employee);
 
-/*    List<Booking> findAllByEmployee(Employee employee);
-
-    List<Booking> findAllByEmployeeAndDateGreaterThanEqual(Employee employee, LocalDate date);
-
-    List<Booking> findAllByEmployeeAndDateBefore(Employee employee, LocalDate date);*/
-
     /**
      * Provides a list of bookings of a employee in a specific period.
      *

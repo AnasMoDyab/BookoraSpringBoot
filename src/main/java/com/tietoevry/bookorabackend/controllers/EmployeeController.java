@@ -26,20 +26,6 @@ public class EmployeeController {
     ) {
         this.employeeService = employeeService;
     }
-/*
-    @GetMapping
-    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
-    @ResponseStatus(HttpStatus.OK)
-    public EmployeeListDTO getEmployeeList() {
-        return employeeService.getAllEmployees();
-    }*/
-
-/*    @GetMapping({"/{id}"})
-    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
-    @ResponseStatus(HttpStatus.OK)
-    public EmployeeDTO getEmployeeById(@PathVariable Long id) throws EmployeeNotFoundException {
-        return employeeService.getEmployeeById(id);
-    }*/
 
     /**
      * Provides information about a selected employee.
@@ -99,13 +85,6 @@ public class EmployeeController {
     public MessageDTO UpdateEmployee(@RequestBody EmailDTO emailDTO) throws Exception {
         return employeeService.updateEmployee(emailDTO);
     }
-
-   /* @DeleteMapping({"/{id}"})
-    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
-    @ResponseStatus(HttpStatus.OK)
-    public void deleteEmployee(@PathVariable Long id) {
-        employeeService.deleteEmployeeDTO(id);
-    }*/
 
     /**
      * Requests an activation code to for resetting password.

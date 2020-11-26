@@ -7,9 +7,6 @@ import com.tietoevry.bookorabackend.exception.EmployeeNotFoundException;
  * This interface provides services for managing employees.
  */
 public interface EmployeeService {
-    //EmployeeListDTO getAllEmployees();
-
-    //EmployeeDTO getEmployeeById(Long id) throws EmployeeNotFoundException;
 
     /**
      * Provides information about a selected employee.
@@ -72,9 +69,4 @@ public interface EmployeeService {
      * @throws EmployeeNotFoundException if the employee is not found
      */
     MessageDTO resendConfirmationToken(EmployeeEmailDTO employeeEmailDTO) throws EmployeeNotFoundException;
-
-
-    //EmployeeDTO patchEmployee(Long id, EmployeeDTO employeeDTO);
-
-    //void deleteEmployeeDTO(Long id);
 }

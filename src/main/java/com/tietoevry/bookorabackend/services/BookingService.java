@@ -20,12 +20,6 @@ public interface BookingService {
      */
     BookingIdDTO bookOneZoneOfOneDay(BookingDTO bookingDTO) throws Exception;
 
-    //BookingListDTO getAllBookingOfEmployee(EmployeeEmailDTO employeeEmailDTO) throws Exception;
-
-    //BookingListDTO getAllValidBookingOfEmployee(EmployeeEmailDTO employeeEmailDTO) throws Exception;
-
-    //BookingListDTO getAllPastBookingOfEmployee(EmployeeEmailDTO employeeEmailDTO) throws EmployeeNotFoundException;
-
     /**
      * Provides all bookings information for a employee in a period.
      *

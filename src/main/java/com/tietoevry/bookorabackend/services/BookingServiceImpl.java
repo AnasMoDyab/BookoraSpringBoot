@@ -67,56 +67,6 @@ public class BookingServiceImpl implements BookingService {
 
     }
 
-
-/*    @Override
-    public BookingListDTO getAllBookingOfEmployee(EmployeeEmailDTO employeeEmailDTO) throws Exception {
-
-
-        Employee employee = employeeRepository.findByEmail(employeeEmailDTO.getEmail())
-                .orElseThrow(() -> new EmployeeNotFoundException("Employee is not found"));
-
-        List<BookingDTO> bookingDTOList = new ArrayList<>();
-
-        for (Booking booking : bookingRepository.findAllByEmployee(employee)) {
-            BookingDTO bookingDTO = bookingMapper.bookingToBookingDTO(booking);
-            bookingDTOList.add(bookingDTO);
-        }
-
-        return new BookingListDTO(bookingDTOList);
-    }*/
-
-/*    @Override
-    public BookingListDTO getAllValidBookingOfEmployee(EmployeeEmailDTO employeeEmailDTO) throws Exception {
-
-        Employee employee = employeeRepository.findByEmail(employeeEmailDTO.getEmail())
-                .orElseThrow(() -> new EmployeeNotFoundException("Employee is not found"));
-
-        List<BookingDTO> bookingDTOList = new ArrayList<>();
-
-        for (Booking booking : bookingRepository.findAllByEmployeeAndDateGreaterThanEqual(employee, LocalDate.now())) {
-            BookingDTO bookingDTO = bookingMapper.bookingToBookingDTO(booking);
-            bookingDTOList.add(bookingDTO);
-        }
-
-        return new BookingListDTO(bookingDTOList);
-
-    }*/
-
-/*    @Override
-    public BookingListDTO getAllPastBookingOfEmployee(EmployeeEmailDTO employeeEmailDTO) throws EmployeeNotFoundException {
-        Employee employee = employeeRepository.findByEmail(employeeEmailDTO.getEmail())
-                .orElseThrow(() -> new EmployeeNotFoundException("Employee is not found"));
-
-        List<BookingDTO> bookingDTOList = new ArrayList<>();
-
-        for (Booking booking : bookingRepository.findAllByEmployeeAndDateBefore(employee, LocalDate.now())) {
-            BookingDTO bookingDTO = bookingMapper.bookingToBookingDTO(booking);
-            bookingDTOList.add(bookingDTO);
-        }
-
-        return new BookingListDTO(bookingDTOList);
-    }*/
-
     @Override
     public BookingToShowDtoList getAllBookingOfEmployeeInAPeriod(EmployeeBookingInAPeriodDTO employeeBookingInAPeriodDTO) throws EmployeeNotFoundException {
         UserDetails userDetails =

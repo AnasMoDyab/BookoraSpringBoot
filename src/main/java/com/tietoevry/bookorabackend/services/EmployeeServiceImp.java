@@ -62,28 +62,6 @@ public class EmployeeServiceImp implements EmployeeService {
         this.restPasswordCodeRepository = restPasswordCodeRepository;
     }
 
-/*    @Override
-    public EmployeeListDTO getAllEmployees() {
-        List<EmployeeDTO> employeeDTOList = employeeRepository.findAll().stream().map(employee -> {
-            EmployeeDTO employeeDTO = employeeMapper.employeeToEmployeeDTO(employee);
-            employeeDTO.setEmployeeUrl(getEmployeeUrl(employee.getId()));
-            return employeeDTO;
-        }).collect(Collectors.toList());
-        return new EmployeeListDTO(employeeDTOList);
-    }
-
-    @Override
-    public EmployeeDTO getEmployeeById(Long id) throws EmployeeNotFoundException {
-        return employeeRepository
-                .findById(id)
-                .map(employeeMapper::employeeToEmployeeDTO)
-                .map(employeeDTO -> {
-                    employeeDTO.setEmployeeUrl(getEmployeeUrl(id));
-                    return employeeDTO;
-                })
-                .orElseThrow(() -> new EmployeeNotFoundException("Employee is not found"));
-    }*/
-
     @Override
     public EmployeeDTO getEmployeeByEmail(String email) throws Exception {
         String domain = email.substring(email.indexOf("@") + 1);
@@ -304,15 +282,6 @@ public class EmployeeServiceImp implements EmployeeService {
         return new MessageDTO("Cods is sent, Check your email!");
 
     }
-
-/*    @Override
-    public void deleteEmployeeDTO(Long id) {
-        employeeRepository.deleteById(id);
-    }*/
-
-/*    private String getEmployeeUrl(Long id) {
-        return EmployeeController.BASE_URL + "/" + id;
-    }*/
 
     private boolean existedByEmail(String email) {
         Employee employee = employeeRepository.findByEmailIgnoreCase(email);

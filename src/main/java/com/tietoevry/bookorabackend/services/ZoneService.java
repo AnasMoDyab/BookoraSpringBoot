@@ -22,8 +22,6 @@ public interface ZoneService {
      */
     MessageDTO zoneSettings(ZoneSettingDTO zoneSettingDTO) throws Exception;
 
-    //ZoneListDTO getAllZones();
-
     /**
      * Provides general information of all zones of the selected floor.
      *
@@ -34,8 +32,6 @@ public interface ZoneService {
      */
     ZoneListDTO getZonesByFloor(Integer floor);
 
-    //ZoneDTO getZoneById(Long id) throws Exception;
-
     /**
      * Checks if the zone is full on a specific date.
      *
@@ -45,8 +41,6 @@ public interface ZoneService {
      * @throws Exception ZoneNotFoundException if the zone is not found
      */
     boolean isFullOnADay(Long id, LocalDate date) throws Exception;
-
-    //StatusOfAZoneOnADayDTO checkStatusOfAZoneOnADay(ZoneDateDTO zoneDateDTO) throws Exception;
 
     /**
      * Provides booking information of all zones of the selected floor in a selected date.
@@ -68,6 +62,4 @@ public interface ZoneService {
      * @return A list of {@code FloorStatusPeriodDTO} that shows total bookings of a floor
      */
     List<FloorStatusPeriodDTO> checkStatusOfAllFloorPeriod(PeriodDTO periodDTO);
-
-    //TotalBookingInBuildingDTO CheckStatusOfTheBuildingOnPeriod(PeriodDTO floorsPeriodDTO);
 }

@@ -33,7 +33,4 @@ public interface ZoneRepository extends JpaRepository<Zone, Long> {
      * @return A Zone object
      */
     Zone findZoneById(Long id);
-
-/*    @Query("SELECT SUM(m.capacity) FROM Zone m")
-    Integer selectTotalsCapacities();*/
 }
