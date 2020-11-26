@@ -29,6 +29,6 @@ public class SignUpDTO {
     @NotNull(message = "You must fill in first password.")
     @ValidPassword
     private String password;
-    @NotNull
+
     private Set<String> roles;
 }
