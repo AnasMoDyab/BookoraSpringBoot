@@ -11,6 +11,9 @@ import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.http.ResponseEntity;
 
+import java.util.Arrays;
+import java.util.HashSet;
+
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.springframework.http.HttpStatus.*;
 
@@ -31,7 +34,7 @@ class SignUpIT {
     @Test
     void signUpWithValidInfo() {
         //given
-        SignUpDTO signUpDTO = new SignUpDTO("testFirst", "testLast", "signUp@tietoevry.com", "123456aB@", null);
+        SignUpDTO signUpDTO = new SignUpDTO("testFirst", "testLast", "signUp@tietoevry.com", "123456aB@", new HashSet<>(Arrays.asList("user")));
 
         //when
         ResponseEntity<MessageDTO> response = restTemplate
@@ -47,7 +50,7 @@ class SignUpIT {
     @Test
     void signUpWithInvalidEmailDomain() {
         //given
-        SignUpDTO signUpDTO = new SignUpDTO("testFirst", "testLast", "test@abc.com", "123456aB@", null);
+        SignUpDTO signUpDTO = new SignUpDTO("testFirst", "testLast", "test@abc.com", "123456aB@", new HashSet<>(Arrays.asList("user")));
 
         //when
         ResponseEntity<MessageDTO> response = restTemplate
@@ -63,7 +66,7 @@ class SignUpIT {
     @Test
     void signUpWithExistingEmailDomain() {
         //given
-        SignUpDTO signUpDTO = new SignUpDTO("testFirst", "testLast", "test2@tietoevry.com", "123456aB@", null);
+        SignUpDTO signUpDTO = new SignUpDTO("testFirst", "testLast", "test2@tietoevry.com", "123456aB@", new HashSet<>(Arrays.asList("user")));
 
         //when
         restTemplate

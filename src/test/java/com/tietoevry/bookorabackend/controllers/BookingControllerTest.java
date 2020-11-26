@@ -57,7 +57,7 @@ class BookingControllerTest {
         //when
         mockMvc.perform(post(BookingController.BASE_URL + "/book")
                 .contentType(MediaType.APPLICATION_JSON)
-                .content("{\"LocalDate\":\"2020-11-11\",\"employeeId\":\"1\",\"zoneId\":\"1\"}"))
+                .content("{\"date\":\"2020-11-11\",\"employeeId\":\"1\",\"zoneId\":\"1\"}"))
                 //then
                 .andExpect(status().isCreated())
                 .andExpect(jsonPath("$.message", is("test")))

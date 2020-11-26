@@ -14,6 +14,9 @@ import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.ResourceAccessException;
 
+import java.util.Arrays;
+import java.util.HashSet;
+
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.springframework.http.HttpStatus.BAD_REQUEST;
@@ -85,7 +88,7 @@ public class SignInIT {
     @Test
     void signInUnactivatedAcc() {
         //given
-        SignUpDTO signUpDTO = new SignUpDTO("testFirst", "testLast", "test@tietoevry.com", "123456aB@", null);
+        SignUpDTO signUpDTO = new SignUpDTO("testFirst", "testLast", "test@tietoevry.com", "123456aB@", new HashSet<>(Arrays.asList("user")));
 
         //when
         ResponseEntity<MessageDTO> signUpResponse = restTemplate
