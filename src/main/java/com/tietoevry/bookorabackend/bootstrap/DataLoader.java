@@ -43,10 +43,10 @@ public class DataLoader implements CommandLineRunner {
     int numberOfEmployees = 50;
 
     /**
-     * Loads roles,employee,zones table
+     * Loads roles, employee, zones table.
      *
-     * @param args
-     * @throws Exception
+     * @param args A String of arguments
+     * @throws Exception EmployeeNotFoundException if the employee is not found
      */
     @Override
     public void run(String... args) throws Exception {
