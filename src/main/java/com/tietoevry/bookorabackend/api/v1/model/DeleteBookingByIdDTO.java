@@ -14,6 +14,6 @@ import javax.validation.constraints.NotNull;
 @AllArgsConstructor
 public class DeleteBookingByIdDTO {
     @NotNull
-    private  Long bookingId;
+    private Long bookingId;
 
 }

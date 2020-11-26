@@ -43,11 +43,11 @@ public class AuthTokenFilter extends OncePerRequestFilter {
      * 5. Add request into the authentication
      * 6. Set the current UserDetails in SecurityContext
      *
-     * @param request A HttpServletRequest request
-     * @param response A HttpServletResponse response
+     * @param request     A HttpServletRequest request
+     * @param response    A HttpServletResponse response
      * @param filterChain A FilterChain
      * @throws ServletException if there is a servlet error
-     * @throws IOException if there is a IO error
+     * @throws IOException      if there is a IO error
      */
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)

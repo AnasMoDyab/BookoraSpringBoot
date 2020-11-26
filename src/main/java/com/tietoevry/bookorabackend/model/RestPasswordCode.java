@@ -38,6 +38,7 @@ public class RestPasswordCode {
 
     /**
      * Generates a random string.
+     *
      * @param n A integer that represents the total length of the random string
      * @return A random string
      */
