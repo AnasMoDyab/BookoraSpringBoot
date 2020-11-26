@@ -11,7 +11,7 @@ import static java.lang.annotation.ElementType.FIELD;
 import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
 /**
- * Interface tht used for ValidPassword annotation.
+ * Interface tht uses for ValidPassword annotation.
  */
 @Documented
 @Constraint(validatedBy = PasswordConstraintValidator.class)
