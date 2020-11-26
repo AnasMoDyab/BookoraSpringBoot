@@ -20,6 +20,7 @@ public class PasswordConstraintValidator implements ConstraintValidator<ValidPas
 
     /**
      * Checks if the password is valid or not.
+     *
      * @param password
      * @param context
      * @return Password is valid or not.

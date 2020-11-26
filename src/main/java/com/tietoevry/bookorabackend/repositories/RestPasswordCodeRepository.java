@@ -10,6 +10,7 @@ public interface RestPasswordCodeRepository extends JpaRepository<RestPasswordCo
 
     /**
      * Provides a RestPasswordCode object based on a activation code string.
+     *
      * @param confirmationCode A activation code string
      * @return A RestPasswordCode object
      */

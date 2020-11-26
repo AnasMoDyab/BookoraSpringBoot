@@ -106,7 +106,7 @@ public class ZoneServiceImpl implements ZoneService {
             int total = getTotalBookingOfADayInAZone(zoneDTO.getId(), floorDateDTO.getDate());
             int capacity = zoneDTO.getCapacity();
             Long zoneId = zoneDTO.getId();
-            statusOfAZoneOnADayDTOList.add(new StatusOfAZoneOnADayDTO(total, capacity,zoneId));
+            statusOfAZoneOnADayDTOList.add(new StatusOfAZoneOnADayDTO(total, capacity, zoneId));
         }
 
 

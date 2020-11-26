@@ -42,6 +42,7 @@ public class AuthTokenFilter extends OncePerRequestFilter {
      * 4. From username, get UserDetails to create an Authentication object
      * 5. Add request into the authentication
      * 6. set the current UserDetails in SecurityContext
+     *
      * @param request
      * @param response
      * @param filterChain

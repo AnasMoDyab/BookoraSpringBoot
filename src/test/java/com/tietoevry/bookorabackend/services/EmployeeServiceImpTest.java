@@ -230,7 +230,7 @@ class EmployeeServiceImpTest {
     @Test
     void resendConfirmationTokenWithInvalidDomain() throws EmployeeNotFoundException {
         //given
-            EmployeeEmailDTO employeeEmailDTO = new EmployeeEmailDTO();
+        EmployeeEmailDTO employeeEmailDTO = new EmployeeEmailDTO();
         employeeEmailDTO.setEmail("abc@invalid.com");
 
         //setting the @Value in the class without bringing in the application properties

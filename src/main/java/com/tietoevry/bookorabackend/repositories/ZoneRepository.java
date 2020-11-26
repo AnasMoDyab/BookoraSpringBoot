@@ -28,6 +28,7 @@ public interface ZoneRepository extends JpaRepository<Zone, Long> {
 
     /**
      * Provides a zone of a specific ID.
+     *
      * @param id A id
      * @return A Zone object
      */

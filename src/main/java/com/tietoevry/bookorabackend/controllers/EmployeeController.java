@@ -72,9 +72,9 @@ public class EmployeeController {
 
     /**
      * Signs in a employee.
-     * 
+     *
      * @param logInDTO A LoginDTO that contains email and password of the employee
-     * @return A JwtDTO that contains information including token string, token type, token ID, email of the employee 
+     * @return A JwtDTO that contains information including token string, token type, token ID, email of the employee
      * and list of roles of the employee
      * @throws Exception EmployeeNotFoundException if the employee is not found
      * @throws Exception EmployeeNotActivatedException if the email account is not activated

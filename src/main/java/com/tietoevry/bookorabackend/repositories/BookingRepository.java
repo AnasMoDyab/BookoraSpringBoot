@@ -33,7 +33,7 @@ public interface BookingRepository extends JpaRepository<Booking, Long> {
     /**
      * Provides a list of bookings in a specific date of a employee.
      *
-     * @param date A date
+     * @param date     A date
      * @param employee A employee object
      * @return A list of bookings
      */
@@ -49,8 +49,8 @@ public interface BookingRepository extends JpaRepository<Booking, Long> {
      * Provides a list of bookings of a employee in a specific period.
      *
      * @param employee A employee object
-     * @param from A from date
-     * @param to A to date
+     * @param from     A from date
+     * @param to       A to date
      * @return A list of bookings
      */
     List<Booking> findAllByEmployeeAndDateGreaterThanEqualAndDateLessThanEqual(Employee employee, LocalDate from, LocalDate to);
@@ -58,7 +58,7 @@ public interface BookingRepository extends JpaRepository<Booking, Long> {
     /**
      * Provides a list of bookings in a period.
      *
-     * @param to A to date
+     * @param to   A to date
      * @param from A from date
      * @return A list of bookings
      */

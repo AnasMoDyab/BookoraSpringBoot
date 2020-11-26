@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 import java.util.List;
 
 /**
- *DTO that contains a list of BookingOfEmployeeDTO.
+ * DTO that contains a list of BookingOfEmployeeDTO.
  */
 @Data
 @NoArgsConstructor

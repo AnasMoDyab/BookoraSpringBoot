@@ -38,7 +38,8 @@ public interface ZoneService {
 
     /**
      * Checks if the zone is full on a specific date.
-     * @param id A zone id
+     *
+     * @param id   A zone id
      * @param date A date
      * @return True if the zone is full
      * @throws Exception ZoneNotFoundException if the zone is not found

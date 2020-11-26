@@ -47,7 +47,7 @@ public class ZoneController {
     @PreAuthorize("hasAnyAuthority('ROLE_ADMIN', 'ROLE_USER')")
     @ResponseStatus(HttpStatus.OK)
     public ZoneListDTO getZoneListByFloor(@PathVariable Integer floor) {
-        return   zoneService.getZonesByFloor(floor);
+        return zoneService.getZonesByFloor(floor);
     }
 
 /*    @GetMapping({"/zone/{id}"})
@@ -82,7 +82,7 @@ public class ZoneController {
     @ResponseStatus(HttpStatus.OK)
     public List<StatusOfAZoneOnADayDTO> checkStatusOfAllZoneInAFloor
     (@RequestBody @Valid FloorDateDTO floorDateDTO) throws Exception {
-                return    zoneService.checkStatusOfAllZoneInAFloor(floorDateDTO);
+        return zoneService.checkStatusOfAllZoneInAFloor(floorDateDTO);
     }
 
     /**

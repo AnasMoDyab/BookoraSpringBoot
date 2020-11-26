@@ -44,6 +44,7 @@ public class DataLoader implements CommandLineRunner {
 
     /**
      * Loads roles,employee,zones table
+     *
      * @param args
      * @throws Exception
      */

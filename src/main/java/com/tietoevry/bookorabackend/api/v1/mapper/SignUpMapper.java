@@ -5,8 +5,9 @@ import com.tietoevry.bookorabackend.model.Employee;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.factory.Mappers;
+
 /**
- *Mapper maps between SignUPDTO and Employee entity.
+ * Mapper maps between SignUPDTO and Employee entity.
  */
 @Mapper
 public interface SignUpMapper {
@@ -15,6 +16,7 @@ public interface SignUpMapper {
 
     /**
      * Maps between SignUPDTO and Employee entity.
+     *
      * @param signUpDTO
      * @return A employee
      */

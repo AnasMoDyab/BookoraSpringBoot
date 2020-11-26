@@ -39,6 +39,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     /**
      * Used for authenticate employee.
+     *
      * @return
      * @throws Exception
      */
@@ -50,6 +51,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     /**
      * Crypts the password.
+     *
      * @return
      */
     @Bean
@@ -59,6 +61,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     /**
      * configuring DaoAuthenticationProvider by AuthenticationManagerBuilder.userDetailsService()
+     *
      * @param authenticationManagerBuilder
      * @throws Exception
      */
@@ -69,11 +72,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     /**
-     *Tells Spring Security how we configure CORS and CSRF
+     * Tells Spring Security how we configure CORS and CSRF
      * when we want to require all users to be authenticated or not
      * which filter (AuthTokenFilter)
      * and when we want it to work(filter before UsernamePasswordAuthenticationFilter)
      * which Exception Handler is chosen (AuthEntryPointJwt)
+     *
      * @param http
      * @throws Exception
      */

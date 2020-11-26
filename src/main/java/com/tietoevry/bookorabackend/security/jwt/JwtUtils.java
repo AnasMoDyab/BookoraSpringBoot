@@ -13,9 +13,9 @@ import java.util.Date;
 
 /**
  * This class has 3 functions:
- * 	1. generate a JWT from username, date, expiration, secret
- * 	2. get username from JWT
- * 	3. validate a JWT
+ * 1. generate a JWT from username, date, expiration, secret
+ * 2. get username from JWT
+ * 3. validate a JWT
  */
 
 @Component
@@ -29,9 +29,9 @@ public class JwtUtils {
     private int jwtExpirationMs;
 
 
-
     /**
-     *Generate a JWT from username, date, expiration, secret
+     * Generate a JWT from username, date, expiration, secret
+     *
      * @param authentication
      * @return
      */
@@ -51,7 +51,8 @@ public class JwtUtils {
 
 
     /**
-     *  Get username from JWT
+     * Get username from JWT
+     *
      * @param token
      * @return
      */
@@ -62,6 +63,7 @@ public class JwtUtils {
 
     /**
      * Validate a JWT
+     *
      * @param authToken
      * @return
      */

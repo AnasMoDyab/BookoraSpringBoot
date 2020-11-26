@@ -16,6 +16,7 @@ public interface ZoneMapper {
 
     /**
      * Maps between Zone entity and ZoneDTO
+     *
      * @param zone
      * @return ZoneDTO that contains ZoneId,floor,capacity, and status of zone
      */
@@ -23,6 +24,7 @@ public interface ZoneMapper {
 
     /**
      * Maps between Zone entity and ZoneDTO.
+     *
      * @param zoneDTO
      * @return A zone entity
      */
