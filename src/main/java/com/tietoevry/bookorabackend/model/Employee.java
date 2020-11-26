@@ -23,18 +23,16 @@ public class Employee {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotNull(message = "You must fill in first name.")
+
     private String firstName;
 
-    @NotNull(message = "You must fill in last name.")
+
     private String lastName;
 
     @EqualsAndHashCode.Include
-    @NotNull(message = "You must fill in e-mail.")
-    @Email
     private String email;
 
-    @NotNull
+
     private String password;
 
     @ManyToMany(fetch = FetchType.LAZY)

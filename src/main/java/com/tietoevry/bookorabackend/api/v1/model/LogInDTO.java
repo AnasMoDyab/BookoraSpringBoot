@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 /**
  * A DTO that transfers information, including email and password of employee.
@@ -16,10 +17,10 @@ import javax.validation.constraints.NotBlank;
 @AllArgsConstructor
 public class LogInDTO {
 
-    @NotBlank
+    @NotNull(message = "You must fill in email.")
     @Email
     private String email;
-
+    @NotNull(message = "You must fill in first password.")
     @NotBlank
     @ValidPassword
     private String password;
