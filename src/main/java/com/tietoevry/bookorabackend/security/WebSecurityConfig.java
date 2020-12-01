@@ -79,7 +79,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
 
 
-        http.headers().frameOptions().disable();//TODO for using H2, delete in production
+        http.headers().frameOptions().disable();
 
 
         http.cors().and().csrf().disable()
@@ -91,7 +91,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers("/api/v1/employees/**").permitAll() //allow all request from /api/v1/employees/**
                 .antMatchers("/api/test/**").permitAll() //allow all request from /api/test/**, but these api are blocked again in controller by e.g. @PreAuthorize("hasRole('ADMIN')")
-                .antMatchers("/h2-console/**").permitAll() //TODO for using H2, delete in production
+                .antMatchers("/h2-console/**").permitAll()
                 .antMatchers("/confirm-account").permitAll()
                 .antMatchers("/forgot-password").permitAll()
                 .antMatchers("/confirm-reset").permitAll()

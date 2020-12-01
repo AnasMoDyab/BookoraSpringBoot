@@ -35,6 +35,6 @@ public class ConfirmationTokenController {
     @GetMapping("/confirm-account")
     @ResponseStatus(HttpStatus.OK)
     public String messageDTO(@RequestParam("token") String token) {
-        return confirmationTokenService.checkToken(token); //TODO not complete
+        return confirmationTokenService.checkToken(token);
     }
 }

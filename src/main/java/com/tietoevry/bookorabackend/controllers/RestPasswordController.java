@@ -29,10 +29,7 @@ public class RestPasswordController {
     @GetMapping("/confirm-reset")
     @ResponseStatus(HttpStatus.OK)
     public boolean responsePasswordRest(@RequestParam("codeConfirmationDto") String codeConfirmationDto) {
-        //  return confirmationTokenService.checkToken(token); //TODO not complete
         return restPasswordService.checkCode(codeConfirmationDto);
-        //return new ModelAndView("redirect:http://localhost:3000");
-
     }
 
     /**
